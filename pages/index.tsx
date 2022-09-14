@@ -1,14 +1,14 @@
-import { NextPage } from "next"
-import { DashboardLayout } from "../Components/Layouts/DashBoard"
-
+import { NextPage } from "next";
+import { AuthLayout } from "../Components/Layouts/AuthBoard";
+import { DashboardLayout } from "../Components/Layouts/DashBoard";
+import RegistrarUsuarioPage from "./usuarios";
 
 const Home: NextPage = () => {
-
   return (
-    <DashboardLayout title="Dashboard">
-      <h1> Hola</h1>
-    </DashboardLayout>
-  )
-}
+    <AuthLayout title="Dashboard">
+      <RegistrarUsuarioPage />
+    </AuthLayout>
+  );
+};
 
-export default Home
+export default Home;

@@ -2,6 +2,7 @@ import axios from "axios";
 import { IUsuario } from "../interfaces/usuario";
 
 export const crearUsuario = async (usuario: IUsuario) => {
+  delete usuario?.confirmPassword;
   const { data } = await axios.post(`http://localhost:3000/usuarios`, usuario, {
     withCredentials: true,
   });

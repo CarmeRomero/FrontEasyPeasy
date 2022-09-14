@@ -14,7 +14,8 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useForm } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
+import { DatePicker, getMonthsNames } from "@mantine/dates";
 import { AuthLayout } from "../../Components/Layouts/AuthBoard";
 import { crearUsuario } from "../../hooks/useUsuario";
 import { IUsuario } from "../../interfaces/usuario";
@@ -22,29 +23,41 @@ import { IUsuario } from "../../interfaces/usuario";
 export const FormularioRegistrarUsuario = () => {
   const form = useForm<IUsuario>({
     initialValues: {
-      nombre: "Carmela ",
-      apellido: "Romero",
+      nombre: "",
+      apellido: "",
       email: "carme@hotmail.com",
-      password: "asdasd",
+      password: "",
+      confirmPassword: "",
       rol: "ADMIN",
       DNI: 36141576,
       fecha_nacimiento: new Date(),
       telefono: 3517561247,
       direccion: "Buenos Aires 891",
     },
-    validationRules: {
-      // email: (value) => (/^\S+@\S+$/.test(value) ? null : "Email inválido"),
-      // password: (value) => (value.length < 6 ? "Contraseña inválida" : null),
+    validate: {
+      nombre: (value) => (value.length <= 0 ? "Ingrese un nombre" : null),
+      apellido: (value) => (value.length <= 0 ? "Ingrese un apellido" : null),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Email inválido"),
+      password: (value) => (value.length < 6 ? "Contraseña inválida" : null),
+      confirmPassword: (value, values) =>
+        value !== values.password ? "Las contraseñas no son iguales" : null,
+      DNI: (values) =>
+        values === null
+          ? "Ingrese el DNI"
+          : values < 12000000
+          ? "You must be at least 18"
+          : null,
     },
   });
 
   // const { mutate, error, isLoading } = useMutateCliente();
 
-  const handleSubmit = (values: IUsuario) => {
+  const handleSubmit = (values: any) => {
     console.log(values);
     crearUsuario(values);
     return values;
   };
+  getMonthsNames("ru", "MMMM");
 
   return (
     <AuthLayout title="registrarUsuario">
@@ -88,7 +101,6 @@ export const FormularioRegistrarUsuario = () => {
                         {...form.getInputProps("nombre")}
                         mb="xs"
                       />
-
                       <TextInput
                         label="Apellido"
                         placeholder="Apellido"
@@ -103,24 +115,21 @@ export const FormularioRegistrarUsuario = () => {
                         {...form.getInputProps("DNI")}
                         mb="xs"
                       />
-                      <TextInput
-                        label="E-mail"
-                        placeholder="E-mail"
-                        id="e-mail"
-                        {...form.getInputProps("email")}
+                      <DatePicker
+                        locale="es"
+                        placeholder="Pick date"
+                        label="Fecha de nacimiento"
+                        id="fecha_nacimiento"
+                        {...form.getInputProps("fecha_nacimiento")}
                         mb="xs"
-                      />
-
-                      <PasswordInput
-                        placeholder="Password"
-                        label="Password"
-                        // description="Password must include at least one letter, number and special character"
                         // withAsterisk
-                        id="password"
-                        {...form.getInputProps("password")}
-                        mb="xs"
                       />
-
+                      {/* <TextInput
+                        label="Fecha de nacimiento "
+                        placeholder="Fecha de nacimiento"
+                       
+                        
+                      /> */}
                       <NumberInput
                         // defaultValue={18}
                         placeholder="Teléfono"
@@ -137,11 +146,52 @@ export const FormularioRegistrarUsuario = () => {
                         {...form.getInputProps("direccion")}
                         mb="xs"
                       />
+                    </SimpleGrid>
+                    <SimpleGrid
+                      cols={1}
+                      spacing="lg"
+                      breakpoints={[
+                        { maxWidth: "md", cols: 3, spacing: "md" },
+                        { maxWidth: "sm", cols: 2, spacing: "sm" },
+                        { maxWidth: "xs", cols: 1, spacing: "sm" },
+                      ]}
+                      my="md"
+                    >
                       <TextInput
-                        label="Fecha de nacimiento "
-                        placeholder="Fecha de nacimiento"
-                        id="fecha_nacimiento"
-                        {...form.getInputProps("fecha_nacimiento")}
+                        label="E-mail"
+                        placeholder="E-mail"
+                        id="e-mail"
+                        {...form.getInputProps("email")}
+                        mb="xs"
+                      />
+                    </SimpleGrid>
+                    <SimpleGrid
+                      cols={2}
+                      spacing="lg"
+                      breakpoints={[
+                        { maxWidth: "md", cols: 3, spacing: "md" },
+                        { maxWidth: "sm", cols: 2, spacing: "sm" },
+                        { maxWidth: "xs", cols: 1, spacing: "sm" },
+                      ]}
+                      my="md"
+                    >
+                      <PasswordInput
+                        placeholder="Contrseña"
+                        label="Contrseña"
+                        // description="Password must include at least one letter, number and special character"
+                        // withAsterisk
+                        id="contrsenia"
+                        {...form.getInputProps("password")}
+                        mb="xs"
+                      />
+
+                      <PasswordInput
+                        placeholder="Contrseña"
+                        label="Confirmar contraseña"
+                        // description="Password must include at least one letter, number and special character"
+
+                        id="confirmarContrasenia"
+                        {...form.getInputProps("confirmPassword")}
                         mb="xs"
                       />
                     </SimpleGrid>
