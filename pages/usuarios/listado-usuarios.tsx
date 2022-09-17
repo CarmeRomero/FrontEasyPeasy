@@ -1,17 +1,17 @@
 import { Grid } from "@mantine/core";
 import { AuthLayout } from "../../components/layouts/AuthBoard";
-import { FormularioRegistrarUsuario } from "../../components/formularios/RegistrarUsuario";
+import { ListadoUsuarios } from "../../components/listados/ListadoUsuarios";
 
-const RegistrarUsuarioPage = () => {
+const ListadoUsuariosPage = () => {
   return (
     <AuthLayout title="Registrar">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <FormularioRegistrarUsuario />
+          <ListadoUsuarios />
         </Grid.Col>
       </Grid>
     </AuthLayout>
   );
 };
 
-export default RegistrarUsuarioPage;
+export default ListadoUsuariosPage;

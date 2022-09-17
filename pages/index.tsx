@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import { AuthLayout } from "../Components/Layouts/AuthBoard";
-import { DashboardLayout } from "../Components/Layouts/DashBoard";
+import { AuthLayout } from "../components/layouts/AuthBoard";
+import { DashboardLayout } from "../components/layouts/DashBoard";
 import RegistrarUsuarioPage from "./usuarios";
 
 const Home: NextPage = () => {

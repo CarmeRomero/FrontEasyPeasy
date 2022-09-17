@@ -20,7 +20,6 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
             justifyContent: "center",
             alignItems: "center",
             height: "100vh",
-
             // marginLeft: 30,
           }}
         >
