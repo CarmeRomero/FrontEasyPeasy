@@ -5,10 +5,68 @@ import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always nee
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
-import { Dots, Menu } from "tabler-icons-react";
-import { Box, Button } from "@mantine/core";
+import { Badge, Box, Button, Menu } from "@mantine/core";
+import { Dots, Edit, LockAccess, Trash } from "tabler-icons-react";
+import { useMutateAnularUsuario, useUsuarios } from "../../hooks/useUsuario";
+import { SeleccionarRol } from "../formularios/SeleccionarRol";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
+  const [open, setOpen] = useState(false);
+  const { mutate, isLoading, error } = useMutateAnularUsuario();
+
+  const { refetch } = useUsuarios();
+
+  const handleDelete = (value: any) => {
+    mutate(value, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <SeleccionarRol open={open} setOpen={setOpen} id={data.id} />
+
+      <Menu
+        placement="end"
+        control={
+          <Button px={10} my={10} sx={{ height: "30px" }}>
+            <Dots strokeWidth={2} size={17} color={"rgba(255,255,255,.8)"} />
+          </Button>
+        }
+        withArrow
+      >
+        <Menu.Item
+          icon={<Edit size={14} />}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Editar rol
+        </Menu.Item>
+        <Menu.Item
+          icon={<Trash size={14} />}
+          onClick={() => {
+            handleDelete(data.id);
+          }}
+        >
+          Eliminar
+        </Menu.Item>
+      </Menu>
+    </Box>
+  );
+};
+
+const btnRol = ({ data }: ICellRendererParams) => {
   const router = useRouter();
 
   return (
@@ -21,32 +79,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      <Menu
-        control={
-          <Button px={10} my={10} sx={{ height: "30px" }}>
-            <Dots strokeWidth={2} size={17} color={"rgba(255,255,255,.8)"} />
-          </Button>
-        }
-        withArrow
-      >
-        <Menu.Target>
-          <Button>Toggle menu</Button>
-        </Menu.Target>
-
-        <Menu.Item
-          onClick={() => {
-            router.push({
-              pathname: "/documentos/creacion-documento",
-              query: {
-                idCaja: data.id,
-                idCliente: data.idCliente,
-              },
-            });
-          }}
-        >
-          Crear documento
-        </Menu.Item>
-      </Menu>
+      <Badge variant="gradient" gradient={{ from: "indigo", to: "cyan" }}>
+        {data.rol}
+      </Badge>
     </Box>
   );
 };
@@ -57,10 +92,10 @@ export const ListadoUsuarios = () => {
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
-    { field: "nombre" },
-    { field: "apellido" },
-    { field: "rol" },
-    { field: "estado" },
+    { field: "nombre", minWidth: 150 },
+    { field: "apellido", minWidth: 150 },
+    { field: "email", minWidth: 150 },
+    { field: "rol", cellRenderer: btnRol },
     {
       field: "ACCIONES",
       pinned: "right",
@@ -82,38 +117,21 @@ export const ListadoUsuarios = () => {
     []
   );
 
-  // Example of consuming Grid Event
-  const cellClickedListener = useCallback((event: any) => {
-    console.log("cellClicked", event);
-  }, []);
+  const { data } = useUsuarios();
 
-  // Example load data from sever
   useEffect(() => {
-    fetch("http://localhost:3000/usuarios")
-      .then((result) => {
-        const data = result.json();
-        return data;
-      })
-      .then((rowData) => setRowData(rowData));
-  }, []);
-
-  // Example using Grid's API
-  const buttonListener = useCallback((e: any) => {
-    if (null !== gridRef.current) {
-      // console.log(gridRef);
-      gridRef.current.api.deselectAll();
-    }
-  }, []);
+    setRowData(data);
+  }, [data]);
 
   return (
     <div>
-      {/* Example using Grid's API */}
-      {/* <button onClick={buttonListener}>Push Me</button> */}
-
-      {/* On div wrapping Grid a) specify theme CSS Class Class and b) sets Grid size */}
       <div
         className="ag-theme-alpine"
-        style={{ width: "100vw", height: 567, padding: 20 }}
+        style={{
+          width: "90vw",
+          height: 567,
+          padding: 20,
+        }}
       >
         <AgGridReact
           ref={gridRef} // Ref for accessing Grid's API
@@ -122,7 +140,6 @@ export const ListadoUsuarios = () => {
           defaultColDef={defaultColDef} // Default Column Properties
           animateRows={true} // Optional - set to 'true' to have rows animate when sorted
           rowSelection="multiple" // Options - allows click selection of rows
-          onCellClicked={cellClickedListener} // Optional - registering for Grid Event
           paginationPageSize={10} // Optional - Pagination Page Size
           pagination={true} // Optional - Pagination
           paginationAutoPageSize={true} // Optional - Paginationa
