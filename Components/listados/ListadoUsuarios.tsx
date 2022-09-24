@@ -6,9 +6,9 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CS
 import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
 import { Badge, Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, LockAccess, Trash } from "tabler-icons-react";
+import { Dots, Edit, LockAccess, RollerSkating, Trash } from "tabler-icons-react";
 import { useMutateAnularUsuario, useUsuarios } from "../../hooks/useUsuario";
-import { SeleccionarRol } from "../formularios/SeleccionarRol";
+import { SeleccionarRol } from "../Formularios/SeleccionarRol";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -39,8 +39,8 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
       <Menu
         placement="end"
         control={
-          <Button px={10} my={10} sx={{ height: "30px" }}>
-            <Dots strokeWidth={2} size={17} color={"rgba(255,255,255,.8)"} />
+          <Button  variant="light" color="grape"px={10} my={10} sx={{ height: "30px" }}>
+            <Dots strokeWidth={2} size={17}  />
           </Button>
         }
         withArrow
@@ -70,6 +70,7 @@ const btnRol = ({ data }: ICellRendererParams) => {
   const router = useRouter();
 
   return (
+    
     <Box
       sx={{
         display: "flex",
@@ -79,9 +80,15 @@ const btnRol = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      <Badge variant="gradient" gradient={{ from: "indigo", to: "cyan" }}>
-        {data.rol}
-      </Badge>
+      
+      <Badge 
+      variant="outline"
+      color = {data.rol =="ADMIN"? "red": 
+      data.rol =="VISITANTE"? "blue":
+      data.rol =="MOZO"?"green":"orange"}>{data.rol}
+      </Badge>   
+    
+      
     </Box>
   );
 };

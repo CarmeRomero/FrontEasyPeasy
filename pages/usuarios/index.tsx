@@ -1,6 +1,6 @@
 import { Grid } from "@mantine/core";
-import { AuthLayout } from "../../components/layouts/AuthBoard";
-import { FormularioRegistrarUsuario } from "../../components/formularios/RegistrarUsuario";
+import { AuthLayout } from "../../Components/Layouts/AuthBoard";
+import { FormularioRegistrarUsuario } from "../../Components/Formularios/registrarUsuario";
 
 const RegistrarUsuarioPage = () => {
   return (

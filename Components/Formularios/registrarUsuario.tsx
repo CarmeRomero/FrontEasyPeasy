@@ -21,14 +21,14 @@ export const FormularioRegistrarUsuario = () => {
     initialValues: {
       nombre: "",
       apellido: "",
-      email: "carme@hotmail.com",
+      email: "",
       password: "",
       confirmPassword: "",
-      rol: "ADMIN",
-      DNI: 36141576,
-      fecha_nacimiento: new Date(),
-      telefono: 3517561247,
-      direccion: "Buenos Aires 891",
+      rol: "",
+      DNI: null,
+      fecha_nacimiento: null,
+      telefono: null,
+      direccion: "",
     },
     validate: {
       nombre: (value: any) => (value.length <= 0 ? "Ingrese un nombre" : null),
@@ -56,7 +56,7 @@ export const FormularioRegistrarUsuario = () => {
     crearUsuario(values);
     return values;
   };
-  getMonthsNames("ru", "MMMM");
+  
 
   return (
     <Stack spacing="xs">
@@ -120,12 +120,7 @@ export const FormularioRegistrarUsuario = () => {
                   mb="xs"
                   // withAsterisk
                 />
-                {/* <TextInput
-                        label="Fecha de nacimiento "
-                        placeholder="Fecha de nacimiento"
-                       
-                        
-                      /> */}
+                
                 <NumberInput
                   // defaultValue={18}
                   placeholder="Teléfono"

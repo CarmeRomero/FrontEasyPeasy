@@ -1,10 +1,10 @@
 import { Grid } from "@mantine/core";
-import { AuthLayout } from "../../components/layouts/AuthBoard";
-import { ListadoUsuarios } from "../../components/listados/ListadoUsuarios";
+import { AuthLayout } from "../../Components/Layouts/AuthBoard";
+import { ListadoUsuarios } from "../../Components/listados/ListadoUsuarios";
 
 const ListadoUsuariosPage = () => {
   return (
-    <AuthLayout title="Registrar">
+    <AuthLayout title="Listado de usuarios">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ListadoUsuarios />
