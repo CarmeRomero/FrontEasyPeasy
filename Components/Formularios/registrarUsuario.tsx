@@ -24,7 +24,7 @@ export const FormularioRegistrarUsuario = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      rol: "",
+      rol: "VISITANTE",
       DNI: null,
       fecha_nacimiento: null,
       telefono: null,
@@ -56,7 +56,6 @@ export const FormularioRegistrarUsuario = () => {
     crearUsuario(values);
     return values;
   };
-  
 
   return (
     <Stack spacing="xs">
@@ -104,7 +103,7 @@ export const FormularioRegistrarUsuario = () => {
                   {...form.getInputProps("apellido")}
                   mb="xs"
                 />
-                <TextInput
+                <NumberInput
                   label="DNI"
                   placeholder="DNI"
                   id="dni"
@@ -120,7 +119,7 @@ export const FormularioRegistrarUsuario = () => {
                   mb="xs"
                   // withAsterisk
                 />
-                
+
                 <NumberInput
                   // defaultValue={18}
                   placeholder="Teléfono"
