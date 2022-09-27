@@ -5,6 +5,7 @@ import {
   useQuery,
   UseQueryResult,
 } from "react-query";
+import { Id } from "tabler-icons-react";
 import { IActualizarRol } from "../interfaces/actualizar-rol";
 import { IUsuario } from "../interfaces/usuario";
 
@@ -67,6 +68,19 @@ export const obtenerUsuarios = async () => {
 
 export function useUsuarios(): UseQueryResult<any, Error> {
   return useQuery<any, Error>(["usuarios"], () => obtenerUsuarios(), {
+    staleTime: Infinity,
+  });
+}
+
+export const obtenerUnoSolo = async () => {
+  const { data } = await axios.get(`http://localhost:3000/usuarios/25`, {
+    withCredentials: true,
+  });
+  return data;
+};
+//${Id}
+export function useUnoSolo(): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["usuario"], () => obtenerUnoSolo(), {
     staleTime: Infinity,
   });
 }

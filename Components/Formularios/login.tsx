@@ -26,7 +26,7 @@ export const FormularioIngreso = () => {
 
   const form = useForm<IUsuarioCredenciales>({
     initialValues: {
-      email: "carme_rasdadsdas91@hotmail.com",
+      email: "carme_romero91@hotmail.com",
       password: "asdasd",
     },
 
