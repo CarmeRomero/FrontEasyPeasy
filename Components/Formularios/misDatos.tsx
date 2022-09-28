@@ -10,22 +10,12 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DatePicker } from "@mantine/dates";
-import { useUnoSolo } from "../../hooks/useUsuario";
+import { useMutateActualizarUsuario, useUnoSolo } from "../../hooks/useUsuario";
 import { useEffect } from "react";
 import { IDatosUsuario } from "../../interfaces/datos-usuario";
+import { IActualizarDatosUsuario } from "../../interfaces/actualizar-datos.usuario";
 
 export const FormularioDatosUsuario = () => {
-  // const [usuario, setUsuario] = useState<IDatosUsuario>({
-  //   nombre: "",
-  //   apellido: "",
-  //   email: "",
-  //   rol: "",
-  //   DNI: null,
-  //   fecha_nacimiento: null,
-  //   telefono: null,
-  //   direccion: "",
-  // });
-
   const form = useForm<IDatosUsuario>({
     initialValues: {
       nombre: "",
@@ -42,29 +32,35 @@ export const FormularioDatosUsuario = () => {
   const { data } = useUnoSolo();
   useEffect(() => {
     if (data) {
-      const fecha = new Date(data.fecha_nacimiento);
-      console.log(fecha);
-      data.fecha_nacimiento = fecha;
-      form.setValues(data);
+      const fecha = new Date(data[0].fecha_nacimiento);
+      data[0].fecha_nacimiento = fecha;
+      form.setValues(data[0]);
     }
   }, [data]);
 
-  // const handleChange = (value: any) => {
-  //   console.log(value);
-  //   form.setFieldValue("nombre", data.nombre);
-  // };
+  const { mutate, error, isLoading } = useMutateActualizarUsuario();
 
-  // useEffect(() => {
-  //   // setUsuario(data);
-  //   form.setValues(data);
-  //   // console.log(usuario);
-  // }, [data]);
+  const handleSubmit = (values: any) => {
+    const datosEnviar: IActualizarDatosUsuario = {
+      nombre: values.nombre,
+      apellido: values.apellido,
+      fecha_nacimiento: values.fecha_nacimiento,
+      telefono: values.telefono,
+      direccion: values.direccion,
+    };
+    mutate(datosEnviar, {
+      onSuccess: () => {
+        console.log(values);
+      },
+    });
+    return values;
+  };
 
   return (
     <Stack spacing="xs">
       <Card sx={{ width: "100%" }} mx="auto" p="lg" mt="lg">
         <Box>
-          <form onSubmit={form.onSubmit(() => console.log("algo"))}>
+          <form onSubmit={form.onSubmit(handleSubmit)}>
             <SimpleGrid
               cols={2}
               spacing="lg"
@@ -77,8 +73,6 @@ export const FormularioDatosUsuario = () => {
             >
               <TextInput
                 label="Nombre"
-                // value={data.nombre}
-                // onChange={handleChange}
                 id="nombre"
                 {...form.getInputProps("nombre")}
                 mb="xs"
@@ -94,6 +88,7 @@ export const FormularioDatosUsuario = () => {
                 id="dni"
                 {...form.getInputProps("DNI")}
                 mb="xs"
+                disabled
               />
               <DatePicker
                 locale="es"
@@ -132,18 +127,10 @@ export const FormularioDatosUsuario = () => {
                 id="e-mail"
                 {...form.getInputProps("email")}
                 mb="xs"
+                disabled
               />
             </SimpleGrid>
-            <SimpleGrid
-              cols={2}
-              spacing="lg"
-              breakpoints={[
-                { maxWidth: "md", cols: 3, spacing: "md" },
-                { maxWidth: "sm", cols: 2, spacing: "sm" },
-                { maxWidth: "xs", cols: 1, spacing: "sm" },
-              ]}
-              my="md"
-            ></SimpleGrid>
+
             <Group position="center" mt="xl" my="lg">
               <Button
                 variant="outline"

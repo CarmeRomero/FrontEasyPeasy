@@ -1,16 +1,23 @@
 import axios from "axios";
-import { useMutation, UseMutationResult } from "react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from "react-query";
 import { IArticulo } from "../interfaces/articulo";
 
 export const crearArticulo = async (articulo: IArticulo) => {
-    
-    const { data } = await axios.post(`http://localhost:3000/articulos`, articulo, {
+  const { data } = await axios.post(
+    `http://localhost:3000/articulos`,
+    articulo,
+    {
       withCredentials: true,
-    });
-    return data;
-  };
+    }
+  );
+  return data;
+};
 
-  
 export function useMutateArticulo() {
   const mutation: UseMutationResult<IArticulo, Error, IArticulo> = useMutation(
     crearArticulo,
@@ -22,7 +29,20 @@ export function useMutateArticulo() {
         console.log("crearArticulo mutation error", error);
       },
     }
-    
-  )
+  );
   return mutation;
+}
+
+// OBTENER
+export const obtenerArticulos = async () => {
+  const { data } = await axios.get(`http://localhost:3000/articulos`, {
+    withCredentials: true,
+  });
+  return data;
 };
+
+export function useArticulos(): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["articulos"], () => obtenerArticulos(), {
+    staleTime: Infinity,
+  });
+}

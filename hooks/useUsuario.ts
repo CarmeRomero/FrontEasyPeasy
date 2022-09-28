@@ -5,10 +5,11 @@ import {
   useQuery,
   UseQueryResult,
 } from "react-query";
-import { Id } from "tabler-icons-react";
+import { IActualizarDatosUsuario } from "../interfaces/actualizar-datos.usuario";
 import { IActualizarRol } from "../interfaces/actualizar-rol";
 import { IUsuario } from "../interfaces/usuario";
 
+//CREAR
 export const crearUsuario = async (usuario: IUsuario) => {
   delete usuario?.confirmPassword;
   const { data } = await axios.post(`http://localhost:3000/usuarios`, usuario, {
@@ -17,22 +18,7 @@ export const crearUsuario = async (usuario: IUsuario) => {
   return data;
 };
 
-// export function useMutateCliente() {
-//   const mutation: UseMutationResult<IUsuario, Error, IUsuario> = useMutation(
-//     crearUsuario,
-//     {
-//       onSuccess: (data) => {
-//         console.log("crearCliente mutation success", data);
-//       },
-//       onError: (error) => {
-//         console.log("crearCliente mutation error", error);
-//       },
-//     }
-//   );
-
-//   return mutation;
-// }
-
+// ANULAR USUARIO
 export const anularUsuario = async (id: number) => {
   const { data } = await axios.put(
     `http://localhost:3000/usuarios/anular/${id}`,
@@ -58,7 +44,7 @@ export function useMutateAnularUsuario() {
 
   return mutation;
 }
-
+// OBTENER
 export const obtenerUsuarios = async () => {
   const { data } = await axios.get(`http://localhost:3000/usuarios`, {
     withCredentials: true,
@@ -73,17 +59,46 @@ export function useUsuarios(): UseQueryResult<any, Error> {
 }
 
 export const obtenerUnoSolo = async () => {
-  const { data } = await axios.get(`http://localhost:3000/usuarios/25`, {
+  const { data } = await axios.get(`http://localhost:3000/usuarios`, {
     withCredentials: true,
   });
   return data;
 };
-//${Id}
+
 export function useUnoSolo(): UseQueryResult<any, Error> {
   return useQuery<any, Error>(["usuario"], () => obtenerUnoSolo(), {
     staleTime: Infinity,
   });
 }
+//MODIFICAR USUARIO
+export const actualizarUsuario = async (
+  actualizarDatosUsuario: IActualizarDatosUsuario
+) => {
+  const { data } = await axios.put(
+    `http://localhost:3000/usuarios`, //URL
+    actualizarDatosUsuario, // OBJETO DEL BODY
+    {
+      withCredentials: true, //OBJETO DE CONFIGURACiÓN
+    }
+  );
+  return data;
+};
+
+export function useMutateActualizarUsuario() {
+  const mutation: UseMutationResult<any, Error, IActualizarDatosUsuario> =
+    useMutation(actualizarUsuario, {
+      onSuccess: (data) => {
+        console.log("Usuario actualizado", data);
+      },
+      onError: (error) => {
+        console.log("no se pudo actualizar", error);
+      },
+    });
+
+  return mutation;
+}
+
+//ROLES
 export const obtenerRoles = async () => {
   const { data } = await axios.get(`http://localhost:3000/usuarios/roles`, {
     withCredentials: true,
