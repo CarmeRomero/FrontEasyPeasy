@@ -1,4 +1,4 @@
-import { Box, Center } from "@mantine/core";
+import { Box, Center, SimpleGrid } from "@mantine/core";
 import Head from "next/head";
 import { FC } from "react";
 
@@ -14,17 +14,39 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
         <title>{title}</title>
       </Head>
       <main>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            // marginLeft: 30,
-          }}
+        <SimpleGrid
+          cols={2}
+          spacing="lg"
+          breakpoints={[
+            { maxWidth: "md", cols: 2, spacing: "md" },
+            { maxWidth: "sm", cols: 2, spacing: "sm" },
+            { maxWidth: "xs", cols: 2, spacing: "sm" },
+          ]}
+          my="md"
         >
-          {children}
-        </Box>
+          <Box
+            sx={{
+              // fontSize: "10px",
+              display: "flex",
+              justifyContent: "left",
+              alignItems: "center",
+              height: "90vh",
+              marginLeft: "80px",
+              // marginLeft: 50,
+            }}
+          >
+            {children}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <img src="https://pymstatic.com/30549/conversions/tipos-de-cafe-thumb.jpg" />
+          </Box>
+        </SimpleGrid>
       </main>
     </>
   );

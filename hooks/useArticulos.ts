@@ -46,3 +46,28 @@ export function useArticulos(): UseQueryResult<any, Error> {
     staleTime: Infinity,
   });
 }
+//ELIMINAR ARTICULO
+export const anularArticulo = async (id: number) => {
+  const { data } = await axios.put(
+    `http://localhost:3000/articulos/anular/${id}`,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateAnularArticulo() {
+  const mutation: UseMutationResult<null, Error, number> = useMutation(
+    anularArticulo,
+    {
+      onSuccess: (data) => {
+        console.log("Artículo anulado", data);
+      },
+      onError: (error) => {
+        console.log("no se pudo anular el artículo", error);
+      },
+    }
+  );
+  return mutation;
+}

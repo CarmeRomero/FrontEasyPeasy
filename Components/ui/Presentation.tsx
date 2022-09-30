@@ -11,7 +11,7 @@ export const Presentation: FC<Props> = ({ title }) => {
       sx={{
         display: "flex",
         height: "200px",
-        backgroundColor: "#1a73e8",
+        backgroundColor: "black",
         width: "100%",
         minHeight: "auto",
         backgroundImage: "url(/img/illustration.png)",

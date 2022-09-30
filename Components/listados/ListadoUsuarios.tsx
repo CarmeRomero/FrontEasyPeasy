@@ -6,7 +6,13 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CS
 import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
 import { Badge, Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, LockAccess, RollerSkating, Trash } from "tabler-icons-react";
+import {
+  Dots,
+  Edit,
+  LockAccess,
+  RollerSkating,
+  Trash,
+} from "tabler-icons-react";
 import { useMutateAnularUsuario, useUsuarios } from "../../hooks/useUsuario";
 import { SeleccionarRol } from "../Formularios/SeleccionarRol";
 
@@ -39,8 +45,14 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
       <Menu
         placement="end"
         control={
-          <Button  variant="light" color="grape"px={10} my={10} sx={{ height: "30px" }}>
-            <Dots strokeWidth={2} size={17}  />
+          <Button
+            variant="light"
+            color="grape"
+            px={10}
+            my={10}
+            sx={{ height: "30px" }}
+          >
+            <Dots strokeWidth={2} size={17} />
           </Button>
         }
         withArrow
@@ -70,7 +82,6 @@ const btnRol = ({ data }: ICellRendererParams) => {
   const router = useRouter();
 
   return (
-    
     <Box
       sx={{
         display: "flex",
@@ -80,15 +91,20 @@ const btnRol = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      
-      <Badge 
-      variant="outline"
-      color = {data.rol =="ADMIN"? "red": 
-      data.rol =="VISITANTE"? "blue":
-      data.rol =="MOZO"?"green":"orange"}>{data.rol}
-      </Badge>   
-    
-      
+      <Badge
+        variant="outline"
+        color={
+          data.rol == "ADMIN"
+            ? "red"
+            : data.rol == "VISITANTE"
+            ? "blue"
+            : data.rol == "MOZO"
+            ? "green"
+            : "orange"
+        }
+      >
+        {data.rol}
+      </Badge>
     </Box>
   );
 };
@@ -135,8 +151,8 @@ export const ListadoUsuarios = () => {
       <div
         className="ag-theme-alpine"
         style={{
-          width: "90vw",
-          height: 567,
+          width: "70vw",
+          height: 550,
           padding: 20,
         }}
       >

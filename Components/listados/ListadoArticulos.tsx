@@ -7,23 +7,27 @@ import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
 import { Badge, Box, Button, Menu } from "@mantine/core";
 import { Dots, Edit, Trash } from "tabler-icons-react";
-import { useMutateAnularUsuario } from "../../hooks/useUsuario";
-import { useArticulos } from "../../hooks/useArticulos";
+import {
+  useArticulos,
+  useMutateAnularArticulo,
+} from "../../hooks/useArticulos";
+import { useCategorias } from "../../hooks/useCategoria";
+import { IArticulo } from "../../interfaces/articulo";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
-  const { mutate, isLoading, error } = useMutateAnularUsuario();
+  const { mutate, isLoading, error } = useMutateAnularArticulo();
 
   const { refetch } = useArticulos();
 
   //ELIMINAR ARTICULO
-  // const handleDelete = (value: any) => {
-  //   mutate(value, {
-  //     onSuccess: () => {
-  //       refetch();
-  //     },
-  //   });
-  // };
+  const handleDelete = (value: any) => {
+    mutate(value, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
 
   return (
     <Box
@@ -35,8 +39,8 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      {/* ABRIR MODAL */}
-      {/* <SeleccionarRol open={open} setOpen={setOpen} id={data.id} /> */}
+      {/* ABRIR MODAL
+      <SeleccionarRol open={open} setOpen={setOpen} id={data.id} /> */}
 
       <Menu
         placement="end"
@@ -64,7 +68,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         <Menu.Item
           icon={<Trash size={14} />}
           onClick={() => {
-            // handleDelete(data.id);
+            handleDelete(data.id);
           }}
         >
           Eliminar
@@ -108,6 +112,7 @@ const btnRol = ({ data }: ICellRendererParams) => {
 export const ListadoArticulos = () => {
   const gridRef = useRef<any>(null); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+  const [fieldDAta, setFieldDAta] = useState(); // Set rowData to Array of Objects, one Object per Row
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
@@ -118,7 +123,7 @@ export const ListadoArticulos = () => {
       field: "precio_venta",
       minWidth: 150,
     },
-    { headerName: "Categoría", field: "categoria", minWidth: 150 },
+    { headerName: "Categoría", field: "Categorias.descripcion", minWidth: 150 },
     {
       headerName: "ACCIONES",
       pinned: "right",
@@ -152,7 +157,7 @@ export const ListadoArticulos = () => {
       <div
         className="ag-theme-alpine"
         style={{
-          width: "90vw",
+          width: "70vw",
           height: 567,
           padding: 20,
         }}

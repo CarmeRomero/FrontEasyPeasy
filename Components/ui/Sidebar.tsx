@@ -61,6 +61,79 @@ export const Sidebar = () => {
           ),
           path: "/usuarios",
         },
+        {
+          name: "Listado de usuarios",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/usuarios/listado-usuarios",
+        },
+        {
+          name: "Mis datos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/usuarios/datos-usuario",
+        },
+      ],
+    },
+    {
+      name: "Artículos",
+      items: [
+        {
+          name: "Agregar artículo",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/articulos",
+        },
+        {
+          name: "Listado de artículos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/articulos/listado-articulos",
+        },
       ],
     },
   ];
@@ -174,8 +247,13 @@ const NavHeader = () => {
           // style={{ position: "relative", top: "-1px" }}
         />
         {isNavCollapsed && (
-          <Text size="lg" ml={12} weight={700} sx={{ letterSpacing: "1px" }}>
-            LOGDEPOT
+          <Text
+            size="lg"
+            ml={12}
+            weight={700}
+            sx={{ letterSpacing: "1px", color: "pink" }}
+          >
+            EASY PEASY
           </Text>
         )}
       </Box>

@@ -43,7 +43,7 @@ export const FormularioIngreso = () => {
     mutate(values, {
       onSuccess: () => {
         form.reset();
-        router.replace("/");
+        router.replace("/usuarios");
       },
     });
 
@@ -116,12 +116,11 @@ export const FormularioIngreso = () => {
         p="lg"
       >
         <Text size="md">Si todavía no tenés cuenta registrate</Text>{" "}
-        <Link href="/auth/registro" passHref>
+        <Link href="http://localhost:3005/usuarios/registrar-usuario" passHref>
           <Text variant="link" sx={{ cursor: "pointer" }} size="md" pl="4px">
             aquí
           </Text>
         </Link>
-        <Button onClick={() => algo(null)}>acaa</Button>
       </Card>
     </Stack>
   );
