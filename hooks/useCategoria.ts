@@ -43,3 +43,29 @@ export function useCategorias(): UseQueryResult<any, Error> {
     staleTime: Infinity,
   });
 }
+
+// ELIMINAR CATEGORIA
+export const eliminarCategoria = async (id: number) => {
+  const { data } = await axios.delete(
+    `http://localhost:3000/categorias/${id}`,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateCategoriaEliminar() {
+  const mutation: UseMutationResult<any, Error, number> = useMutation(
+    eliminarCategoria,
+    {
+      onSuccess: (data) => {
+        console.log("crearCategoria mutation success", data);
+      },
+      onError: (error) => {
+        console.log("crearCategoria mutation error", error);
+      },
+    }
+  );
+  return mutation;
+}

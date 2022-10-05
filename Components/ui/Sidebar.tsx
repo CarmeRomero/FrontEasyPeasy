@@ -12,6 +12,7 @@ import {
 } from "tabler-icons-react";
 import { UiContext } from "../../context";
 import NextLink from "next/link";
+import { useMutateLogout } from "../../hooks/useAutorizacion";
 
 interface Props {
   children?: React.ReactNode | undefined;
@@ -39,6 +40,7 @@ const shadowNav: CSSObject = {
 
 export const Sidebar = () => {
   const { isNavCollapsed, toggleNavMenu } = useContext(UiContext);
+  const { mutate: algo } = useMutateLogout();
 
   const sections: Section[] = [
     {
@@ -97,6 +99,7 @@ export const Sidebar = () => {
         },
       ],
     },
+
     {
       name: "Artículos",
       items: [
@@ -133,6 +136,52 @@ export const Sidebar = () => {
             />
           ),
           path: "/articulos/listado-articulos",
+        },
+      ],
+    },
+    {
+      name: "Cerrar Sesión",
+      items: [
+        {
+          name: "Cerrar Sesión",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              onClick={() => algo(null)}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/autorizacion/ingreso",
+        },
+      ],
+    },
+    {
+      name: "Pedidos",
+      items: [
+        {
+          name: "Registrar pedido",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              onClick={() => algo(null)}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/pedidos",
         },
       ],
     },

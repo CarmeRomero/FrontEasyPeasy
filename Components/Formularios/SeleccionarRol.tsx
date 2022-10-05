@@ -56,7 +56,7 @@ export const SeleccionarRol = ({ open, setOpen, id }: Props) => {
     <Modal
       opened={open}
       onClose={() => setOpen(false)}
-      title="Agregar estante al depósito"
+      title="Cambiar el rol del usuario"
       size={MODAL_SIZES.sm}
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>

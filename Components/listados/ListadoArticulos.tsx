@@ -13,6 +13,7 @@ import {
 } from "../../hooks/useArticulos";
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
+import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -39,9 +40,14 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      {/* ABRIR MODAL
-      <SeleccionarRol open={open} setOpen={setOpen} id={data.id} /> */}
-
+      {/* ABRIR MODAL */}
+      {data && (
+        <FormularioActualizarArticulo
+          open={open}
+          setOpen={setOpen}
+          id={data.id}
+        />
+      )}
       <Menu
         placement="end"
         control={
@@ -63,7 +69,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
             setOpen(true);
           }}
         >
-          Editar rol
+          Editar artículo
         </Menu.Item>
         <Menu.Item
           icon={<Trash size={14} />}
@@ -78,41 +84,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
   );
 };
 
-const btnRol = ({ data }: ICellRendererParams) => {
-  const router = useRouter();
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <Badge
-        variant="outline"
-        color={
-          data.rol == "ADMIN"
-            ? "red"
-            : data.rol == "VISITANTE"
-            ? "blue"
-            : data.rol == "MOZO"
-            ? "green"
-            : "orange"
-        }
-      >
-        {data.rol}
-      </Badge>
-    </Box>
-  );
-};
-
 export const ListadoArticulos = () => {
   const gridRef = useRef<any>(null); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
-  const [fieldDAta, setFieldDAta] = useState(); // Set rowData to Array of Objects, one Object per Row
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
@@ -126,6 +100,7 @@ export const ListadoArticulos = () => {
     { headerName: "Categoría", field: "Categorias.descripcion", minWidth: 150 },
     {
       headerName: "ACCIONES",
+      field: "ACCIONES",
       pinned: "right",
       resizable: false,
       width: 100,
@@ -149,7 +124,6 @@ export const ListadoArticulos = () => {
 
   useEffect(() => {
     setRowData(data);
-    console.log(data);
   }, [data]);
 
   return (

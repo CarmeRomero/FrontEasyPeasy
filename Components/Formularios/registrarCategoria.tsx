@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const RegistrarCategoria = ({ open, setOpen }: Props) => {
-  const form = useForm({
+  const formulario = useForm({
     initialValues: {
       descripcion: "",
     },
@@ -20,9 +20,11 @@ export const RegistrarCategoria = ({ open, setOpen }: Props) => {
 
   const { refetch } = useCategorias();
   const { mutate } = useMutateCategoria();
-  const handleSubmit = (values: any) => {
+  const handleSubmitCategoria = (values: any) => {
+    console.log(values);
     mutate(values, {
       onSuccess: () => {
+        setOpen(false);
         console.log(values);
         refetch();
       },
@@ -36,12 +38,12 @@ export const RegistrarCategoria = ({ open, setOpen }: Props) => {
       title="Agregar una categoría"
       size={MODAL_SIZES.sm}
     >
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={formulario.onSubmit(handleSubmitCategoria)}>
         <TextInput
           label="Categoría"
           placeholder="Ingrese una categoría"
           id="categoria"
-          {...form.getInputProps("descripcion")}
+          {...formulario.getInputProps("descripcion")}
           mb="xs"
         />
         <Group position="center" mt="xl" my="lg">

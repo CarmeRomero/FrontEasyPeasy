@@ -27,6 +27,7 @@ export const FormularioDatosUsuario = () => {
       telefono: null,
       direccion: "",
     },
+    validate: {},
   });
 
   const { data } = useUnoSolo();
@@ -141,7 +142,7 @@ export const FormularioDatosUsuario = () => {
                 type="submit"
                 // onClick={() => console.log(usuario)}
               >
-                Registrarse
+                Guardar
               </Button>
             </Group>
           </form>

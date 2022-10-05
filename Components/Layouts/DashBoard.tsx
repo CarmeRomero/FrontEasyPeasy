@@ -11,8 +11,6 @@ interface Props {
 }
 
 export const DashboardLayout: FC<Props> = ({ children, title }) => {
-  const { isNavCollapsed } = useContext(UiContext);
-
   return (
     <>
       <Head>

@@ -13,15 +13,23 @@ import {
   Menu,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Dots, Edit, Trash } from "tabler-icons-react";
-import { useMutateArticulo } from "../../hooks/useArticulos";
-import { useCategorias } from "../../hooks/useCategoria";
+import { BoxMargin, Dots, Edit, Trash } from "tabler-icons-react";
+import {
+  useArticulosMismaCategoria,
+  useMutateArticulo,
+} from "../../hooks/useArticulos";
+import {
+  useCategorias,
+  useMutateCategoriaEliminar,
+} from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ICellRendererParams } from "ag-grid-community";
 import { RegistrarCategoria } from "./registrarCategoria";
 
 export const FormularioRegistrarArticulo = () => {
+  const [id_categoria, setIdCategoria] = useState(null);
+
   const form = useForm<IArticulo>({
     initialValues: {
       codigo: "",
@@ -54,36 +62,37 @@ export const FormularioRegistrarArticulo = () => {
 
   const handleChange = (value: any) => {
     form.setFieldValue("id_categoria", value);
+    setIdCategoria(value);
   };
 
-  // const btnAcciones = ({ data }: ICellRendererParams) => {
-  //   const { mutate, isLoading, error } = useMutateAnularArticulo();
+  const { refetch } = useCategorias();
 
-  //   const { refetch } = useArticulos();
+  const { mutate: mutateCategoria } = useMutateCategoriaEliminar();
 
-  //   //ELIMINAR ARTICULO
-  //   const handleDelete = (value: any) => {
-  //     mutate(value, {
-  //       onSuccess: () => {
-  //         refetch();
-  //       },
-  //     });
-  //   };
-  // };
+  //ELIMINAR CATEGORIA
+  const handleDelete = (value: any) => {
+    mutateCategoria(value, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
 
   return (
     <Stack spacing="xs">
       <Card sx={{ width: "100%" }} mx="auto" p="lg" mt="lg">
         <>
           <Box>
+            <RegistrarCategoria open={open} setOpen={setOpen} />
+
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <SimpleGrid
                 cols={2}
                 spacing="lg"
                 breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
+                  { maxWidth: "md", cols: 2, spacing: "md" },
                   { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
+                  { maxWidth: "xs", cols: 2, spacing: "sm" },
                 ]}
                 my="md"
               >
@@ -92,6 +101,12 @@ export const FormularioRegistrarArticulo = () => {
                   placeholder="Código"
                   id="codigo"
                   {...form.getInputProps("codigo")}
+                  mb="xs"
+                />
+                <TextInput
+                  placeholder="Ingrese una descripción"
+                  label="Descripción"
+                  {...form.getInputProps("descripcion")}
                   mb="xs"
                 />
                 <NumberInput
@@ -104,12 +119,12 @@ export const FormularioRegistrarArticulo = () => {
                 />
               </SimpleGrid>
               <SimpleGrid
-                cols={2}
+                cols={1}
                 spacing="lg"
                 breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
+                  { maxWidth: "md", cols: 2, spacing: "md" },
                   { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
+                  { maxWidth: "xs", cols: 2, spacing: "sm" },
                 ]}
                 my="md"
               >
@@ -131,17 +146,11 @@ export const FormularioRegistrarArticulo = () => {
                       : []
                   }
                 />
-                <RegistrarCategoria open={open} setOpen={setOpen} />
+
                 <Menu
                   placement="end"
                   control={
-                    <Button
-                      variant="light"
-                      color="grape"
-                      px={10}
-                      my={10}
-                      sx={{ height: "30px" }}
-                    >
+                    <Button variant="light" color="grape" px={10} my={30}>
                       <Dots strokeWidth={2} size={17} />
                     </Button>
                   }
@@ -158,26 +167,21 @@ export const FormularioRegistrarArticulo = () => {
                   <Menu.Item
                     icon={<Trash size={14} />}
                     onClick={() => {
-                      // handleDelete(data.id);
+                      handleDelete(id_categoria);
                     }}
                   >
                     Eliminar
                   </Menu.Item>
                 </Menu>
-                <Textarea
-                  placeholder="Ingrese una descripción"
-                  label="Descripción"
-                  {...form.getInputProps("descripcion")}
-                />
               </SimpleGrid>
 
               <SimpleGrid
                 cols={1}
                 spacing="lg"
                 breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
+                  { maxWidth: "md", cols: 2, spacing: "md" },
                   { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
+                  { maxWidth: "xs", cols: 2, spacing: "sm" },
                 ]}
                 my="md"
               >
@@ -188,7 +192,7 @@ export const FormularioRegistrarArticulo = () => {
                 />
               </SimpleGrid>
 
-              <Group position="center" mt="xl" my="lg">
+              <Group position="center" mt="xl" my="md">
                 <Button
                   variant="outline"
                   fullWidth
