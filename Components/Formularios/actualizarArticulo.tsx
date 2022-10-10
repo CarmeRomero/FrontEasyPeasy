@@ -51,7 +51,6 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   useEffect(() => {
     if (articulo) {
       form.setValues(articulo);
-      console.log(id);
     }
   }, [articulo]);
 
@@ -79,7 +78,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
     <Modal
       opened={open}
       onClose={() => setOpen(false)}
-      title="Agregar estante al depósito"
+      title="Editar el artículo"
       size={MODAL_SIZES.sm}
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -143,34 +142,6 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
                 : []
             }
           />
-
-          {/* <RegistrarCategoria open={open} setOpen={setOpen} />
-                <Menu
-                  placement="end"
-                  control={
-                    <Button variant="light" color="grape" px={10} my={30}>
-                      <Dots strokeWidth={2} size={17} />
-                    </Button>
-                  }
-                  withArrow
-                >
-                  <Menu.Item
-                    icon={<Edit size={14} />}
-                    onClick={() => {
-                      setOpen(true);
-                    }}
-                  >
-                    Agregar categoría
-                  </Menu.Item>
-                  <Menu.Item
-                    icon={<Trash size={14} />}
-                    onClick={() => {
-                      // handleDelete(data.id);
-                    }}
-                  >
-                    Eliminar
-                  </Menu.Item>
-                </Menu> */}
         </SimpleGrid>
 
         <SimpleGrid

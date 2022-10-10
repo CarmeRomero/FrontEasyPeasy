@@ -41,13 +41,13 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
       }}
     >
       {/* ABRIR MODAL */}
-      {data && (
-        <FormularioActualizarArticulo
-          open={open}
-          setOpen={setOpen}
-          id={data.id}
-        />
-      )}
+
+      <FormularioActualizarArticulo
+        open={open}
+        setOpen={setOpen}
+        id={data.id}
+      />
+
       <Menu
         placement="end"
         control={
