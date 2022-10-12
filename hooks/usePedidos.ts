@@ -1,5 +1,10 @@
 import axios from "axios";
-import { useMutation, UseMutationResult } from "react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from "react-query";
 import { IPedido } from "../interfaces/registrarPedido";
 
 const crearPedido = async (pedido: IPedido) => {
@@ -23,4 +28,17 @@ export function useMutateCrearPedido() {
   );
 
   return mutation;
+}
+
+export const obtenerUnoSolo = async () => {
+  const { data } = await axios.get(`http://localhost:3000/pedidos`, {
+    withCredentials: true,
+  });
+  return data;
+};
+
+export function usePedidosDelUsuario(): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["pedidos"], () => obtenerUnoSolo(), {
+    staleTime: Infinity,
+  });
 }

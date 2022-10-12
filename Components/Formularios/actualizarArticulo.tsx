@@ -98,6 +98,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             id="codigo"
             {...form.getInputProps("codigo")}
             mb="xs"
+            disabled
           />
           <TextInput
             placeholder="Ingrese una descripción"

@@ -5,7 +5,7 @@ import { PedidoProvider } from "../../context/pedido/pedidoProvider";
 
 const RegistrarPedidoPage = () => {
   return (
-    <DashboardLayout title="Registrar Artículo">
+    <DashboardLayout title="Registrar Pedido">
       <PedidoProvider>
         <Grid columns={12}>
           <Grid.Col span={12}>

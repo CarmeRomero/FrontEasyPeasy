@@ -147,7 +147,6 @@ export const Sidebar = () => {
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
-              onClick={() => algo(null)}
               color={"rgba(255,255,255,.8)"}
               style={{
                 fontSize: "20px",
@@ -182,6 +181,23 @@ export const Sidebar = () => {
             />
           ),
           path: "/pedidos",
+        },
+        {
+          name: "Listado de pedidos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/pedidos/listado-pedidos",
         },
       ],
     },
