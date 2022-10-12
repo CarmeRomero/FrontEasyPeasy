@@ -11,6 +11,7 @@ import {
   Select,
   Switch,
   Menu,
+  Table,
   Modal,
   MODAL_SIZES,
 } from "@mantine/core";
@@ -26,6 +27,11 @@ import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ICellRendererParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
+import { IDetallePedido } from "../../interfaces/detalle-pedido";
+import { PedidoContext } from "../../context/pedido/pedidoContex";
+import { useContext } from "react";
+import { IPedido } from "../../interfaces/registrarPedido";
+import { usePedido } from "../../hooks/usePedidos";
 
 interface Props {
   open: boolean;
@@ -34,67 +40,38 @@ interface Props {
 }
 
 export const ListadoDetalle = ({ open, setOpen, id }: Props) => {
-  const gridRef = useRef<any>(null); // Optional - for accessing Grid's API
-  const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+  //   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
 
-  // Each Column Definition results in one Column.
-  const [columnDefs, setColumnDefs] = useState([
-    { headerName: "Codigo", field: "codigo", minWidth: 150 },
-    { headerName: "Descripción", field: "descripcion", minWidth: 150 },
-    {
-      headerName: "Precio de venta",
-      field: "precio_venta",
-      minWidth: 150,
-    },
-    { headerName: "Categoría", field: "Categorias.descripcion", minWidth: 150 },
-  ]);
+  const { data } = usePedido(id);
+  const rows = data
+    ? data.Detalle_Pedidos.map((detalle: any) => (
+        <tr key={detalle.id_articulo}>
+          <td>{detalle.id_articulo}</td>
+          <td>{detalle.cantidad}</td>
+          <td>{detalle.precio}</td>
+        </tr>
+      ))
+    : [];
 
-  // DefaultColDef sets props common to all Columns
-  const defaultColDef = useMemo(
-    () => ({
-      sortable: true,
-      filter: true,
-      flex: 1,
-      floatingFilter: true,
-    }),
-    []
-  );
-
-  const { data } = useArticulos();
-
-  useEffect(() => {
-    setRowData(data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   return (
     <Modal
       opened={open}
       onClose={() => setOpen(false)}
-      title="Agregar una categoría"
+      title="Detalle del pedido"
       size={MODAL_SIZES.sm}
     >
-      <div>
-        <div
-          className="ag-theme-alpine"
-          style={{
-            width: "70vw",
-            height: 567,
-            padding: 20,
-          }}
-        >
-          <AgGridReact
-            ref={gridRef} // Ref for accessing Grid's API
-            rowData={rowData} // Row Data for Rows
-            columnDefs={columnDefs} // Column Defs for Columns
-            defaultColDef={defaultColDef} // Default Column Properties
-            animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-            rowSelection="multiple" // Options - allows click selection of rows
-            paginationPageSize={10} // Optional - Pagination Page Size
-            pagination={true} // Optional - Pagination
-            paginationAutoPageSize={true} // Optional - Paginationa
-          />
-        </div>
-      </div>
+      <Table>
+        <thead>
+          <tr>
+            <th>Artículo </th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
     </Modal>
   );
 };

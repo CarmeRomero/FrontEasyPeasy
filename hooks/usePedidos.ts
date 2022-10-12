@@ -5,6 +5,7 @@ import {
   useQuery,
   UseQueryResult,
 } from "react-query";
+import { Id } from "tabler-icons-react";
 import { IPedido } from "../interfaces/registrarPedido";
 
 const crearPedido = async (pedido: IPedido) => {
@@ -29,8 +30,8 @@ export function useMutateCrearPedido() {
 
   return mutation;
 }
-
-export const obtenerUnoSolo = async () => {
+//TRAE LOS PEDIDOS QUE PERTENECEN A UN USUARIO
+export const obtenerPedidosUnUsuario = async () => {
   const { data } = await axios.get(`http://localhost:3000/pedidos`, {
     withCredentials: true,
   });
@@ -38,7 +39,20 @@ export const obtenerUnoSolo = async () => {
 };
 
 export function usePedidosDelUsuario(): UseQueryResult<any, Error> {
-  return useQuery<any, Error>(["pedidos"], () => obtenerUnoSolo(), {
+  return useQuery<any, Error>(["pedidos"], () => obtenerPedidosUnUsuario(), {
+    staleTime: Infinity,
+  });
+}
+// TRAE UN PEDIDO POR EL ID
+export const obtenerUnPedido = async (id: number) => {
+  const { data } = await axios.get(`http://localhost:3000/pedidos/${id}`, {
+    withCredentials: true,
+  });
+  return data;
+};
+
+export function usePedido(id: number): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["pedidos", id], () => obtenerUnPedido(id), {
     staleTime: Infinity,
   });
 }

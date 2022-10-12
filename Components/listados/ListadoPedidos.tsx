@@ -94,9 +94,8 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
+      <ListadoDetalle open={open} setOpen={setOpen} id={data.id} />
       {/* ABRIR MODAL */}
-
-      {/* <ListadoDetalle open={open} setOpen={setOpen} id={data.id} /> */}
 
       <Menu
         placement="end"
@@ -190,7 +189,6 @@ export const ListadoPedidos = () => {
 
   useEffect(() => {
     setRowData(data);
-    console.log(data);
   }, [data]);
 
   return (

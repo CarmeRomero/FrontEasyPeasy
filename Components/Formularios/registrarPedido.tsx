@@ -6,7 +6,7 @@ import { IPedido } from "../../interfaces/registrarPedido";
 import { useMutateCrearPedido } from "../../hooks/usePedidos";
 
 export const FormularioRegistrarPedido = () => {
-  const { agregarContenido, detalle } = useContext(PedidoContext);
+  const { detalle } = useContext(PedidoContext);
 
   const form = useForm<IPedido>({
     initialValues: {
