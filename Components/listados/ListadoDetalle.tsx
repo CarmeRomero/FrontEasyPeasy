@@ -37,7 +37,7 @@ import { prepareServerlessUrl } from "next/dist/server/base-server";
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
-  id: number;
+  // id: number;
   detallito: [];
   pedido: IPedido;
 }
@@ -45,7 +45,7 @@ interface Props {
 export const ListadoDetalle = ({
   open,
   setOpen,
-  id,
+  // id,
   detallito,
   pedido,
 }: Props) => {
@@ -90,34 +90,45 @@ export const ListadoDetalle = ({
   const registrarDetalle = () => {
     // setDetalle(...prev, nuevoDetalle);
     setOpen(false);
+    setOpen2(true);
   };
   return (
-    <Modal
-      opened={open}
-      onClose={() => setOpen(false)}
-      title="Detalle del pedido"
-      size={MODAL_SIZES.sm}
-    >
-      <Table>
-        <thead>
-          <tr>
-            <th>Artículo </th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {detallito.map((detalle: any) => (
-            <tr key={detalle.id_articulo}>
-              <td>{detalle.id_articulo}</td>
-              <td>{detalle.cantidad}</td>
-              <td>{detalle.precio}</td>
+    <>
+      <Modal
+        opened={open}
+        onClose={() => setOpen(false)}
+        title="Detalle del pedido"
+        size={MODAL_SIZES.sm}
+      >
+        <Table>
+          <thead>
+            <tr>
+              <th>Artículo </th>
+              <th>Cantidad</th>
+              <th>Precio</th>
             </tr>
-          ))}
-          <Button onClick={registrarDetalle}> Agregar detalle</Button>
-        </tbody>
-      </Table>
-    </Modal>
+          </thead>
+          <tbody>
+            {detallito.map((detalle: any) => (
+              <tr key={detalle.id_articulo}>
+                <td>{detalle.id_articulo}</td>
+                <td>{detalle.cantidad}</td>
+                <td>{detalle.precio}</td>
+              </tr>
+            ))}
+            <Button onClick={registrarDetalle}> Agregar detalle</Button>
+          </tbody>
+        </Table>
+      </Modal>
+      {/* <Modal
+        opened={open}
+        onClose={() => setOpen(false)}
+        title=""
+        size={MODAL_SIZES.sm}
+      >
+        <h2>Hola</h2>
+      </Modal> */}
+    </>
   );
 };
 
@@ -137,7 +148,7 @@ const registrarDetalle = ({ data }: ICellRendererParams) => {
       <ListadoDetalle
         open={open}
         setOpen={setOpen}
-        id={data.id}
+        // id={data.id}
         detallito={data.Detalle_Pedidos}
         pedido={data}
       />

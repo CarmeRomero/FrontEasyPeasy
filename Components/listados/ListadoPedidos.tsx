@@ -97,7 +97,7 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
       <ListadoDetalle
         open={open}
         setOpen={setOpen}
-        id={data.id}
+        // id={data.id}
         detallito={data.Detalle_Pedidos}
         pedido={data}
       />

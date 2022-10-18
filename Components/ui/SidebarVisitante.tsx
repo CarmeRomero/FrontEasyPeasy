@@ -67,6 +67,28 @@ export const SidebarVISITANTE = () => {
         },
       ],
     },
+    {
+      name: "Cerrar Sesión",
+      items: [
+        {
+          name: "Cerrar Sesión",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/autorizacion/ingreso",
+        },
+      ],
+    },
   ];
 
   const btnCollapseNav: CSSObject[] = [
