@@ -40,7 +40,7 @@ const shadowNav: CSSObject = {
   flex: 1,
 };
 
-export const Sidebar = () => {
+export const SidebarVISITANTE = () => {
   const { isNavCollapsed, toggleNavMenu } = useContext(UiContext);
   const { mutate: algo } = useMutateLogout();
 
@@ -48,41 +48,6 @@ export const Sidebar = () => {
     {
       name: "Usuarios",
       items: [
-        {
-          name: "Agregar usuario",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/usuarios",
-        },
-
-        {
-          name: "Listado de usuarios",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/usuarios/listado-usuarios",
-        },
         {
           name: "Mis datos",
           icon: (
@@ -99,108 +64,6 @@ export const Sidebar = () => {
             />
           ),
           path: "/usuarios/datos-usuario",
-        },
-      ],
-    },
-
-    {
-      name: "Artículos",
-      items: [
-        {
-          name: "Agregar artículo",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/articulos",
-        },
-        {
-          name: "Listado de artículos",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/articulos/listado-articulos",
-        },
-      ],
-    },
-    {
-      name: "Cerrar Sesión",
-      items: [
-        {
-          name: "Cerrar Sesión",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/autorizacion/ingreso",
-        },
-      ],
-    },
-    {
-      name: "Pedidos",
-      items: [
-        {
-          name: "Registrar pedido",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              onClick={() => algo(null)}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/pedidos",
-        },
-        {
-          name: "Listado de pedidos",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/pedidos/listado-pedidos",
         },
       ],
     },

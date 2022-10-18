@@ -40,7 +40,7 @@ const shadowNav: CSSObject = {
   flex: 1,
 };
 
-export const Sidebar = () => {
+export const SidebarMozo = () => {
   const { isNavCollapsed, toggleNavMenu } = useContext(UiContext);
   const { mutate: algo } = useMutateLogout();
 

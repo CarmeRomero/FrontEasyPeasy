@@ -3,7 +3,16 @@ import Head from "next/head";
 import Image from "next/image";
 import { FC, useContext } from "react";
 import { UiContext } from "../../context";
-import { Header, Sidebar, Presentation } from "../ui";
+import { useUnoSolo } from "../../hooks/useUsuario";
+import { Header, Presentation, Sidebar } from "../ui";
+import { useEffect, useState } from "react";
+import { IUsuario } from "../../interfaces/usuario";
+import { SidebarAdmin } from "../ui/SidebarAdmin";
+import { SidebarVISITANTE } from "../ui/SidebarVisitante";
+import { SidebarMozo } from "../ui/SidebarMozo";
+import { SidebarCajero } from "../ui/SidebarCajero";
+
+// import { SidebarVISITANTE } from "../ui/SidebarVisitante";
 
 interface Props {
   children?: React.ReactNode | undefined;
@@ -11,6 +20,15 @@ interface Props {
 }
 
 export const DashboardLayout: FC<Props> = ({ children, title }) => {
+  const [usuario, setUsuario] = useState<IUsuario>();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUsuario(JSON.parse(localStorage.getItem("usuario") || ""));
+    }
+  }, []);
+
+  console.log(usuario);
   return (
     <>
       <Head>
@@ -26,7 +44,15 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
           width: "100%",
         }}
       >
-        <Sidebar />
+        {usuario && usuario.rol == "ADMIN" ? (
+          <SidebarAdmin />
+        ) : usuario && usuario.rol == "VISITANTE" ? (
+          <SidebarVISITANTE />
+        ) : usuario && usuario.rol == "MOZO" ? (
+          <SidebarMozo />
+        ) : (
+          <SidebarCajero />
+        )}
         <Box
           sx={{
             backgroundColor: "white",

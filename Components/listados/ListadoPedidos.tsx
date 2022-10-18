@@ -94,7 +94,13 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
         height: "100%",
       }}
     >
-      <ListadoDetalle open={open} setOpen={setOpen} id={data.id} />
+      <ListadoDetalle
+        open={open}
+        setOpen={setOpen}
+        id={data.id}
+        detallito={data.Detalle_Pedidos}
+        pedido={data}
+      />
       {/* ABRIR MODAL */}
 
       <Menu

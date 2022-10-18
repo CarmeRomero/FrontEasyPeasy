@@ -40,7 +40,7 @@ const shadowNav: CSSObject = {
   flex: 1,
 };
 
-export const Sidebar = () => {
+export const SidebarAdmin = () => {
   const { isNavCollapsed, toggleNavMenu } = useContext(UiContext);
   const { mutate: algo } = useMutateLogout();
 
@@ -82,23 +82,6 @@ export const Sidebar = () => {
             />
           ),
           path: "/usuarios/listado-usuarios",
-        },
-        {
-          name: "Mis datos",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/usuarios/datos-usuario",
         },
       ],
     },
@@ -161,46 +144,6 @@ export const Sidebar = () => {
             />
           ),
           path: "/autorizacion/ingreso",
-        },
-      ],
-    },
-    {
-      name: "Pedidos",
-      items: [
-        {
-          name: "Registrar pedido",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              onClick={() => algo(null)}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/pedidos",
-        },
-        {
-          name: "Listado de pedidos",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/pedidos/listado-pedidos",
         },
       ],
     },
