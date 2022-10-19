@@ -1,4 +1,13 @@
-import { Badge, Box, Button, Card, Group, Text } from "@mantine/core";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Grid,
+  Group,
+  Text,
+  Title,
+} from "@mantine/core";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useContext } from "react";
@@ -69,7 +78,16 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
               margin: "52px 52px",
             }}
           >
-            <Box sx={{ width: "100%", maxWidth: "900px" }}>{children}</Box>
+            <Grid>
+              <Grid.Col md={12}>
+                <Title mt="md" order={1}>
+                  Pedidos
+                </Title>
+              </Grid.Col>
+              <Grid.Col md={12}>
+                <Box sx={{ width: "100%", maxWidth: "900px" }}>{children}</Box>
+              </Grid.Col>
+            </Grid>
           </Box>
         </Box>
       </Box>
