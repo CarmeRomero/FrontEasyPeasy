@@ -80,8 +80,8 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
           >
             <Grid>
               <Grid.Col md={12}>
-                <Title mt="md" order={1}>
-                  Pedidos
+                <Title mt="md" order={1} align="center">
+                  {title}
                 </Title>
               </Grid.Col>
               <Grid.Col md={12}>

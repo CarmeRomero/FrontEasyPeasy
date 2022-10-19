@@ -30,14 +30,15 @@ export const FormularioDatosUsuario = () => {
     validate: {},
   });
 
-  const { data } = useUnoSolo();
+  const { data: usuario } = useUnoSolo();
   useEffect(() => {
-    if (data) {
-      const fecha = new Date(data[0].fecha_nacimiento);
-      data[0].fecha_nacimiento = fecha;
-      form.setValues(data[0]);
+    if (usuario) {
+      form.setValues(usuario);
+      const fecha = new Date(usuario.fecha_nacimiento);
+      usuario.fecha_nacimiento = fecha;
     }
-  }, [data]);
+    console.log(usuario);
+  }, [usuario]);
 
   const { mutate, error, isLoading } = useMutateActualizarUsuario();
 

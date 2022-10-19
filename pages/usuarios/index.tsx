@@ -4,10 +4,10 @@ import { ListadoUsuarios } from "../../Components/listados/ListadoUsuarios";
 
 const HomePage = () => {
   return (
-    <DashboardLayout title="Listado de usuarios">
+    <DashboardLayout title="Home">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <h1>HOME</h1>
+          <h1></h1>
         </Grid.Col>
       </Grid>
     </DashboardLayout>

@@ -59,7 +59,7 @@ export function useUsuarios(): UseQueryResult<any, Error> {
 }
 
 export const obtenerUnoSolo = async () => {
-  const { data } = await axios.get(`http://localhost:3000/usuarios`, {
+  const { data } = await axios.get(`http://localhost:3000/usuarios/usuario`, {
     withCredentials: true,
   });
   return data;

@@ -26,6 +26,7 @@ import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ICellRendererParams } from "ag-grid-community";
 import { RegistrarCategoria } from "./registrarCategoria";
+import { SelectItems } from "@mantine/core/lib/components/Select/SelectItems/SelectItems";
 
 interface Props {
   open: boolean;
@@ -34,6 +35,8 @@ interface Props {
 }
 
 export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
+  const [combo, setCombo] = useState();
+
   const form = useForm<IArticulo>({
     initialValues: {
       codigo: "",
@@ -47,15 +50,20 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   const { refetch } = useArticulos();
 
   const { data: articulo } = useUnArticulo(id);
+  const { mutate, error, isLoading } = useMutateArticulo();
+  const { data: categorias } = useCategorias();
 
   useEffect(() => {
     if (articulo) {
-      form.setValues(articulo);
+      form.setValues({
+        codigo: articulo.codigo,
+        descripcion: articulo.descripcion,
+        precio_venta: articulo.precio_venta,
+        id_categoria: articulo.id_categoria,
+      });
     }
   }, [articulo]);
 
-  const { mutate, error, isLoading } = useMutateArticulo();
-  const { data: categorias } = useCategorias();
   const handleSubmit = (values: any) => {
     const articulo: IArticulo = {
       codigo: values.codigo,
@@ -106,7 +114,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             {...form.getInputProps("descripcion")}
             mb="xs"
           />
-          <NumberInput
+          <TextInput
             placeholder="Ingrese el precio"
             label="Precio de venta"
             hideControls
