@@ -58,7 +58,6 @@ export const ListadoDetalle = ({
     id_mesa: pedido.id_mesa,
     id_usuario: pedido.id_usuario,
     fecha_hora_pedido: pedido.fecha_hora_pedido,
-    num_pedido: pedido.num_pedido,
     fecha_hora_entrega: null,
     observaciones: pedido.observaciones,
     estado: "PENDIENTE",

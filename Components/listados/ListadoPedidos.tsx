@@ -11,6 +11,7 @@ import { IArticulo } from "../../interfaces/articulo";
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
 import { usePedidosDelUsuario } from "../../hooks/usePedidos";
 import { ListadoDetalle } from "./ListadoDetalle";
+import { useRouter } from "next/router";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -82,7 +83,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 };
 
 const btnVerDetalle = ({ data }: ICellRendererParams) => {
+  console.log(data);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <Box
@@ -121,11 +124,24 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
         <Menu.Item
           icon={<Edit size={14} />}
           onClick={() => {
-            setOpen(true);
+            router.push({
+              pathname: "/pedidos/modificar-pedido",
+              query: {
+                idPedido: data.id,
+              },
+            });
           }}
         >
           Ver detalle
         </Menu.Item>
+        {/* <Menu.Item
+          icon={<Edit size={14} />}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Ver detalle
+        </Menu.Item> */}
       </Menu>
     </Box>
   );

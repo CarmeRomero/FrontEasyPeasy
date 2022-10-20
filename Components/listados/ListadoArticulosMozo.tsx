@@ -3,35 +3,21 @@ import {
   Box,
   Button,
   Select,
-  SimpleGrid,
   Card,
-  TextInput,
   Textarea,
   Grid,
   Group,
   Text,
-  Switch,
   ActionIcon,
-  Code,
   NumberInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IPedido } from "../../interfaces/registrarPedido";
 import { useMutateCrearPedido } from "../../hooks/usePedidos";
 import { Trash } from "tabler-icons-react";
-import { IUsuario } from "../../interfaces/usuario";
-import { useEffect, useState } from "react";
 import { useUnoSolo } from "../../hooks/useUsuario";
 
 export const ListadoArticulosMozo = () => {
-  // const [usuario, setUsuario] = useState<IUsuario>();
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     setUsuario(JSON.parse(localStorage.getItem("usuario") || ""));
-  //   }
-  // }, []);
-
   const { data: usuario } = useUnoSolo();
 
   const form = useForm<IPedido>({
@@ -39,12 +25,10 @@ export const ListadoArticulosMozo = () => {
       id_mesa: null,
       id_usuario: null,
       fecha_hora_pedido: null,
-      // num_pedido: null,
       fecha_hora_entrega: null,
       observaciones: "",
       estado: "",
       Detalle_Pedidos: [],
-      // employees: [{ name: "", active: false }],
     },
     validate: {},
   });
@@ -55,11 +39,10 @@ export const ListadoArticulosMozo = () => {
       id_mesa: parseInt(values.id_mesa),
       id_usuario: usuario.id,
       fecha_hora_pedido: new Date(),
-      // num_pedido: ,
       fecha_hora_entrega: null,
       observaciones: values.observaciones,
       estado: "PENDIENTE",
-      Detalle_Pedidos: [],
+      Detalle_Pedidos: values.Detalle_Pedidos,
     };
     mutate(pedido, {
       onSuccess: () => {
@@ -67,11 +50,18 @@ export const ListadoArticulosMozo = () => {
       },
     });
   };
-  // const handleChange = (value: any) => {
-  //   form.setFieldValue("id_mesa", value);
-  // };
-  const handleChangeArticulo = (value: any, index: any, item: any) => {
-    form.setFieldValue(`Detalle_Pedidos.${index}.id_articulo`, value);
+
+  const handleChangeArticulo = async (event: any, index: any) => {
+    form.setFieldValue(`Detalle_Pedidos.${index}.id_articulo`, event);
+    const articulo = articulos.find((e: any) => e.id == event);
+    form.setFieldValue(
+      `Detalle_Pedidos.${index}.precio`,
+      articulo.precio_venta
+    );
+  };
+
+  const handleChangeMesa = (event: any) => {
+    form.setFieldValue(`id_mesa`, event);
   };
 
   const { data: articulos } = useArticulos();
@@ -84,8 +74,7 @@ export const ListadoArticulosMozo = () => {
             label="Seleccione un artículo"
             placeholder="Seleccione una"
             id="articulo"
-            onChange={(e) => handleChangeArticulo(e, index, item)}
-            // searchable
+            onChange={(e) => handleChangeArticulo(e, index)}
             autoComplete="off"
             maxDropdownHeight={230}
             nothingFound="No hay artículos"
@@ -105,19 +94,8 @@ export const ListadoArticulosMozo = () => {
             label="Cantidad"
             hideControls
             sx={{}}
-            {...form.getInputProps(`Detalle_Pedidos.${index}.name`)}
+            {...form.getInputProps(`Detalle_Pedidos.${index}.cantidad`)}
           />
-          {/* <TextInput
-        placeholder="John Doe"
-        sx={{ flex: 1 }}
-        {...form.getInputProps(`employees.${index}.name`)}
-      /> */}
-          {/* <Switch
-        label="Active"
-        {...form.getInputProps(`employees.${index}.active`, {
-          type: "checkbox",
-        })}
-      /> */}
         </Grid.Col>
         <Grid.Col xs={2} md={2}>
           <ActionIcon
@@ -176,7 +154,7 @@ export const ListadoArticulosMozo = () => {
               label="Seleccione una mesa"
               placeholder="Seleccione una"
               id="mesas"
-              // onChange={handleChange}
+              onChange={handleChangeMesa}
               // searchable
               autoComplete="off"
               maxDropdownHeight={230}

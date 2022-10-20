@@ -51,8 +51,8 @@ export const obtenerUnPedido = async (id: number) => {
   return data;
 };
 
-export function usePedido(id: number): UseQueryResult<any, Error> {
-  return useQuery<any, Error>(["pedidos", id], () => obtenerUnPedido(id), {
+export function usePedido(id: number): UseQueryResult<IPedido, Error> {
+  return useQuery<IPedido, Error>(["pedidos", id], () => obtenerUnPedido(id), {
     staleTime: Infinity,
   });
 }
