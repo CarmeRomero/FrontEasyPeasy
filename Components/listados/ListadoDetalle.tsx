@@ -34,6 +34,8 @@ import { IPedido } from "../../interfaces/registrarPedido";
 import { usePedido } from "../../hooks/usePedidos";
 import { prepareServerlessUrl } from "next/dist/server/base-server";
 
+////////////NO SE USA ////////////////////////////////////////////////
+
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;

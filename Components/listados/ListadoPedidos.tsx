@@ -46,7 +46,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         id={data.id}
       /> */}
 
-      <Menu
+      {/* <Menu
         placement="end"
         control={
           <Button
@@ -77,7 +77,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         >
           Eliminar
         </Menu.Item>
-      </Menu>
+      </Menu> */}
     </Box>
   );
 };
@@ -116,7 +116,7 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
             my={10}
             sx={{ height: "30px" }}
           >
-            <Eye strokeWidth={2} size={17} />
+            <Dots strokeWidth={2} size={17} />
           </Button>
         }
         withArrow
@@ -132,7 +132,7 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
             });
           }}
         >
-          Ver detalle
+          Editar
         </Menu.Item>
         {/* <Menu.Item
           icon={<Edit size={14} />}
@@ -153,7 +153,12 @@ export const ListadoPedidos = () => {
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
-    { headerName: "N° de mesa", field: "id_mesa", minWidth: 20 },
+    {
+      headerName: "N° de mesa",
+      field: "id_mesa",
+      minWidth: 20,
+      resizable: true,
+    },
     { headerName: "N° de pedido", field: "num_pedido", minWidth: 50 },
     {
       headerName: "Estado",
@@ -176,24 +181,24 @@ export const ListadoPedidos = () => {
       minWidth: 100,
     },
     {
-      headerName: "Ver",
-      field: "Ver",
+      headerName: "Acciones",
+      field: "Acciones",
       pinned: "right",
       resizable: false,
-      width: 60,
+      width: 90,
       filter: false,
       cellRenderer: btnVerDetalle,
     },
 
-    {
-      headerName: "ACCIONES",
-      field: "ACCIONES",
-      pinned: "right",
-      resizable: false,
-      width: 100,
-      filter: false,
-      cellRenderer: btnAcciones,
-    },
+    // {
+    //   headerName: "ACCIONES",
+    //   field: "ACCIONES",
+    //   pinned: "right",
+    //   resizable: false,
+    //   width: 100,
+    //   filter: false,
+    //   cellRenderer: btnAcciones,
+    // },
   ]);
 
   // DefaultColDef sets props common to all Columns
@@ -203,6 +208,11 @@ export const ListadoPedidos = () => {
       filter: true,
       flex: 1,
       floatingFilter: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
+      width: 100,
+      resizable: true,
     }),
     []
   );
@@ -218,7 +228,7 @@ export const ListadoPedidos = () => {
       <div
         className="ag-theme-alpine"
         style={{
-          width: "70vw",
+          width: "75vw",
           height: 500,
           padding: 10,
         }}

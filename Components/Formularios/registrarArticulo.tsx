@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   Stack,
   Textarea,
+  Grid,
   TextInput,
   Select,
   Switch,
@@ -38,7 +39,14 @@ export const FormularioRegistrarArticulo = () => {
       precio_venta: null,
       estado_alta: false,
     },
-    validate: {},
+    validate: {
+      codigo: (value: any) => (value.length <= 0 ? "Ingrese un codigo" : null),
+      id_categoria: (value: any) =>
+        value === "" ? "Seleccione categoria" : null,
+      descripcion: (value: any) =>
+        value.length <= 1 ? "Ingrese una descripcion" : null,
+      precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
+    },
   });
 
   const [open, setOpen] = useState(false);
@@ -86,7 +94,9 @@ export const FormularioRegistrarArticulo = () => {
             <RegistrarCategoria open={open} setOpen={setOpen} />
 
             <form onSubmit={form.onSubmit(handleSubmit)}>
-              <SimpleGrid
+              <Grid>
+                <Grid.Col md={12}>
+                  {/* <SimpleGrid
                 cols={2}
                 spacing="lg"
                 breakpoints={[
@@ -95,102 +105,88 @@ export const FormularioRegistrarArticulo = () => {
                   { maxWidth: "xs", cols: 2, spacing: "sm" },
                 ]}
                 my="md"
-              >
-                <TextInput
-                  label="Código"
-                  placeholder="Código"
-                  id="codigo"
-                  {...form.getInputProps("codigo")}
-                  mb="xs"
-                />
-                <TextInput
-                  placeholder="Ingrese una descripción"
-                  label="Descripción"
-                  {...form.getInputProps("descripcion")}
-                  mb="xs"
-                />
-                <NumberInput
-                  placeholder="Ingrese el precio"
-                  label="Precio de venta"
-                  hideControls
-                  id="precio"
-                  {...form.getInputProps("precio_venta")}
-                  mb="xs"
-                />
-              </SimpleGrid>
-              <SimpleGrid
-                cols={1}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 2, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 2, spacing: "sm" },
-                ]}
-                my="md"
-              >
-                <Select
-                  label="Categoría"
-                  placeholder="Seleccione una"
-                  id="categorias"
-                  onChange={handleChange}
-                  searchable
-                  autoComplete="off"
-                  maxDropdownHeight={230}
-                  nothingFound="No hay categorías"
-                  data={
-                    categorias
-                      ? categorias.map(({ descripcion, id }: any) => ({
-                          label: descripcion,
-                          value: id,
-                        }))
-                      : []
-                  }
-                />
+              > */}
+                  <TextInput
+                    label="Código"
+                    placeholder="Código"
+                    id="codigo"
+                    {...form.getInputProps("codigo")}
+                  />
+                  <TextInput
+                    placeholder="Ingrese una descripción"
+                    label="Descripción"
+                    {...form.getInputProps("descripcion")}
+                  />
+                  <NumberInput
+                    placeholder="Ingrese el precio"
+                    label="Precio de venta"
+                    hideControls
+                    id="precio"
+                    {...form.getInputProps("precio_venta")}
+                  />
+                  {/* </SimpleGrid> */}
+                </Grid.Col>
+              </Grid>
+              <Grid>
+                <Grid.Col md={11}>
+                  <Select
+                    label="Categoría"
+                    placeholder="Seleccione una"
+                    id="categorias"
+                    onChange={handleChange}
+                    searchable
+                    autoComplete="off"
+                    maxDropdownHeight={230}
+                    nothingFound="No hay categorías"
+                    data={
+                      categorias
+                        ? categorias.map(({ descripcion, id }: any) => ({
+                            label: descripcion,
+                            value: id,
+                          }))
+                        : []
+                    }
+                  />
+                </Grid.Col>
 
-                <Menu
-                  placement="end"
-                  control={
-                    <Button variant="light" color="grape" px={10} my={30}>
-                      <Dots strokeWidth={2} size={17} />
-                    </Button>
-                  }
-                  withArrow
-                >
-                  <Menu.Item
-                    icon={<Edit size={14} />}
-                    onClick={() => {
-                      setOpen(true);
-                    }}
+                <Grid.Col md={1}>
+                  <Menu
+                    placement="end"
+                    control={
+                      <Button variant="light" color="grape" px={10} my={30}>
+                        <Dots strokeWidth={2} size={17} />
+                      </Button>
+                    }
+                    withArrow
                   >
-                    Agregar categoría
-                  </Menu.Item>
-                  <Menu.Item
-                    icon={<Trash size={14} />}
-                    onClick={() => {
-                      handleDelete(id_categoria);
-                    }}
-                  >
-                    Eliminar
-                  </Menu.Item>
-                </Menu>
-              </SimpleGrid>
-
-              <SimpleGrid
-                cols={1}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 2, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 2, spacing: "sm" },
-                ]}
-                my="md"
-              >
-                <Switch
-                  label="Habilitar"
-                  color="grape"
-                  {...form.getInputProps("estado_alta")}
-                />
-              </SimpleGrid>
+                    <Menu.Item
+                      icon={<Edit size={14} />}
+                      onClick={() => {
+                        setOpen(true);
+                      }}
+                    >
+                      Agregar categoría
+                    </Menu.Item>
+                    <Menu.Item
+                      icon={<Trash size={14} />}
+                      onClick={() => {
+                        handleDelete(id_categoria);
+                      }}
+                    >
+                      Eliminar
+                    </Menu.Item>
+                  </Menu>
+                </Grid.Col>
+              </Grid>
+              <Grid>
+                <Grid.Col>
+                  <Switch
+                    label="Habilitar"
+                    color="grape"
+                    {...form.getInputProps("estado_alta")}
+                  />
+                </Grid.Col>
+              </Grid>
 
               <Group position="center" mt="xl" my="md">
                 <Button

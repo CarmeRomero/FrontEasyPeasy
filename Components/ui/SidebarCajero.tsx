@@ -309,7 +309,7 @@ const NavSection: FC<Section> = ({ name, items }) => {
               whiteSpace: "nowrap",
             }}
           >
-            {name} {name} {name} {name} {name}
+            {/* {name} {name} {name} {name} {name} */}
           </Box>
         </Box>
       )}

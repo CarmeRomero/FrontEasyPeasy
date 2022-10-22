@@ -30,7 +30,13 @@ export const ListadoArticulosMozo = () => {
       estado: "",
       Detalle_Pedidos: [],
     },
-    validate: {},
+    validate: {
+      id_mesa: (value: any) => (value <= 0 ? "Ingresar una mesa" : null),
+      fecha_hora_pedido: (value: any) =>
+        value != null ? "Ingresar fecha y hora de pedido" : null,
+      Detalle_Pedidos: (value: any) =>
+        (value = [] ? "Seleccione los productos" : null),
+    },
   });
   const { mutate, error, isLoading } = useMutateCrearPedido();
 
@@ -76,6 +82,7 @@ export const ListadoArticulosMozo = () => {
             id="articulo"
             onChange={(e) => handleChangeArticulo(e, index)}
             autoComplete="off"
+            searchable
             maxDropdownHeight={230}
             nothingFound="No hay artículos"
             data={
@@ -101,6 +108,7 @@ export const ListadoArticulosMozo = () => {
           <ActionIcon
             mt="xl"
             variant="outline"
+            radius="lg"
             color="red"
             onClick={() => form.removeListItem("Detalle_Pedidos", index)}
           >
@@ -134,6 +142,8 @@ export const ListadoArticulosMozo = () => {
 
                   <Group position="center" mt="md">
                     <Button
+                      color="grape"
+                      radius="lg"
                       onClick={() =>
                         form.insertListItem("Detalle_Pedidos", {
                           id_articulo: null,
@@ -173,7 +183,15 @@ export const ListadoArticulosMozo = () => {
               my="xs"
               {...form.getInputProps("observaciones")}
             />
-            <Button color="grape" type="submit" mt="xs" sx={{ width: "100%" }}>
+
+            <Button
+              color="grape"
+              radius="lg"
+              variant="outline"
+              type="submit"
+              mt="xs"
+              sx={{ width: "100%" }}
+            >
               Registrar pedido
             </Button>
           </Grid.Col>

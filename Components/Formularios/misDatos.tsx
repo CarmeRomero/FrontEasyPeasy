@@ -27,7 +27,16 @@ export const FormularioDatosUsuario = () => {
       telefono: null,
       direccion: "",
     },
-    validate: {},
+    validate: {
+      nombre: (value: any) => (value.length <= 2 ? "Ingrese nombre" : null),
+      apellido: (value: any) => (value.length <= 2 ? "Ingrese apellido" : null),
+      fecha_nacimiento: (value: any) =>
+        value == null ? "Ingrese una fecha de nacimiento" : null,
+      telefono: (value: any) =>
+        value.length <= 6 ? "Ingrese un teléfono" : null,
+      direccion: (value: any) =>
+        value.length <= 5 ? "Ingrese una dirección" : null,
+    },
   });
 
   const { data: usuario } = useUnoSolo();
@@ -77,19 +86,16 @@ export const FormularioDatosUsuario = () => {
                 label="Nombre"
                 id="nombre"
                 {...form.getInputProps("nombre")}
-                mb="xs"
               />
               <TextInput
                 label="Apellido"
                 id="apellido"
                 {...form.getInputProps("apellido")}
-                mb="xs"
               />
               <NumberInput
                 label="DNI"
                 id="dni"
                 {...form.getInputProps("DNI")}
-                mb="xs"
                 disabled
               />
               <DatePicker
@@ -97,7 +103,6 @@ export const FormularioDatosUsuario = () => {
                 label="Fecha de nacimiento"
                 id="fecha_nacimiento"
                 {...form.getInputProps("fecha_nacimiento")}
-                mb="xs"
               />
 
               <NumberInput
@@ -105,13 +110,11 @@ export const FormularioDatosUsuario = () => {
                 hideControls
                 id="telefono"
                 {...form.getInputProps("telefono")}
-                mb="xs"
               />
               <TextInput
                 label="Dirección"
                 id="direccion"
                 {...form.getInputProps("direccion")}
-                mb="xs"
               />
             </SimpleGrid>
             <SimpleGrid

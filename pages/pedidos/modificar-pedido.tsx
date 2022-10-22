@@ -2,6 +2,7 @@ import { Grid } from "@mantine/core";
 import { useRouter } from "next/router";
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
 import { ModificarArticulosMozo } from "../../Components/listados/ModificarArticulosMozo";
+import { Padre } from "../../Components/listados/Padre";
 import { PedidoProvider } from "../../context/pedido/pedidoProvider";
 
 const ModificarPedidoPage = () => {
@@ -9,11 +10,12 @@ const ModificarPedidoPage = () => {
   const idPedido = Number(query.idPedido as string);
 
   return (
-    <DashboardLayout title="Registrar Pedido">
+    <DashboardLayout title="Editar Pedido">
       <PedidoProvider>
         <Grid columns={12}>
           <Grid.Col span={12}>
-            <ModificarArticulosMozo idPedido={idPedido} />
+            <Padre idPedido={idPedido} />
+            {/* <ModificarArticulosMozo idPedido={idPedido} /> */}
           </Grid.Col>
         </Grid>
       </PedidoProvider>

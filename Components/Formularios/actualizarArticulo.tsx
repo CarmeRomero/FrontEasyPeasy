@@ -45,7 +45,13 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: null,
       estado_alta: false,
     },
-    validate: {},
+    validate: {
+      id_categoria: (value: any) =>
+        value === 0 ? "Seleccione categoría" : null,
+      descripcion: (value: any) =>
+        value.length <= 3 ? "Ingrese una descripcion" : null,
+      precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
+    },
   });
   const { refetch } = useArticulos();
 
@@ -109,13 +115,11 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             disabled
           />
           <TextInput
-            placeholder="Ingrese una descripción"
             label="Descripción"
             {...form.getInputProps("descripcion")}
             mb="xs"
           />
           <TextInput
-            placeholder="Ingrese el precio"
             label="Precio de venta"
             hideControls
             id="precio"

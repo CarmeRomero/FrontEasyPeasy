@@ -14,7 +14,7 @@ export const RegistrarCategoria = ({ open, setOpen }: Props) => {
     },
     validate: {
       descripcion: (value: any) =>
-        value.length <= 0 ? "Ingrese un nombre" : null,
+        value.length <= 0 ? "Ingrese un nombre para la categoría" : null,
     },
   });
 

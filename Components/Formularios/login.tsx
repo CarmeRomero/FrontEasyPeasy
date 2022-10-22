@@ -32,7 +32,10 @@ export const FormularioIngreso = () => {
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Email inválido"),
-      password: (value) => (value.length < 6 ? "Contraseña inválida" : null),
+      password: (value) =>
+        value.length < 6
+          ? "La contraseña debe contener al menos 6 caracteres"
+          : null,
     },
   });
 

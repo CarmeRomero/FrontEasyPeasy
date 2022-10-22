@@ -37,7 +37,9 @@ export const FormularioRegistrarUsuario = () => {
       email: (value: any) =>
         /^\S+@\S+$/.test(value) ? null : "Email inválido",
       password: (value: any) =>
-        value.length < 6 ? "Contraseña inválida" : null,
+        value.length < 6
+          ? "La contraseña debe contener al menos 6 caracteres"
+          : null,
       confirmPassword: (value: any, values: any) =>
         value !== values.password ? "Las contraseñas no son iguales" : null,
       DNI: (values: any) =>

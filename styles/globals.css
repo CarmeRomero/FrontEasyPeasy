@@ -1,4 +1,4 @@
-html,
+/* html,
 body {
   padding: 0;
   margin: 0;
@@ -13,4 +13,11 @@ a {
 
 * {
   box-sizing: border-box;
+} */
+html, body, #root, #root > div {
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+	/* background: url('bg.png'); */
+	/* background-repeat: repeat;   */
 }

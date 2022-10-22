@@ -34,11 +34,25 @@ export function useMutateArticulo() {
 }
 
 // OBTENER
-export const obtenerArticulos = async () => {
+export const obtenerArticulos = async (): Promise<any> => {
   const { data } = await axios.get(`http://localhost:3000/articulos`, {
     withCredentials: true,
   });
-  return data;
+  const articulos = data
+    ? data?.map((obj: any) => {
+        return {
+          value: obj.id,
+          label: obj.descripcion,
+        };
+      })
+    : [
+        {
+          value: "16",
+          label: "sandia",
+        },
+      ];
+
+  return articulos;
 };
 
 export function useArticulos(): UseQueryResult<any, Error> {

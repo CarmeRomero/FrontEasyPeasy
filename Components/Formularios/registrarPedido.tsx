@@ -5,6 +5,8 @@ import { useForm } from "@mantine/form";
 import { IPedido } from "../../interfaces/registrarPedido";
 import { useMutateCrearPedido } from "../../hooks/usePedidos";
 
+//////// NO SE USA /////////////
+
 export const FormularioRegistrarPedido = () => {
   const { detalle } = useContext(PedidoContext);
 
@@ -18,7 +20,13 @@ export const FormularioRegistrarPedido = () => {
       estado: "",
       Detalle_Pedidos: [],
     },
-    validate: {},
+    validate: {
+      id_mesa: (value: any) => (value <= 0 ? "Ingresar una mesa" : null),
+      fecha_hora_pedido: (value: any) =>
+        value != null ? "Ingresar fecha y hora de pedido" : null,
+      // Detalle_Pedidos: (value: any) =>
+      //   (value = [] ? "Seleccione los productos" : null),
+    },
   });
   const { mutate, error, isLoading } = useMutateCrearPedido();
 

@@ -49,24 +49,6 @@ export const SidebarAdmin = () => {
       name: "Usuarios",
       items: [
         {
-          name: "Agregar usuario",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/usuarios",
-        },
-
-        {
           name: "Listado de usuarios",
           icon: (
             <BuildingSkyscraper
@@ -366,7 +348,7 @@ const NavSection: FC<Section> = ({ name, items }) => {
               whiteSpace: "nowrap",
             }}
           >
-            {name} {name} {name} {name} {name}
+            {/* {name} {name} {name} {name} {name} */}
           </Box>
         </Box>
       )}
