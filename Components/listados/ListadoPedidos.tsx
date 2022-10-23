@@ -9,7 +9,11 @@ import { Dots, Edit, Eye, Trash } from "tabler-icons-react";
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
-import { usePedidosDelUsuario } from "../../hooks/usePedidos";
+import {
+  useMutateAnularPedido,
+  usePedido,
+  usePedidosDelUsuario,
+} from "../../hooks/usePedidos";
 import { ListadoDetalle } from "./ListadoDetalle";
 import { useRouter } from "next/router";
 
@@ -83,9 +87,20 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 };
 
 const btnVerDetalle = ({ data }: ICellRendererParams) => {
-  console.log(data);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const { mutate, isLoading, error } = useMutateAnularPedido();
+
+  const { refetch } = usePedidosDelUsuario();
+  //ELIMINAR ARTICULO
+  const handleDelete = (value: any) => {
+    mutate(value, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
 
   return (
     <Box
@@ -134,14 +149,14 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
         >
           Editar
         </Menu.Item>
-        {/* <Menu.Item
-          icon={<Edit size={14} />}
+        <Menu.Item
+          icon={<Trash size={14} />}
           onClick={() => {
-            setOpen(true);
+            handleDelete(data.id);
           }}
         >
-          Ver detalle
-        </Menu.Item> */}
+          Eliminar
+        </Menu.Item>
       </Menu>
     </Box>
   );
@@ -156,14 +171,14 @@ export const ListadoPedidos = () => {
     {
       headerName: "N° de mesa",
       field: "id_mesa",
-      minWidth: 20,
+      minWidth: 30,
       resizable: true,
     },
     { headerName: "N° de pedido", field: "num_pedido", minWidth: 50 },
     {
       headerName: "Estado",
       field: "estado",
-      minWidth: 100,
+      minWidth: 60,
     },
     {
       headerName: "Hora del pedido",
@@ -217,10 +232,11 @@ export const ListadoPedidos = () => {
     []
   );
 
-  const { data } = usePedidosDelUsuario();
+  const { data, refetch } = usePedidosDelUsuario();
 
   useEffect(() => {
     setRowData(data);
+    refetch();
   }, [data]);
 
   return (

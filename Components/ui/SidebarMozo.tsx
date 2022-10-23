@@ -191,7 +191,7 @@ export const SidebarMozo = () => {
 const NavContainer: FC<PropsContainer> = ({ children }) => {
   const { isNavCollapsed } = useContext(UiContext);
 
-  console.log(isNavCollapsed);
+  // console.log(isNavCollapsed);
   return (
     <Box
       sx={{

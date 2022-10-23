@@ -17,6 +17,7 @@ import {
 import { useForm } from "@mantine/form";
 import { BoxMargin, Dots, Edit, Id, Trash } from "tabler-icons-react";
 import {
+  actualizarArticulo,
   useArticulos,
   useMutateArticulo,
   useUnArticulo,
@@ -49,14 +50,14 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       id_categoria: (value: any) =>
         value === 0 ? "Seleccione categoría" : null,
       descripcion: (value: any) =>
-        value.length <= 3 ? "Ingrese una descripcion" : null,
+        value.length < 2 ? "Ingrese una descripcion" : null,
       precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
     },
   });
   const { refetch } = useArticulos();
 
   const { data: articulo } = useUnArticulo(id);
-  const { mutate, error, isLoading } = useMutateArticulo();
+  // const { mutate, error, isLoading } = useMutateActualizarArticulo();
   const { data: categorias } = useCategorias();
 
   useEffect(() => {
@@ -73,17 +74,17 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   const handleSubmit = (values: any) => {
     const articulo: IArticulo = {
       codigo: values.codigo,
-      id_categoria: parseInt(values.id_categoria),
+      // id_categoria: parseInt(values.id_categoria),
+      id_categoria: 22,
       descripcion: values.descripcion,
       precio_venta: values.precio_venta,
       estado_alta: values.estado_alta,
     };
-    mutate(articulo, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
+
+    actualizarArticulo(id, articulo);
+    refetch();
   };
+
   const handleChange = (value: any) => {
     form.setFieldValue("id_categoria", value);
   };

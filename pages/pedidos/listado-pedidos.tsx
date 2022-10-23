@@ -5,7 +5,7 @@ import { PedidoProvider } from "../../context/pedido/pedidoProvider";
 
 const ListadoPedidosPage = () => {
   return (
-    <DashboardLayout title="Listado de usuarios">
+    <DashboardLayout title="Listado de pedidos">
       <PedidoProvider>
         <Grid columns={12}>
           <Grid.Col span={12}>

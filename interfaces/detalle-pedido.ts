@@ -1,5 +1,5 @@
 export interface IDetallePedido {
-  id_articulo: any | null;
+  id_articulo: number | null;
   cantidad: number | null;
   precio: number | null;
 }

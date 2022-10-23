@@ -6,6 +6,7 @@ import {
   UseQueryResult,
 } from "react-query";
 import { IArticulo } from "../interfaces/articulo";
+import { IPrueba } from "../interfaces/prueba";
 
 export const crearArticulo = async (articulo: IArticulo) => {
   const { data } = await axios.post(
@@ -38,21 +39,21 @@ export const obtenerArticulos = async (): Promise<any> => {
   const { data } = await axios.get(`http://localhost:3000/articulos`, {
     withCredentials: true,
   });
-  const articulos = data
-    ? data?.map((obj: any) => {
-        return {
-          value: obj.id,
-          label: obj.descripcion,
-        };
-      })
-    : [
-        {
-          value: "16",
-          label: "sandia",
-        },
-      ];
+  // const articulos = data
+  //   ? data?.map((obj: any) => {
+  //       return {
+  //         value: obj.id,
+  //         label: obj.descripcion,
+  //       };
+  //     })
+  //   : [
+  //       {
+  //         value: "16",
+  //         label: "sandia",
+  //       },
+  //     ];
 
-  return articulos;
+  return data;
 };
 
 export function useArticulos(): UseQueryResult<any, Error> {
@@ -121,31 +122,44 @@ export function useArticulosMismaCategoria(
     }
   );
 }
-//MODIFICAR ARTICULO
-export const actualizarArticulo = async (articulo: IArticulo) => {
+//MODIFICAR ARTICULO CON  2 PARAMETROS
+// export const actualizarArticulo = async ({ id, articulo }: IPrueba) => {
+//   const { data } = await axios.put(
+//     `http://localhost:3000/articulos/${id}`, //URL
+//     // ${id}
+//     articulo, // OBJETO DEL BODY
+//     {
+//       withCredentials: true, //OBJETO DE CONFIGURACiÓN
+//     }
+//   );
+//   return data;
+// };
+
+// export function useMutateActualizarArticulo({ id, articulo }: IPrueba) {
+//   const mutation: UseMutationResult<any, Error, any> = useMutation(
+//     actualizarArticulo, id,
+//     {
+//       onSuccess: (data) => {
+//         console.log("Artículo actualizado", data);
+//       },
+//       onError: (error) => {
+//         console.log("no se pudo actualizar", error);
+//       },
+//     }
+//   );
+
+//   return mutation;
+// }
+
+//SIN MUTATE
+export const actualizarArticulo = async (id: number, articulo: IArticulo) => {
+  console.log(articulo, id);
   const { data } = await axios.put(
-    `http://localhost:3000/articulos`, //URL
-    // ${id}
-    articulo, // OBJETO DEL BODY
+    `http://localhost:3000/articulos/${id}`,
+    articulo,
     {
-      withCredentials: true, //OBJETO DE CONFIGURACiÓN
+      withCredentials: true,
     }
   );
   return data;
 };
-
-export function useMutateActualizarArticulo() {
-  const mutation: UseMutationResult<any, Error, any> = useMutation(
-    actualizarArticulo,
-    {
-      onSuccess: (data) => {
-        console.log("Artículo actualizado", data);
-      },
-      onError: (error) => {
-        console.log("no se pudo actualizar", error);
-      },
-    }
-  );
-
-  return mutation;
-}

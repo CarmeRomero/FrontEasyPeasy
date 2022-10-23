@@ -113,7 +113,7 @@ export const FormularioRegistrarPedido = () => {
               </Box>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "center" }} mt={10}>
-              <Button variant="outline" color="grape">
+              <Button type="submit" variant="outline" color="grape">
                 Registrar pedido
               </Button>
             </Box>

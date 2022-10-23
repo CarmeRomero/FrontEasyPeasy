@@ -34,8 +34,8 @@ export const ListadoArticulosMozo = () => {
       id_mesa: (value: any) => (value <= 0 ? "Ingresar una mesa" : null),
       fecha_hora_pedido: (value: any) =>
         value != null ? "Ingresar fecha y hora de pedido" : null,
-      Detalle_Pedidos: (value: any) =>
-        (value = [] ? "Seleccione los productos" : null),
+      // Detalle_Pedidos: (value: any) =>
+      //   (value = [] ? "Seleccione los productos" : null),
     },
   });
   const { mutate, error, isLoading } = useMutateCrearPedido();

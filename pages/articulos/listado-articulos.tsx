@@ -4,7 +4,7 @@ import { ListadoArticulos } from "../../Components/listados/ListadoArticulos";
 
 const ListadoArticulosPage = () => {
   return (
-    <DashboardLayout title="Listado de usuarios">
+    <DashboardLayout title="Listado artículos">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ListadoArticulos />

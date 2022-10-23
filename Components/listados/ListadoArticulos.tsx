@@ -52,7 +52,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         placement="end"
         control={
           <Button
-            variant="light"
+            variant="filled"
             color="grape"
             px={10}
             my={10}
