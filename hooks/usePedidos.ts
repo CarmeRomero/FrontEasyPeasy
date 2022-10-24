@@ -85,8 +85,6 @@ export const actualizarPedido = async (
   id: number,
   pedido: IModificarPedido
 ) => {
-  // delete pedido.Detalle_Pedidos.id_pedido?
-
   const { data } = await axios.put(
     `http://localhost:3000/pedidos/${id}`,
     pedido,

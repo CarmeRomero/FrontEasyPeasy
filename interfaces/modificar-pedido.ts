@@ -1,4 +1,4 @@
-import { IDetallePedido } from "./detalle-pedido";
+import { IActualizarDetallePedido } from "./detalle-pedido-actualizar";
 
 export interface IModificarPedido {
   id_mesa: number | null;
@@ -6,5 +6,5 @@ export interface IModificarPedido {
   fecha_hora_entrega?: Date | null;
   observaciones: string;
   estado?: string;
-  Detalle_Pedidos: IDetallePedido[];
+  Detalle_Pedidos: IActualizarDetallePedido[];
 }

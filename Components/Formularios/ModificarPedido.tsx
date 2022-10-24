@@ -76,6 +76,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
       ? (values.estado = "CANCELADO")
       : "";
 
+    console.log(values);
     const pedido: IModificarPedido = {
       id_mesa: parseInt(values.id_mesa),
       fecha_hora_pedido: values.fecha_hora_pedido,
@@ -84,6 +85,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
       estado: values.estado,
       Detalle_Pedidos: values.Detalle_Pedidos,
     };
+
     // mutate(pedido, {
     //   onSuccess: () => {
     //     console.log(values);
@@ -187,7 +189,6 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                   completedIcon={<Check />}
                   allowStepSelect={active > 0}
                   value="PENDIENTE"
-                  // {...form.setFieldValue(`estado`,"PENDIENTE")}
                 ></Stepper.Step>
                 <Stepper.Step
                   label="ENTREGADO"
@@ -254,6 +255,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                         radius="lg"
                         onClick={() =>
                           form.insertListItem("Detalle_Pedidos", {
+                            // id_pedido: null,
                             id_articulo: null,
                             cantidad: null,
                             precio: null,
