@@ -70,24 +70,19 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
           id="main-content"
         >
           <Header />
+          <Title mt={60} align="center">
+            {title}
+          </Title>
           <Box
             sx={{
               display: "flex",
+              flex: 1,
               justifyContent: "center",
               minHeight: "min-content",
               margin: "52px 52px",
             }}
           >
-            <Grid>
-              <Grid.Col md={12}>
-                <Title mt="md" order={1} align="center">
-                  {title}
-                </Title>
-              </Grid.Col>
-              <Grid.Col md={12}>
-                <Box sx={{ width: "100%", maxWidth: "900px" }}>{children}</Box>
-              </Grid.Col>
-            </Grid>
+            <Box sx={{ width: "100%" }}>{children}</Box>
           </Box>
         </Box>
       </Box>
