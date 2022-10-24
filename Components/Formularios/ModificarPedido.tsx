@@ -16,7 +16,13 @@ import {
 import { useForm } from "@mantine/form";
 import { IPedido } from "../../interfaces/registrarPedido";
 import { actualizarPedido, usePedido } from "../../hooks/usePedidos";
-import { Check, CircleCheck, CircleX, Trash } from "tabler-icons-react";
+import {
+  Check,
+  CircleCheck,
+  CircleX,
+  DentalBroken,
+  Trash,
+} from "tabler-icons-react";
 import { useEffect, useState } from "react";
 import { IModificarPedido } from "../../interfaces/modificar-pedido";
 
@@ -76,7 +82,11 @@ export const ModificarPedido = ({ idPedido }: Props) => {
       ? (values.estado = "CANCELADO")
       : "";
 
-    console.log(values);
+    const detalle_pedido = values.Detalle_Pedidos.map((detalle: any) => {
+      delete detalle.id_pedido;
+      return detalle;
+    });
+    console.log(detalle_pedido);
     const pedido: IModificarPedido = {
       id_mesa: parseInt(values.id_mesa),
       fecha_hora_pedido: values.fecha_hora_pedido,

@@ -171,29 +171,27 @@ export const ListadoPedidos = () => {
     {
       headerName: "N° de mesa",
       field: "id_mesa",
-      minWidth: 30,
+      width: 70,
       resizable: true,
     },
-    { headerName: "N° de pedido", field: "num_pedido", minWidth: 50 },
+    { headerName: "N° de pedido", field: "num_pedido", width: 150 },
     {
       headerName: "Estado",
       field: "estado",
-      minWidth: 60,
     },
     {
       headerName: "Hora del pedido",
       field: "fecha_hora_pedido",
-      minWidth: 200,
+      width: 150,
     },
     {
-      headerName: "Hora de al entrega",
+      headerName: "Hora de entrega",
       field: "fecha_hora_entrega",
-      minWidth: 200,
+      width: 150,
     },
     {
       headerName: "Estado mesa",
       field: "Mesas.estado",
-      minWidth: 100,
     },
     {
       headerName: "Acciones",

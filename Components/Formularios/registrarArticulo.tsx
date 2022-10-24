@@ -73,25 +73,25 @@ export const FormularioRegistrarArticulo = () => {
     setIdCategoria(value);
   };
 
-  const { refetch } = useCategorias();
+  // const { refetch } = useCategorias();
 
-  const { mutate: mutateCategoria } = useMutateCategoriaEliminar();
+  // const { mutate: mutateCategoria } = useMutateCategoriaEliminar();
 
-  //ELIMINAR CATEGORIA
-  const handleDelete = (value: any) => {
-    mutateCategoria(value, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
-  };
+  // //ELIMINAR CATEGORIA
+  // const handleDelete = (value: any) => {
+  //   mutateCategoria(value, {
+  //     onSuccess: () => {
+  //       refetch();
+  //     },
+  //   });
+  // };
 
   return (
     <Stack spacing="xs">
       <Card sx={{ width: "100%" }} mx="auto" p="lg" mt="lg">
         <>
           <Box>
-            <RegistrarCategoria open={open} setOpen={setOpen} />
+            {/* <RegistrarCategoria open={open} setOpen={setOpen} /> */}
 
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Grid>
@@ -128,7 +128,7 @@ export const FormularioRegistrarArticulo = () => {
                 </Grid.Col>
               </Grid>
               <Grid>
-                <Grid.Col md={11}>
+                <Grid.Col md={9}>
                   <Select
                     label="Categoría"
                     placeholder="Seleccione una"
@@ -149,7 +149,7 @@ export const FormularioRegistrarArticulo = () => {
                   />
                 </Grid.Col>
 
-                <Grid.Col md={1}>
+                {/* <Grid.Col md={1}>
                   <Menu
                     placement="end"
                     control={
@@ -176,10 +176,8 @@ export const FormularioRegistrarArticulo = () => {
                       Eliminar
                     </Menu.Item>
                   </Menu>
-                </Grid.Col>
-              </Grid>
-              <Grid>
-                <Grid.Col>
+                </Grid.Col> */}
+                <Grid.Col md={3} mt={35} pl={30}>
                   <Switch
                     label="Habilitar"
                     color="grape"

@@ -129,6 +129,50 @@ export const SidebarAdmin = () => {
         },
       ],
     },
+    {
+      name: "Categorías",
+      items: [
+        {
+          name: "Agregar categoría",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/categorias",
+        },
+      ],
+    },
+    {
+      name: "Formas de pago",
+      items: [
+        {
+          name: "Agregar forma de pago",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/forma-pago",
+        },
+      ],
+    },
   ];
 
   const btnCollapseNav: CSSObject[] = [
