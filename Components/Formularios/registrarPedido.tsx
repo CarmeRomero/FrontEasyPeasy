@@ -63,9 +63,9 @@ export const FormularioRegistrarPedido = () => {
           maxDropdownHeight={230}
           nothingFound="No hay mesas"
           data={[
-            { value: "1", label: "Mesa 1" },
+            { value: "3", label: "Mesa 1" },
             { value: "2", label: "Mesa 2" },
-            { value: "3", label: "Mesa 3" },
+            { value: "1", label: "Mesa 3" },
           ]}
         />
         <SimpleGrid

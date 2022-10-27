@@ -6,6 +6,7 @@ import {
   UseQueryResult,
 } from "react-query";
 import { IModificarPedido } from "../interfaces/modificar-pedido";
+import { IPedidoDelTicket } from "../interfaces/pedidoDelTicket";
 import { IPedido } from "../interfaces/registrarPedido";
 
 const crearPedido = async (pedido: IPedido) => {
@@ -56,6 +57,27 @@ export function usePedido(id: number): UseQueryResult<IPedido, Error> {
   return useQuery<IPedido, Error>(["pedidos", id], () => obtenerUnPedido(id), {
     staleTime: Infinity,
   });
+}
+
+//Pedido por mesa
+export const obtenerPedidoDeUnaMesa = async (id: number) => {
+  const { data } = await axios.get(
+    `http://localhost:3000/pedidos/pedido-mesa/${id}`,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function usePedidoMesa(id: number): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(
+    ["pedidosMesa", id],
+    () => obtenerPedidoDeUnaMesa(id),
+    {
+      staleTime: Infinity,
+    }
+  );
 }
 
 /// MODIFICAR PEDIDO

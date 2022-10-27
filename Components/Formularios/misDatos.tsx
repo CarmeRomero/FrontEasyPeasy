@@ -40,6 +40,8 @@ export const FormularioDatosUsuario = () => {
   });
 
   const { data: usuario } = useUnoSolo();
+  console.log(usuario);
+
   useEffect(() => {
     if (usuario) {
       form.setValues(usuario);

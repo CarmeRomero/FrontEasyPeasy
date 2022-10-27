@@ -51,7 +51,6 @@ export const ListadoDetalle = ({
   detallito,
   pedido,
 }: Props) => {
-  //   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
   const [detalle, setDetalle] = useState([]);
 
   const [open2, setOpen2] = useState(false);

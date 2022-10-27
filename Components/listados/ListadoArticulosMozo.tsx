@@ -16,6 +16,7 @@ import { IPedido } from "../../interfaces/registrarPedido";
 import { useMutateCrearPedido } from "../../hooks/usePedidos";
 import { Trash } from "tabler-icons-react";
 import { useUnoSolo } from "../../hooks/useUsuario";
+import { useMesas } from "../../hooks/useMesas";
 
 export const ListadoArticulosMozo = () => {
   const { data: usuario } = useUnoSolo();
@@ -39,6 +40,7 @@ export const ListadoArticulosMozo = () => {
     },
   });
   const { mutate, error, isLoading } = useMutateCrearPedido();
+  const { data: mesas } = useMesas();
 
   const handleSubmit = (values: any) => {
     const pedido: IPedido = {
@@ -161,19 +163,22 @@ export const ListadoArticulosMozo = () => {
           </Grid.Col>
           <Grid.Col md={12}>
             <Select
-              label="Seleccione una mesa"
-              placeholder="Seleccione una"
+              label="Seleccione el número de mesa"
+              placeholder="Seleccione uno"
               id="mesas"
               onChange={handleChangeMesa}
               // searchable
               autoComplete="off"
               maxDropdownHeight={230}
               nothingFound="No hay mesas"
-              data={[
-                { value: "1", label: "Mesa 1" },
-                { value: "2", label: "Mesa 2" },
-                { value: "3", label: "Mesa 3" },
-              ]}
+              data={
+                mesas
+                  ? mesas.map(({ id, num_mesa }: any) => ({
+                      label: num_mesa,
+                      value: id,
+                    }))
+                  : []
+              }
             />
 
             <Textarea

@@ -43,12 +43,12 @@ export const RegistrarFormaPago = () => {
     ? formaPago.map((formaPago: any) => (
         <tr key={formaPago.id}>
           <td>{formaPago.descripcion}</td>
-          <td>
+          {/* <td>
             <Switch
               checked={checked}
               onChange={(event) => setChecked(event.currentTarget.checked)}
             />
-          </td>
+          </td> */}
           <td>
             <Button
               variant="light"
@@ -101,7 +101,7 @@ export const RegistrarFormaPago = () => {
           <thead>
             <tr>
               <th>Forma de pago </th>
-              <th>Activo/inactivo</th>
+              {/* <th>Activo/inactivo</th> */}
               <th>Acciones</th>
             </tr>
           </thead>

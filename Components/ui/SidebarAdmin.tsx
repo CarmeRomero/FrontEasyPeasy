@@ -107,28 +107,7 @@ export const SidebarAdmin = () => {
         },
       ],
     },
-    {
-      name: "Cerrar Sesión",
-      items: [
-        {
-          name: "Cerrar Sesión",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/autorizacion/ingreso",
-        },
-      ],
-    },
+
     {
       name: "Categorías",
       items: [
@@ -170,6 +149,72 @@ export const SidebarAdmin = () => {
             />
           ),
           path: "/forma-pago",
+        },
+      ],
+    },
+    {
+      name: "Mesas",
+      items: [
+        {
+          name: "Agregar mesa",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/mesas",
+        },
+      ],
+    },
+    {
+      name: "Tickets",
+      items: [
+        {
+          name: "Generar ticket",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/ticket",
+        },
+      ],
+    },
+    {
+      name: "Cerrar Sesión",
+      items: [
+        {
+          name: "Cerrar Sesión",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/autorizacion/ingreso",
         },
       ],
     },

@@ -1,6 +1,5 @@
 import { Grid } from "@mantine/core";
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
-import { RegistrarMesa } from "../../Components/RegistrarMesa";
 import { PedidoProvider } from "../../context/pedido/pedidoProvider";
 
 const RegistrarMesasPage = () => {

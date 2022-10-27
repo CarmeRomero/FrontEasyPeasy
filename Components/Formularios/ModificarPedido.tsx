@@ -25,6 +25,7 @@ import {
 } from "tabler-icons-react";
 import { useEffect, useState } from "react";
 import { IModificarPedido } from "../../interfaces/modificar-pedido";
+import { useMesas } from "../../hooks/useMesas";
 
 interface Props {
   idPedido: number;
@@ -36,6 +37,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
   const { data: articulos } = useArticulos();
 
   const { data: pedidoPorId, isLoading } = usePedido(idPedido);
+  const { data: mesas } = useMesas();
 
   const form = useForm<IPedido>({
     initialValues: {
@@ -281,7 +283,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
             </Grid.Col>
             <Grid.Col md={12}>
               <Select
-                label="Seleccione una mesa"
+                label="Seleccione el número de mesa"
                 placeholder="Seleccione una"
                 id="mesas"
                 onChange={handleChangeMesa}
@@ -289,11 +291,14 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                 autoComplete="off"
                 maxDropdownHeight={230}
                 nothingFound="No hay mesas"
-                data={[
-                  { value: "1", label: "Mesa 1" },
-                  { value: "2", label: "Mesa 2" },
-                  { value: "3", label: "Mesa 3" },
-                ]}
+                data={
+                  mesas
+                    ? mesas.map(({ id, num_mesa }: any) => ({
+                        label: num_mesa,
+                        value: id,
+                      }))
+                    : []
+                }
               />
 
               <Textarea
