@@ -7,6 +7,8 @@ import {
   ActionIcon,
   Select,
   NumberInput,
+  Text,
+  Divider,
   Table,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -19,6 +21,8 @@ import { usePedidoMesa } from "../../hooks/usePedidos";
 import { useMesas, useUnaMesa } from "../../hooks/useMesas";
 import { ITicket } from "../../interfaces/ticket";
 import { IPedidoDelTicket } from "../../interfaces/pedidoDelTicket";
+import { AlignJustified } from "tabler-icons-react";
+import { useMutateTicket } from "../../hooks/useTickets";
 
 export const RegistrarTicket = () => {
   const [numMesa, setNumMesa] = useState(0);
@@ -27,48 +31,74 @@ export const RegistrarTicket = () => {
   const [precio, setPrecio] = useState(0);
   const { data: articulos } = useArticulos();
   const { data: mesas } = useMesas();
+  const [numPedido, setNumPedido] = useState<number>();
+
   let precioTotal = 0;
 
   useEffect(() => {
     if (Array.isArray(pedidoMesa)) {
       if (pedidoMesa.length > 0) {
         setDetalle(pedidoMesa[0].Detalle_Pedidos);
-
-        form.setValues({
-          id_pedido: pedidoMesa[0].id,
-          id_usuario: pedidoMesa[0].id_usuario,
-          id_forma_pago: 1,
-        });
-
-        let a;
+        setNumPedido(pedidoMesa[0].num_pedido);
       } else {
-        form.setValues({
-          id_pedido: 0,
-          id_usuario: 0,
-          id_forma_pago: 0,
-        });
         setDetalle([]);
+        setNumPedido(0);
       }
-    } else {
-      form.setValues({
-        id_pedido: 0,
-        id_usuario: 0,
-        id_forma_pago: 0,
-      });
+      // } else {
+      //   setDetalle([]);
+      //     form.setValues({
+      //       id_pedido: 0,
+      //       id_usuario: 0,
+      //       id_forma_pago: 0,
+      //     });
+      //   }
+      // } else {
+      // setDetalle([]);
+
+      //   form.setValues({
+      //     id_pedido: 0,
+      //     id_usuario: 0,
+      //     id_forma_pago: 0,
+      //   });
+      // }
     }
   }, [pedidoMesa]);
 
   detalle
     ? detalle.map((detalle: any) => (precioTotal += parseInt(detalle.precio)))
     : [];
-  console.log(precioTotal);
 
-  const handleSubmit = (values: any) => {
-    // console.log(values);
+  const { mutate } = useMutateTicket();
+
+  const handleSubmit = () => {
+    const ticket: ITicket = {
+      id_pedido: pedidoMesa[0].id,
+      id_usuario: pedidoMesa[0].id_usuario,
+      fecha_hora: new Date(),
+      estado_pendiente_pago: true,
+      total: precioTotal,
+    };
+
+    mutate(ticket, {
+      onSuccess: () => {
+        console.log(ticket);
+      },
+    });
   };
+
+  // const notificacion = () => (
+  //   <Notification
+  //       icon={<Check size={18} />}
+  //       color="teal"
+  //       title="Teal notification"
+  //     >
+  //       This is teal notification with icon
+  //     </Notification>;
+  // )
+
   const handleChange = (value: any) => {
     setNumMesa(value);
-    form.setFieldValue("id_mesa", value);
+    // form.setFieldValue("id_mesa", value);
   };
 
   const rows = detalle
@@ -81,23 +111,11 @@ export const RegistrarTicket = () => {
       ))
     : [];
 
-  const form = useForm<ITicket>({
-    initialValues: {
-      id_pedido: null,
-      id_usuario: null,
-      id_forma_pago: 1,
-      num_ticket: 1515,
-      estado_pendiente_pago: true,
-      total: precioTotal,
-    },
-    validate: {},
-  });
-
   return (
     <>
       <Box>
         <Grid>
-          <Grid.Col xs={12}>
+          <Grid.Col xs={6}>
             <Select
               label="Mesas"
               placeholder="Seleccione un número de mesa"
@@ -115,7 +133,16 @@ export const RegistrarTicket = () => {
               }
             />
           </Grid.Col>
+          <Grid.Col xs={6}>
+            <TextInput
+              disabled
+              label="Número del pedido:"
+              defaultValue={numPedido == 0 ? 0 : numPedido}
+            />
+          </Grid.Col>
         </Grid>
+
+        <Divider my="xl" />
       </Box>
       <Box>
         <Grid>
@@ -131,18 +158,22 @@ export const RegistrarTicket = () => {
               <tbody>{rows}</tbody>
             </Table>
           </Grid.Col>
-          <form onSubmit={form.onSubmit(handleSubmit)}>
-            <Button
-              color="grape"
-              radius="lg"
-              variant="outline"
-              type="submit"
-              mt="xs"
-              sx={{ width: "100%" }}
-            >
-              Guardar cambios
-            </Button>
-          </form>
+          <Button
+            color="grape"
+            radius="lg"
+            variant="outline"
+            type="submit"
+            mt="xs"
+            onClick={handleSubmit}
+            sx={{
+              width: 50,
+              display: "flex",
+              flex: 1,
+              justifyContent: "center",
+            }}
+          >
+            Generar ticket
+          </Button>
         </Grid>
       </Box>
     </>

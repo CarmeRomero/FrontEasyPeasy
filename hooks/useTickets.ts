@@ -8,7 +8,7 @@ import {
 import { ITicket } from "../interfaces/ticket";
 
 export const crearTicket = async (ticket: ITicket) => {
-  const { data } = await axios.post(`http://localhost:3000/ticket`, ticket, {
+  const { data } = await axios.post(`http://localhost:3000/tickets`, ticket, {
     withCredentials: true,
   });
   return data;
