@@ -1,13 +1,13 @@
 import { Grid } from "@mantine/core";
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
-import { Mesa } from "../../Components/RegistrarMesa";
+import { Diagrama } from "../../Components/ActualizarDiagrama";
 
 const MesasPage = () => {
   return (
     <DashboardLayout title="Registrar mesas">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <Mesa />
+          <Diagrama />
         </Grid.Col>
       </Grid>
     </DashboardLayout>

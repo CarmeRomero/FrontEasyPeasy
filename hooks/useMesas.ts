@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AnyARecord } from "dns";
 import {
   useMutation,
   UseMutationResult,
@@ -34,4 +33,27 @@ export function useUnaMesa(id: number): UseQueryResult<any, Error> {
   return useQuery<any, Error>(["pedidos", id], () => obtenerUnaMesa(id), {
     staleTime: Infinity,
   });
+}
+
+export const agregarUnaMesa = async (mesa: any) => {
+  const { data } = await axios.post(`http://localhost:3000/mesas`, mesa, {
+    withCredentials: true,
+  });
+  return data;
+};
+
+export function useMutateMesa() {
+  const mutation: UseMutationResult<any, Error, any> = useMutation(
+    agregarUnaMesa,
+    {
+      onSuccess: (data) => {
+        console.log("mesa mutation success", data);
+      },
+      onError: (error) => {
+        console.log("mesa mutation error", error);
+      },
+    }
+  );
+
+  return mutation;
 }

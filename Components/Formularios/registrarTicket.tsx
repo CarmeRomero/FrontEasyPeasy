@@ -19,29 +19,15 @@ import { usePedidoMesa } from "../../hooks/usePedidos";
 import { useMesas, useUnaMesa } from "../../hooks/useMesas";
 import { ITicket } from "../../interfaces/ticket";
 import { IPedidoDelTicket } from "../../interfaces/pedidoDelTicket";
-import { AgGridReact } from "ag-grid-react";
 
 export const RegistrarTicket = () => {
   const [numMesa, setNumMesa] = useState(0);
+  const { data: pedidoMesa, refetch } = usePedidoMesa(numMesa);
   const [detalle, setDetalle] = useState([]);
   const [precio, setPrecio] = useState(0);
-
   const { data: articulos } = useArticulos();
   const { data: mesas } = useMesas();
-
-  const form = useForm<ITicket>({
-    initialValues: {
-      id_pedido: null,
-      id_usuario: null,
-      id_forma_pago: 1,
-      num_ticket: 1515,
-      estado_pendiente_pago: true,
-      total: 500,
-    },
-    validate: {},
-  });
-
-  const { data: pedidoMesa, refetch } = usePedidoMesa(numMesa);
+  let precioTotal = 0;
 
   useEffect(() => {
     if (Array.isArray(pedidoMesa)) {
@@ -53,7 +39,6 @@ export const RegistrarTicket = () => {
           id_usuario: pedidoMesa[0].id_usuario,
           id_forma_pago: 1,
         });
-        console.log(pedidoMesa[0].Detalle_Pedidos[0].precio);
 
         let a;
       } else {
@@ -73,19 +58,17 @@ export const RegistrarTicket = () => {
     }
   }, [pedidoMesa]);
 
+  detalle
+    ? detalle.map((detalle: any) => (precioTotal += parseInt(detalle.precio)))
+    : [];
+  console.log(precioTotal);
+
   const handleSubmit = (values: any) => {
     // console.log(values);
   };
   const handleChange = (value: any) => {
-    form.setFieldValue("id_mesa", value);
     setNumMesa(value);
-
-    detalle
-      ? detalle.map((detalle: any) =>
-          setPrecio(precio + parseInt(detalle.precio))
-        )
-      : [];
-    console.log(precio);
+    form.setFieldValue("id_mesa", value);
   };
 
   const rows = detalle
@@ -97,6 +80,18 @@ export const RegistrarTicket = () => {
         </tr>
       ))
     : [];
+
+  const form = useForm<ITicket>({
+    initialValues: {
+      id_pedido: null,
+      id_usuario: null,
+      id_forma_pago: 1,
+      num_ticket: 1515,
+      estado_pendiente_pago: true,
+      total: precioTotal,
+    },
+    validate: {},
+  });
 
   return (
     <>
