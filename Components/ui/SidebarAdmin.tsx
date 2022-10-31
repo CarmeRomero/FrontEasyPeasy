@@ -194,6 +194,23 @@ export const SidebarAdmin = () => {
           ),
           path: "/ticket",
         },
+        {
+          name: "Listado de tickets",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "ticket/listado-tickets",
+        },
       ],
     },
     {

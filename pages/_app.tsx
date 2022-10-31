@@ -4,6 +4,7 @@ import { UiProvider } from "../context";
 import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,9 +22,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         withGlobalStyles
         withNormalizeCSS
       >
-        <UiProvider>
-          <Component {...pageProps} />
-        </UiProvider>
+        <NotificationsProvider>
+          <UiProvider>
+            <Component {...pageProps} />
+          </UiProvider>
+        </NotificationsProvider>
       </MantineProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

@@ -8,15 +8,16 @@ import {
   NumberInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
-import { useMesas, useMutateMesa } from "../../hooks/useMesas";
-import { useEffect } from "react";
+import { useMutateMesa } from "../../hooks/useMesas";
+import { IMesa } from "../../interfaces/mesa";
 
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
+  refetch: () => void;
 }
 
-export const RegistrarMesa = ({ open, setOpen }: Props) => {
+export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
   const form = useForm({
     initialValues: {
       num_mesa: 1,
@@ -26,28 +27,26 @@ export const RegistrarMesa = ({ open, setOpen }: Props) => {
       y: 50,
       width: 100,
       height: 100,
-      // num_mesa: null,
-      // color: "",
-      // ubicacion: "",
-      // x: null,
-      // y: null,
-      // width: null,
-      // height: null,
     },
+    // validationRules: {
+    //   num_mesa: (value: any) =>
+    //     value == 0 ? "Ingrese un número de mesa correcto" : null,
+    //   descripcion: (value: any) =>
+    //     value.length < 2 ? "Ingrese una descripcion" : null,
+    //   precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
+    // },
   });
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
   const { mutate } = useMutateMesa();
-  const { data, refetch } = useMesas();
 
   const handleSubmit = (values: any) => {
     console.log(values);
-    mutate(values);
+    mutate(values, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
     setOpen(false);
-    refetch();
   };
 
   return (

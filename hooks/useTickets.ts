@@ -31,9 +31,12 @@ export function useMutateTicket() {
 
 // OBTENER
 export const obtenerTickets = async () => {
-  const { data } = await axios.get(`http://localhost:3000/ticket`, {
-    withCredentials: true,
-  });
+  const { data } = await axios.get(
+    `http://localhost:3000/tickets/listado-tickets`,
+    {
+      withCredentials: true,
+    }
+  );
 
   return data;
 };

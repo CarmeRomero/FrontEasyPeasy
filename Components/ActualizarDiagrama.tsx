@@ -1,23 +1,15 @@
 import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
-import { useMesas } from "../hooks/useMesas";
+import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
 import { RegistrarMesa } from "./Formularios/RegistrarMesa";
 
 export const Diagrama = () => {
   const [open, setOpen] = useState(false);
-  const [mesas, setMesas] = useState([
-    // {
-    //   nombre: "mesa 1",
-    //   estilos: { width: 200, height: 100, x: 100, y: 100 },
-    // },
-    // {
-    //   nombre: "mesa 2",
-    //   estilos: { width: 200, height: 100, x: 400, y: 100 },
-    // },
-  ]);
+  const [mesas, setMesas] = useState([]);
 
   const { data, refetch } = useMesas();
+  const { mutate } = useMutateModificarMesa();
 
   useEffect(() => {
     if (data) {
@@ -30,68 +22,76 @@ export const Diagrama = () => {
           };
         }
       );
-      // Usuarios: null
-      // color: "#a1e6b3"
-      // estado: "LIBRE"
-      // height: 100
-      // id: 6
-      // id_usuario: null
-      // num_mesa: 1
-      // ubicacion: "ADENTRO"
-      // width: 100
-      // x: 20
-      // y: 50
-      console.log(data);
       setMesas(mesasBase);
     }
   }, [data]);
 
-  useEffect(() => {
-    refetch();
-  }, []);
+  const arrastrar = (d: any, mesa: any) => {
+    const mesasFiltradas: any[] = mesas.filter(
+      (mesalocal: any) => mesalocal.id !== mesa.id
+    );
 
-  const arrastrar = (d: any) => {
-    console.log(d);
+    const modificarMesa: any = mesas.find(
+      (mesalocal: any) => mesalocal.id == mesa.id
+    );
+
+    modificarMesa.estilos = {
+      ...modificarMesa.estilos,
+      x: d.x,
+      y: d.y,
+    };
+
+    const nuevoArreglo: any = [...mesasFiltradas, modificarMesa];
+
+    setMesas(nuevoArreglo);
   };
 
   const renderMesas = mesas.map((mesa: any) => (
-    <Rnd
-      bounds="parent"
-      style={{
-        background: mesa.estilos.background,
-        padding: "20px",
-        border: "1px solid black",
-        borderRadius: "5px",
-      }}
-      onDragStop={(e, d) => {
-        arrastrar(d);
-      }}
-      default={{
-        ...mesa.estilos,
-      }}
-    >
-      {mesa.nombre}
-    </Rnd>
+    <>
+      <Rnd
+        bounds="parent"
+        position={{ x: mesa.estilos.x, y: mesa.estilos.y }}
+        size={{ width: mesa.estilos.width, height: mesa.estilos.height }}
+        style={{
+          background: mesa.estilos.background,
+          padding: "20px",
+          border: "1px solid black",
+          borderRadius: "5px",
+        }}
+        onDragStop={(e, d) => {
+          arrastrar(d, mesa);
+        }}
+        default={{
+          ...mesa.estilos,
+        }}
+      >
+        {mesa.num_mesa}
+      </Rnd>
+    </>
   ));
 
-  // const handleClick = () => {
-  //   setMesas([
-  //     ...mesas,
-  //     {
-  //       nombre: "mesa x",
-  //       estilos: { width: 200, height: 100, x: 100, y: 100 },
-  //     },
-  //   ]);
-  //   console.log(mesas);
-  // };
-
+  const { mutate: updateMesa } = useMutateModificarMesa();
   const handleClickGuardar = () => {
-    console.log(mesas);
+    const arregloMesas = mesas.map((mesa: any) => {
+      return {
+        id: mesa.id,
+        x: mesa.estilos.x,
+        y: mesa.estilos.y,
+        width: mesa.estilos.width,
+        height: mesa.estilos.height,
+      };
+    });
+    updateMesa(arregloMesas, {
+      onSuccess: () => {
+        // form.reset();
+      },
+    });
+    console.log(arregloMesas);
   };
 
   return (
     <>
-      <RegistrarMesa open={open} setOpen={setOpen} />
+      <RegistrarMesa open={open} setOpen={setOpen} refetch={refetch} />
       <Button my="sm" onClick={() => setOpen(true)}>
         Agregar mesa
       </Button>

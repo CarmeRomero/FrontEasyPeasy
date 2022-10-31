@@ -15,6 +15,7 @@
     "@mantine/hooks": "^4.2.2",
     "@mantine/modals": "^4.2.8",
     "@mantine/next": "^4.2.2",
+    "@mantine/notifications": "^4.2.12",
     "@types/react-beautiful-dnd": "^13.1.2",
     "ag-grid-community": "^27.3.0",
     "ag-grid-react": "^27.3.0",
