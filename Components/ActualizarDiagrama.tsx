@@ -7,6 +7,7 @@ import { RegistrarMesa } from "./Formularios/RegistrarMesa";
 export const Diagrama = () => {
   const [open, setOpen] = useState(false);
   const [mesas, setMesas] = useState([]);
+  const [mesaSeleccionada, setMesaSeleccionada] = useState();
 
   const { data, refetch } = useMesas();
   const { mutate } = useMutateModificarMesa();
@@ -46,9 +47,15 @@ export const Diagrama = () => {
     setMesas(nuevoArreglo);
   };
 
-  const renderMesas = mesas.map((mesa: any) => (
+  const handleClick = (mesa: any, index: any) => {
+    console.log(mesa, index);
+    // setMesaSeleccionada(mesa);
+  };
+
+  const renderMesas = mesas.map((mesa: any, index) => (
     <>
       <Rnd
+        key={index}
         bounds="parent"
         position={{ x: mesa.estilos.x, y: mesa.estilos.y }}
         size={{ width: mesa.estilos.width, height: mesa.estilos.height }}
@@ -58,6 +65,7 @@ export const Diagrama = () => {
           border: "1px solid black",
           borderRadius: "5px",
         }}
+        onClick={() => handleClick(mesa, index)}
         onDragStop={(e, d) => {
           arrastrar(d, mesa);
         }}
@@ -89,11 +97,18 @@ export const Diagrama = () => {
     console.log(arregloMesas);
   };
 
+  const eliminarMesa = () => {
+    console.log(mesas);
+  };
+
   return (
     <>
       <RegistrarMesa open={open} setOpen={setOpen} refetch={refetch} />
       <Button my="sm" onClick={() => setOpen(true)}>
         Agregar mesa
+      </Button>
+      <Button my="sm" onClick={() => eliminarMesa()}>
+        eliminar mesa
       </Button>
       <div
         style={{

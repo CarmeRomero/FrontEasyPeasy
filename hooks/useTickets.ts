@@ -5,6 +5,7 @@ import {
   useQuery,
   UseQueryResult,
 } from "react-query";
+import { Id } from "tabler-icons-react";
 import { ITicket } from "../interfaces/ticket";
 
 export const crearTicket = async (ticket: ITicket) => {
@@ -43,6 +44,19 @@ export const obtenerTickets = async () => {
 
 export function useTickets(): UseQueryResult<any, Error> {
   return useQuery<any, Error>(["ticket"], () => obtenerTickets(), {
+    staleTime: Infinity,
+  });
+}
+export const obtenerUnTicket = async (id: number) => {
+  const { data } = await axios.get(`http://localhost:3000/tickets/${id}`, {
+    withCredentials: true,
+  });
+
+  return data;
+};
+
+export function useUnTicket(id: number): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["ticket", id], () => obtenerUnTicket(id), {
     staleTime: Infinity,
   });
 }

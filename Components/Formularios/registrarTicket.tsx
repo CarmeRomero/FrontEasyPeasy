@@ -103,11 +103,14 @@ export const RegistrarTicket = () => {
 
   const rows = detalle
     ? detalle.map((detalle: any) => (
-        <tr key={detalle.id_articulo}>
-          <td>{detalle.id_articulo}</td>
-          <td>{detalle.cantidad}</td>
-          <td>{detalle.precio}</td>
-        </tr>
+        <>
+          {console.log(detalle)}
+          <tr key={detalle.Articulos.id}>
+            <td>{detalle.Articulos.descripcion}</td>
+            <td>{detalle.cantidad}</td>
+            <td>{detalle.Articulos.precio_venta}</td>
+          </tr>
+        </>
       ))
     : [];
 

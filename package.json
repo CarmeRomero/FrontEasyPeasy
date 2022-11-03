@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "react-query": "^3.39.2",
     "react-rnd": "^10.3.7",
+    "react-to-print": "^2.14.7",
     "tabler-icons-react": "^1.55.0"
   },
   "devDependencies": {

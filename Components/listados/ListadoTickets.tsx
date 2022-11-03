@@ -4,21 +4,20 @@ import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 import { ICellRendererParams } from "ag-grid-community";
-import { useRouter } from "next/router";
-import { Badge, Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, Trash } from "tabler-icons-react";
+import { Box, Button, Menu } from "@mantine/core";
+import { Dots, Edit, FileInvoice, Trash } from "tabler-icons-react";
 import {
   useArticulos,
   useMutateAnularArticulo,
 } from "../../hooks/useArticulos";
-import { useCategorias } from "../../hooks/useCategoria";
-import { IArticulo } from "../../interfaces/articulo";
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
 import { useTickets } from "../../hooks/useTickets";
+import { Ticket } from "../Formularios/Ticket";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
-  const { mutate, isLoading, error } = useMutateAnularArticulo();
+  const [openTicket, setOpenTicket] = useState(false);
+  const { mutate } = useMutateAnularArticulo();
 
   const { refetch } = useArticulos();
 
@@ -48,7 +47,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         setOpen={setOpen}
         id={data.id}
       />
-
+      {openTicket && (
+        <Ticket open={openTicket} setOpen={setOpenTicket} id={data.id} />
+      )}
       <Menu
         placement="end"
         control={
@@ -70,7 +71,15 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
             setOpen(true);
           }}
         >
-          Editar artículo
+          Editar ticket
+        </Menu.Item>
+        <Menu.Item
+          icon={<FileInvoice size={14} />}
+          onClick={() => {
+            setOpenTicket(true);
+          }}
+        >
+          Ver ticket
         </Menu.Item>
         <Menu.Item
           icon={<Trash size={14} />}
