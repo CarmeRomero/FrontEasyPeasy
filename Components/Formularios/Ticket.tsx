@@ -23,6 +23,7 @@ interface Props {
 
 export const Ticket = ({ open, setOpen, id }: Props) => {
   const [ticket, setTicket] = useState<ITicketDetalle | any>(null);
+  const [fecha, setFecha] = useState(Date);
 
   const { data: obtenerTicket } = useUnTicket(id);
 
@@ -51,6 +52,9 @@ export const Ticket = ({ open, setOpen, id }: Props) => {
     );
   });
 
+  console.log(ticket);
+  // var mes = new Date(ticket?.fecha_hora);
+
   return (
     <Modal opened={open} onClose={() => setOpen(false)} size={MODAL_SIZES.md}>
       <Box ref={componentRef}>
@@ -74,7 +78,17 @@ export const Ticket = ({ open, setOpen, id }: Props) => {
             <Divider />
             <Group position="apart" px={10}>
               <Text>Total:</Text>
-              <Text>{ticket.total}</Text>
+              <Text>{ticket && ticket.total}</Text>
+            </Group>
+            <br />
+            <Divider variant="dashed" />
+            <Group position="center" px={10}>
+              <Text>Fecha: </Text>
+              <Text>{ticket && ticket.fecha_hora}</Text>
+            </Group>
+            <Group position="center" px={10}>
+              <Text>Forma de pago: </Text>
+              <Text>{ticket && ticket.formas_pago?.descripcion}</Text>
             </Group>
           </Grid.Col>
         </Grid>

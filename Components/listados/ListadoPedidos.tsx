@@ -170,7 +170,7 @@ export const ListadoPedidos = () => {
   const [columnDefs, setColumnDefs] = useState([
     {
       headerName: "N° de mesa",
-      field: "id_mesa",
+      field: "Mesas.num_mesa",
       width: 70,
       resizable: true,
     },

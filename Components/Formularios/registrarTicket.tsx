@@ -33,6 +33,7 @@ export const RegistrarTicket = () => {
   const { data: mesas } = useMesas();
   const [numPedido, setNumPedido] = useState<number>();
 
+  let cantPrecio = 0;
   let precioTotal = 0;
 
   useEffect(() => {
@@ -65,7 +66,10 @@ export const RegistrarTicket = () => {
   }, [pedidoMesa]);
 
   detalle
-    ? detalle.map((detalle: any) => (precioTotal += parseInt(detalle.precio)))
+    ? detalle.map(
+        (detalle: any) =>
+          (precioTotal += parseInt(detalle.precio) * parseInt(detalle.cantidad))
+      )
     : [];
 
   const { mutate } = useMutateTicket();
@@ -86,19 +90,8 @@ export const RegistrarTicket = () => {
     });
   };
 
-  // const notificacion = () => (
-  //   <Notification
-  //       icon={<Check size={18} />}
-  //       color="teal"
-  //       title="Teal notification"
-  //     >
-  //       This is teal notification with icon
-  //     </Notification>;
-  // )
-
   const handleChange = (value: any) => {
     setNumMesa(value);
-    // form.setFieldValue("id_mesa", value);
   };
 
   const rows = detalle

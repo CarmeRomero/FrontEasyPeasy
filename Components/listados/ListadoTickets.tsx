@@ -13,22 +13,11 @@ import {
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
 import { useTickets } from "../../hooks/useTickets";
 import { Ticket } from "../Formularios/Ticket";
+import { FormularioCobro } from "../Formularios/registrarCobro";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
   const [openTicket, setOpenTicket] = useState(false);
-  const { mutate } = useMutateAnularArticulo();
-
-  const { refetch } = useArticulos();
-
-  //ELIMINAR ARTICULO
-  const handleDelete = (value: any) => {
-    mutate(value, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
-  };
 
   return (
     <Box
@@ -42,54 +31,42 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
     >
       {/* ABRIR MODAL */}
 
-      <FormularioActualizarArticulo
+      <FormularioCobro
         open={open}
         setOpen={setOpen}
         id={data.id}
+        mesa={data.Pedido.Mesas.num_mesa}
       />
       {openTicket && (
         <Ticket open={openTicket} setOpen={setOpenTicket} id={data.id} />
       )}
-      <Menu
-        placement="end"
-        control={
-          <Button
-            variant="filled"
-            color="grape"
-            px={10}
-            my={10}
-            sx={{ height: "30px" }}
-          >
-            <Dots strokeWidth={2} size={17} />
-          </Button>
-        }
-        withArrow
+
+      <Button
+        variant="filled"
+        color="grape"
+        px={10}
+        my={10}
+        sx={{ height: "30px" }}
+        onClick={() => {
+          setOpenTicket(true);
+        }}
       >
-        <Menu.Item
-          icon={<Edit size={14} />}
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          Editar ticket
-        </Menu.Item>
-        <Menu.Item
-          icon={<FileInvoice size={14} />}
-          onClick={() => {
-            setOpenTicket(true);
-          }}
-        >
-          Ver ticket
-        </Menu.Item>
-        <Menu.Item
-          icon={<Trash size={14} />}
-          onClick={() => {
-            handleDelete(data.id);
-          }}
-        >
-          Eliminar
-        </Menu.Item>
-      </Menu>
+        <FileInvoice size={14} />
+      </Button>
+
+      <Button
+        variant="filled"
+        color="red"
+        mx={5}
+        px={10}
+        my={10}
+        sx={{ height: "30px" }}
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Cobrar
+      </Button>
     </Box>
   );
 };
@@ -103,18 +80,22 @@ export const ListadoTickets = () => {
     { headerName: "Ticket", field: "num_ticket", minWidth: 100 },
     {
       headerName: "Mesa",
-      field: "Pedido.id_mesa",
+      field: "Pedido.Mesas.num_mesa",
       minWidth: 100,
     },
     { headerName: "Fecha y hora", field: "fecha_hora", minWidth: 100 },
 
-    { headerName: "Forma de pago", field: "formas_pago", minWidth: 100 },
+    {
+      headerName: "Forma de pago",
+      field: "formas_pago.descripcion",
+      minWidth: 100,
+    },
     {
       headerName: "ACCIONES",
       field: "ACCIONES",
       pinned: "right",
       resizable: false,
-      width: 100,
+      width: 150,
       filter: false,
       cellRenderer: btnAcciones,
     },
@@ -132,7 +113,7 @@ export const ListadoTickets = () => {
   );
 
   const { data } = useTickets();
-
+  console.log(data);
   useEffect(() => {
     setRowData(data);
     console.log(data);
