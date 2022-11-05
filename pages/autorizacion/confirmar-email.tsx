@@ -4,7 +4,6 @@ import {
   Card,
   Title,
   Divider,
-  Box,
   LoadingOverlay,
   Center,
 } from "@mantine/core";
@@ -14,7 +13,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-const ConfirmarEmailPage = () => {
+const RecordarPage = () => {
   const { query } = useRouter();
 
   const { mutate, isSuccess, error, data, isLoading } =
@@ -61,4 +60,4 @@ const ConfirmarEmailPage = () => {
   );
 };
 
-export default ConfirmarEmailPage;
+export default RecordarPage;

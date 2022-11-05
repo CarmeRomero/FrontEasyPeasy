@@ -53,22 +53,21 @@ export const FormularioCobro = ({ open, setOpen, id, mesa }: Props) => {
     },
     validate: {
       id_forma_pago: (value: any) =>
-        value === 0 ? "Seleccione una forma de pago" : null,
+        value <= 0 ? "Seleccione una forma de pago" : null,
     },
   });
   const { refetch } = useTickets();
 
   const { data: formaDePago } = useFormasPago();
 
-  useEffect(() => {}, [formaDePago]);
-  console.log(mesa);
+  // useEffect(() => {}, [formaDePago]);
 
   const handleSubmit = (values: any) => {
     const formaPago: ICobro = {
       id_forma_pago: parseInt(values.id_forma_pago),
       estado_pendiente_pago: false,
     };
-
+    console.log(formaPago);
     actualizarTicket(id, formaPago);
     refetch();
     setOpen(true);

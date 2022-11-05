@@ -105,3 +105,30 @@ export function useMutateModificarMesa() {
 
   return mutation;
 }
+
+export const anularMesa = async (id: number) => {
+  const { data } = await axios.put(`http://localhost:3000/mesas/anular/${id}`, {
+    withCredentials: true,
+  });
+  return data;
+};
+
+export function useMutateAnularMesa() {
+  const mutation: UseMutationResult<any, Error, any> = useMutation(anularMesa, {
+    onSuccess: (data) => {
+      showNotification({
+        // icon:<CircleCheck />,
+        title: "Éxito!",
+        message: "La mesa fue eliminada!👌",
+        color: "green",
+        autoClose: 6000,
+      });
+      console.log("mesa mutation success", data);
+    },
+    onError: (error) => {
+      console.log("mesa mutation error", error);
+    },
+  });
+
+  return mutation;
+}

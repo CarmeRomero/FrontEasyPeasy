@@ -54,65 +54,84 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
       opened={open}
       onClose={() => setOpen(false)}
       title="Agregar mesa"
-      size={MODAL_SIZES.sm}
+      size={MODAL_SIZES.md}
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Grid>
           <Grid.Col md={12}>
             <NumberInput
-              label="num_mesa"
+              label="Número de la mesa"
               placeholder="num_mesa"
               autoComplete="off"
               id="num_mesa"
+              hideControls
               {...form.getInputProps("num_mesa")}
             />
             <TextInput
-              label="color"
+              label="Color"
               placeholder="color"
               autoComplete="off"
               id="color"
               {...form.getInputProps("color")}
             />
             <TextInput
-              label="ubicacion"
+              label="Ubicacion"
               placeholder="ubicacion"
               autoComplete="off"
               id="ubicacion"
               {...form.getInputProps("ubicacion")}
             />
+          </Grid.Col>
+
+          <Grid.Col md={6}>
             <NumberInput
-              label="x"
+              label="Posición: x"
               placeholder="x"
               autoComplete="off"
               id="x"
+              hideControls
               {...form.getInputProps("x")}
             />
             <NumberInput
-              label="y"
+              label="Posición: y"
               placeholder="y"
               autoComplete="off"
               id="y"
+              hideControls
               {...form.getInputProps("y")}
             />
+          </Grid.Col>
+          <Grid.Col md={6}>
             <NumberInput
-              label="width"
+              label="Ancho de la mesa"
               placeholder="width"
               autoComplete="off"
               id="width"
+              hideControls
               {...form.getInputProps("width")}
             />
             <NumberInput
-              label="height"
+              label="Largo de la mesa"
               placeholder="height"
               autoComplete="off"
               id="height"
+              hideControls
               {...form.getInputProps("height")}
             />
           </Grid.Col>
         </Grid>
 
-        <Group position="right" mt="xl">
-          <Button type="submit">Agregar</Button>
+        <Group position="center" mt="xl">
+          <Button
+            variant="outline"
+            fullWidth
+            color="grape"
+            radius="xl"
+            size="md"
+            type="submit"
+          >
+            Agregar
+          </Button>
         </Group>
       </form>
     </Modal>

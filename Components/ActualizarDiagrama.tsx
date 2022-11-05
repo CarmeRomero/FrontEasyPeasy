@@ -2,10 +2,13 @@ import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
+import { EliminarMesa } from "./Formularios/EliminarMesa";
 import { RegistrarMesa } from "./Formularios/RegistrarMesa";
 
 export const Diagrama = () => {
   const [open, setOpen] = useState(false);
+  const [openEliminar, setOpenEliminar] = useState(false);
+
   const [mesas, setMesas] = useState([]);
   const [mesaSeleccionada, setMesaSeleccionada] = useState();
 
@@ -97,17 +100,19 @@ export const Diagrama = () => {
     console.log(arregloMesas);
   };
 
-  const eliminarMesa = () => {
-    console.log(mesas);
-  };
-
   return (
     <>
       <RegistrarMesa open={open} setOpen={setOpen} refetch={refetch} />
+      <EliminarMesa
+        open={openEliminar}
+        setOpen={setOpenEliminar}
+        refetch={refetch}
+      />
+
       <Button my="sm" onClick={() => setOpen(true)}>
         Agregar mesa
       </Button>
-      <Button my="sm" onClick={() => eliminarMesa()}>
+      <Button my="sm" onClick={() => setOpenEliminar(true)}>
         eliminar mesa
       </Button>
       <div

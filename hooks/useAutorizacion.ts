@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import { useMutation, UseMutationResult } from "react-query";
 import { ITokenConfirmacion } from "../interfaces/token-confirmacion";
@@ -101,6 +102,58 @@ export function useMutateLogout() {
       },
     }
   );
+
+  return mutation;
+}
+
+const recuperar = async (recuperar: any) => {
+  const { data } = await axios.post(
+    `http://localhost:3000/autenticacion/recuperar`,
+    recuperar,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateRecuperar() {
+  const mutation: UseMutationResult<null, any, any> = useMutation(recuperar, {
+    onSuccess: () => {
+      console.log("enviado");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  return mutation;
+}
+
+const cambiarPass = async (datos: any) => {
+  const { data } = await axios.post(
+    `http://localhost:3000/autenticacion/cambiar-password`,
+    datos,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateCambiarPassword() {
+  const mutation: UseMutationResult<null, any, any> = useMutation(cambiarPass, {
+    onSuccess: () => {
+      showNotification({
+        title: "Contraseña modificada",
+        message: "Ya puede ingresar con la nueva contraseña",
+        autoClose: true,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return mutation;
 }
