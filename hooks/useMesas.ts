@@ -132,3 +132,36 @@ export function useMutateAnularMesa() {
 
   return mutation;
 }
+
+export const actualizarEstado = async (id: number) => {
+  const { data } = await axios.put(
+    `http://localhost:3000/mesas/actualizarEstado/${id}`,
+
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateActualizarEstado() {
+  const mutation: UseMutationResult<any, Error, any> = useMutation(
+    actualizarEstado,
+    {
+      onSuccess: (data) => {
+        showNotification({
+          title: "La mesa fue LIBERADA !",
+          message: "Ya se puede usar 👌",
+          color: "green",
+          autoClose: 6000,
+        });
+        console.log("mesa mutation success", data);
+      },
+      onError: (error) => {
+        console.log("mesa mutation error", error);
+      },
+    }
+  );
+
+  return mutation;
+}

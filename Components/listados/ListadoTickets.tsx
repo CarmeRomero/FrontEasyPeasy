@@ -19,6 +19,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
   const [openTicket, setOpenTicket] = useState(false);
 
+  console.log(data);
   return (
     <Box
       sx={{
@@ -36,6 +37,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         setOpen={setOpen}
         id={data.id}
         mesa={data.Pedido.Mesas.num_mesa}
+        idMesa={data.Pedido.Mesas.id}
       />
       {openTicket && (
         <Ticket open={openTicket} setOpen={setOpenTicket} id={data.id} />

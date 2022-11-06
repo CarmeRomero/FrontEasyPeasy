@@ -1,49 +1,21 @@
-import {
-  Box,
-  Button,
-  Card,
-  Group,
-  NumberInput,
-  SimpleGrid,
-  Stack,
-  Grid,
-  Textarea,
-  TextInput,
-  Select,
-  Switch,
-  Menu,
-  Modal,
-  MODAL_SIZES,
-} from "@mantine/core";
+import { Button, Group, Grid, Select, Modal, MODAL_SIZES } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { BoxMargin, Dots, Edit, Id, Trash } from "tabler-icons-react";
-import {
-  actualizarArticulo,
-  useArticulos,
-  useMutateArticulo,
-  useUnArticulo,
-} from "../../hooks/useArticulos";
+
 import { useFormasPago } from "../../hooks/useFormasPago";
-import { IArticulo } from "../../interfaces/articulo";
-import { useState, useRef, useEffect, useMemo } from "react";
-import { ICellRendererParams } from "ag-grid-community";
-import { RegistrarCategoria } from "./registrarCategoria";
-import { SelectItems } from "@mantine/core/lib/components/Select/SelectItems/SelectItems";
-import { IActualizarFormaPago as ICobro } from "../../interfaces/actualizar-forma-pago";
-import {
-  actualizarTicket,
-  useTickets,
-  useUnTicket,
-} from "../../hooks/useTickets";
+import { useState } from "react";
+import { ICobro } from "../../interfaces/cobro";
+import { actualizarTicket, useTickets } from "../../hooks/useTickets";
+import { useMutateActualizarEstado } from "../../hooks/useMesas";
 
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
   id: number;
   mesa: number;
+  idMesa: number;
 }
 
-export const FormularioCobro = ({ open, setOpen, id, mesa }: Props) => {
+export const FormularioCobro = ({ open, setOpen, id, mesa, idMesa }: Props) => {
   const [combo, setCombo] = useState();
 
   const form = useForm<ICobro>({
@@ -57,18 +29,25 @@ export const FormularioCobro = ({ open, setOpen, id, mesa }: Props) => {
     },
   });
   const { refetch } = useTickets();
+  const { mutate } = useMutateActualizarEstado();
 
   const { data: formaDePago } = useFormasPago();
 
   // useEffect(() => {}, [formaDePago]);
 
   const handleSubmit = (values: any) => {
-    const formaPago: ICobro = {
+    const cobro: ICobro = {
       id_forma_pago: parseInt(values.id_forma_pago),
       estado_pendiente_pago: false,
     };
-    console.log(formaPago);
-    actualizarTicket(id, formaPago);
+
+    actualizarTicket(id, cobro);
+    mutate(idMesa, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+
     refetch();
     setOpen(true);
   };

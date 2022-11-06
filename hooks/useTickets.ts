@@ -6,7 +6,7 @@ import {
   UseQueryResult,
 } from "react-query";
 import { Id } from "tabler-icons-react";
-import { IActualizarFormaPago } from "../interfaces/actualizar-forma-pago";
+import { IActualizarFormaPago } from "../interfaces/cobro";
 import { IFormaPago } from "../interfaces/registrar-forma-pago";
 import { ITicket } from "../interfaces/ticket";
 
