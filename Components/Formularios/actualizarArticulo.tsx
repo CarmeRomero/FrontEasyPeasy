@@ -74,8 +74,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   const handleSubmit = (values: any) => {
     const articulo: IArticulo = {
       codigo: values.codigo,
-      // id_categoria: parseInt(values.id_categoria),
-      id_categoria: 22,
+      id_categoria: parseInt(values.id_categoria),
       descripcion: values.descripcion,
       precio_venta: values.precio_venta,
       estado_alta: values.estado_alta,

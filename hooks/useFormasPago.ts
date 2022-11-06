@@ -46,7 +46,7 @@ export function useFormasPago(): UseQueryResult<any, Error> {
 
 export const anularFormaPago = async (id: number) => {
   const { data } = await axios.put(
-    `http://localhost:3000/pedidos/anular/${id}`,
+    `http://localhost:3000/formas-pago/anular/${id}`,
     {
       withCredentials: true,
     }
