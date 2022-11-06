@@ -133,9 +133,9 @@ export function useMutateAnularMesa() {
   return mutation;
 }
 
-export const actualizarEstado = async (id: number) => {
+export const actualizarEstadoLibre = async (id: number) => {
   const { data } = await axios.put(
-    `http://localhost:3000/mesas/actualizarEstado/${id}`,
+    `http://localhost:3000/mesas/actualizarEstadoLibre/${id}`,
 
     {
       withCredentials: true,
@@ -144,13 +144,46 @@ export const actualizarEstado = async (id: number) => {
   return data;
 };
 
-export function useMutateActualizarEstado() {
+export function useMutateActualizarEstadoLibre() {
   const mutation: UseMutationResult<any, Error, any> = useMutation(
-    actualizarEstado,
+    actualizarEstadoLibre,
     {
       onSuccess: (data) => {
         showNotification({
           title: "La mesa fue LIBERADA !",
+          message: "Ya se puede usar 👌",
+          color: "green",
+          autoClose: 6000,
+        });
+        console.log("mesa mutation success", data);
+      },
+      onError: (error) => {
+        console.log("mesa mutation error", error);
+      },
+    }
+  );
+
+  return mutation;
+}
+
+export const actualizarEstadoOcupado = async (id: number) => {
+  const { data } = await axios.put(
+    `http://localhost:3000/mesas/actualizarEstadoOcupado/${id}`,
+
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useMutateActualizarEstadoOcupado() {
+  const mutation: UseMutationResult<any, Error, any> = useMutation(
+    actualizarEstadoOcupado,
+    {
+      onSuccess: (data) => {
+        showNotification({
+          title: "La mesa fue OCUPADA!",
           message: "Ya se puede usar 👌",
           color: "green",
           autoClose: 6000,

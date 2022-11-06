@@ -5,7 +5,7 @@ import { useFormasPago } from "../../hooks/useFormasPago";
 import { useState } from "react";
 import { ICobro } from "../../interfaces/cobro";
 import { actualizarTicket, useTickets } from "../../hooks/useTickets";
-import { useMutateActualizarEstado } from "../../hooks/useMesas";
+import { useMutateActualizarEstadoLibre } from "../../hooks/useMesas";
 
 interface Props {
   open: boolean;
@@ -29,7 +29,7 @@ export const FormularioCobro = ({ open, setOpen, id, mesa, idMesa }: Props) => {
     },
   });
   const { refetch } = useTickets();
-  const { mutate } = useMutateActualizarEstado();
+  const { mutate } = useMutateActualizarEstadoLibre();
 
   const { data: formaDePago } = useFormasPago();
 

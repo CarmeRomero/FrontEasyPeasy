@@ -16,7 +16,10 @@ import { IPedido } from "../../interfaces/registrarPedido";
 import { useMutateCrearPedido } from "../../hooks/usePedidos";
 import { Trash } from "tabler-icons-react";
 import { useUnoSolo } from "../../hooks/useUsuario";
-import { useMesas } from "../../hooks/useMesas";
+import {
+  useMesas,
+  useMutateActualizarEstadoOcupado,
+} from "../../hooks/useMesas";
 
 export const ListadoArticulosMozo = () => {
   const { data: usuario } = useUnoSolo();
@@ -41,6 +44,7 @@ export const ListadoArticulosMozo = () => {
   });
   const { mutate, error, isLoading } = useMutateCrearPedido();
   const { data: mesas } = useMesas();
+  const { mutate: estadoMesa } = useMutateActualizarEstadoOcupado();
 
   const handleSubmit = (values: any) => {
     const pedido: IPedido = {
@@ -55,6 +59,11 @@ export const ListadoArticulosMozo = () => {
     mutate(pedido, {
       onSuccess: () => {
         console.log(values);
+      },
+    });
+    estadoMesa(values.id_mesa, {
+      onSuccess: () => {
+        console.log("idMESA:" + values.id_mesa);
       },
     });
   };

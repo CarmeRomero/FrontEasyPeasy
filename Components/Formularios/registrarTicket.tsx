@@ -33,7 +33,6 @@ export const RegistrarTicket = () => {
   const { data: mesas } = useMesas();
   const [numPedido, setNumPedido] = useState<number>();
 
-  let cantPrecio = 0;
   let precioTotal = 0;
 
   useEffect(() => {
