@@ -1,17 +1,17 @@
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
 import { Grid } from "@mantine/core";
-import { ListadoTickets } from "../../Components/listados/ListadoTickets";
+import { ReporteAdminTres } from "../../Components/reportes/ReporteAdminTres";
 
-const TicketsPage = () => {
+const AdminReporteTresPage = () => {
   return (
-    <DashboardLayout title="Listado de tickets">
+    <DashboardLayout title="Reporte 3">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <ListadoTickets />
+          <ReporteAdminTres />
         </Grid.Col>
       </Grid>
     </DashboardLayout>
   );
 };
 
-export default TicketsPage;
+export default AdminReporteTresPage;

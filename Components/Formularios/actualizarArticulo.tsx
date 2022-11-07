@@ -1,33 +1,22 @@
 import {
-  Box,
   Button,
-  Card,
   Group,
-  NumberInput,
-  SimpleGrid,
-  Stack,
-  Textarea,
   TextInput,
   Select,
   Switch,
-  Menu,
+  Grid,
   Modal,
   MODAL_SIZES,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { BoxMargin, Dots, Edit, Id, Trash } from "tabler-icons-react";
 import {
   actualizarArticulo,
   useArticulos,
-  useMutateArticulo,
   useUnArticulo,
 } from "../../hooks/useArticulos";
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
-import { ICellRendererParams } from "ag-grid-community";
-import { RegistrarCategoria } from "./registrarCategoria";
-import { SelectItems } from "@mantine/core/lib/components/Select/SelectItems/SelectItems";
 
 interface Props {
   open: boolean;
@@ -54,22 +43,22 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
     },
   });
-  const { refetch } = useArticulos();
+  const { refetch: asd } = useArticulos();
 
-  const { data: articulo } = useUnArticulo(id);
+  const { data: articuloBd, refetch } = useUnArticulo(id);
   // const { mutate, error, isLoading } = useMutateActualizarArticulo();
   const { data: categorias } = useCategorias();
 
   useEffect(() => {
-    if (articulo) {
+    if (articuloBd) {
       form.setValues({
-        codigo: articulo.codigo,
-        descripcion: articulo.descripcion,
-        precio_venta: articulo.precio_venta,
-        id_categoria: articulo.id_categoria,
+        codigo: articuloBd.codigo,
+        descripcion: articuloBd.descripcion,
+        precio_venta: articuloBd.precio_venta,
+        id_categoria: articuloBd.id_categoria,
       });
     }
-  }, [articulo]);
+  }, [articuloBd]);
 
   const handleSubmit = (values: any) => {
     const articulo: IArticulo = {
@@ -79,9 +68,10 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: values.precio_venta,
       estado_alta: values.estado_alta,
     };
-
     actualizarArticulo(id, articulo);
     refetch();
+
+    setOpen(false);
   };
 
   const handleChange = (value: any) => {
@@ -96,83 +86,55 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       size={MODAL_SIZES.sm}
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <SimpleGrid
-          cols={2}
-          spacing="lg"
-          breakpoints={[
-            { maxWidth: "md", cols: 2, spacing: "md" },
-            { maxWidth: "sm", cols: 2, spacing: "sm" },
-            { maxWidth: "xs", cols: 2, spacing: "sm" },
-          ]}
-          my="md"
-        >
-          <TextInput
-            label="Código"
-            placeholder="Código"
-            id="codigo"
-            {...form.getInputProps("codigo")}
-            mb="xs"
-            disabled
-          />
-          <TextInput
-            label="Descripción"
-            {...form.getInputProps("descripcion")}
-            mb="xs"
-          />
-          <TextInput
-            label="Precio de venta"
-            hideControls
-            id="precio"
-            {...form.getInputProps("precio_venta")}
-            mb="xs"
-          />
-        </SimpleGrid>
-        <SimpleGrid
-          cols={1}
-          spacing="lg"
-          breakpoints={[
-            { maxWidth: "md", cols: 2, spacing: "md" },
-            { maxWidth: "sm", cols: 2, spacing: "sm" },
-            { maxWidth: "xs", cols: 2, spacing: "sm" },
-          ]}
-          my="md"
-        >
-          <Select
-            label="Categoría"
-            placeholder="Seleccione una"
-            id="categorias"
-            onChange={handleChange}
-            searchable
-            autoComplete="off"
-            maxDropdownHeight={230}
-            nothingFound="No hay categorías"
-            data={
-              categorias
-                ? categorias.map(({ descripcion, id }: any) => ({
-                    label: descripcion,
-                    value: id,
-                  }))
-                : []
-            }
-          />
-        </SimpleGrid>
+        <Grid>
+          <Grid.Col md={12}>
+            <TextInput
+              label="Código"
+              placeholder="Código"
+              id="codigo"
+              {...form.getInputProps("codigo")}
+              mb="xs"
+              disabled
+            />
+            <TextInput
+              label="Descripción"
+              {...form.getInputProps("descripcion")}
+              mb="xs"
+            />
+            <TextInput
+              label="Precio de venta"
+              hideControls
+              id="precio"
+              {...form.getInputProps("precio_venta")}
+              mb="xs"
+            />
 
-        <SimpleGrid
-          cols={1}
-          spacing="lg"
-          breakpoints={[
-            { maxWidth: "md", cols: 2, spacing: "md" },
-            { maxWidth: "sm", cols: 2, spacing: "sm" },
-            { maxWidth: "xs", cols: 2, spacing: "sm" },
-          ]}
-          my="md"
-        >
-          <Switch
-            label="Habilitar"
-            color="grape"
-            {...form.getInputProps("estado_alta")}
-          />
-        </SimpleGrid>
+            <Select
+              label="Categoría"
+              placeholder="Seleccione una"
+              id="categorias"
+              onChange={handleChange}
+              searchable
+              autoComplete="off"
+              maxDropdownHeight={230}
+              nothingFound="No hay categorías"
+              data={
+                categorias
+                  ? categorias.map(({ descripcion, id }: any) => ({
+                      label: descripcion,
+                      value: id,
+                    }))
+                  : []
+              }
+            />
+            <br />
+            <Switch
+              label="Habilitar"
+              color="grape"
+              {...form.getInputProps("estado_alta")}
+            />
+          </Grid.Col>
+        </Grid>
 
         <Group position="center" mt="xl" my="md">
           <Button

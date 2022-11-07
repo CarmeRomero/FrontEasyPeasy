@@ -45,6 +45,7 @@ export const SeleccionarRol = ({ open, setOpen, id }: Props) => {
         },
       }
     );
+    setOpen(false);
   };
 
   const handleChange = (value: any) => {

@@ -86,6 +86,28 @@ export const SidebarMozo = () => {
       ],
     },
     {
+      name: "Mesas",
+      items: [
+        {
+          name: "Mesas",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/mesas/mesas-mozo",
+        },
+      ],
+    },
+    {
       name: "Usuarios",
       items: [
         {
