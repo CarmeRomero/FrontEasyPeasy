@@ -3,7 +3,7 @@ import {
   Card,
   Group,
   NumberInput,
-  SimpleGrid,
+  Grid,
   Stack,
   TextInput,
   Button,
@@ -74,69 +74,58 @@ export const FormularioDatosUsuario = () => {
       <Card sx={{ width: "100%" }} mx="auto" p="lg" mt="lg">
         <Box>
           <form onSubmit={form.onSubmit(handleSubmit)}>
-            <SimpleGrid
-              cols={2}
-              spacing="lg"
-              breakpoints={[
-                { maxWidth: "md", cols: 3, spacing: "md" },
-                { maxWidth: "sm", cols: 2, spacing: "sm" },
-                { maxWidth: "xs", cols: 1, spacing: "sm" },
-              ]}
-              my="md"
-            >
-              <TextInput
-                label="Nombre"
-                id="nombre"
-                {...form.getInputProps("nombre")}
-              />
-              <TextInput
-                label="Apellido"
-                id="apellido"
-                {...form.getInputProps("apellido")}
-              />
-              <NumberInput
-                label="DNI"
-                id="dni"
-                {...form.getInputProps("DNI")}
-                disabled
-              />
-              <DatePicker
-                locale="es"
-                label="Fecha de nacimiento"
-                id="fecha_nacimiento"
-                {...form.getInputProps("fecha_nacimiento")}
-              />
+            <Grid>
+              <Grid.Col md={6}>
+                <TextInput
+                  label="Nombre"
+                  id="nombre"
+                  {...form.getInputProps("nombre")}
+                />
+                <TextInput
+                  label="Apellido"
+                  id="apellido"
+                  {...form.getInputProps("apellido")}
+                />
+                <NumberInput
+                  label="DNI"
+                  id="dni"
+                  {...form.getInputProps("DNI")}
+                  disabled
+                />
+              </Grid.Col>
 
-              <NumberInput
-                label="Teléfono"
-                hideControls
-                id="telefono"
-                {...form.getInputProps("telefono")}
-              />
-              <TextInput
-                label="Dirección"
-                id="direccion"
-                {...form.getInputProps("direccion")}
-              />
-            </SimpleGrid>
-            <SimpleGrid
-              cols={1}
-              spacing="lg"
-              breakpoints={[
-                { maxWidth: "md", cols: 3, spacing: "md" },
-                { maxWidth: "sm", cols: 2, spacing: "sm" },
-                { maxWidth: "xs", cols: 1, spacing: "sm" },
-              ]}
-              my="md"
-            >
-              <TextInput
-                label="E-mail"
-                id="e-mail"
-                {...form.getInputProps("email")}
-                mb="xs"
-                disabled
-              />
-            </SimpleGrid>
+              <Grid.Col md={6}>
+                <DatePicker
+                  locale="es"
+                  label="Fecha de nacimiento"
+                  id="fecha_nacimiento"
+                  {...form.getInputProps("fecha_nacimiento")}
+                />
+
+                <NumberInput
+                  label="Teléfono"
+                  hideControls
+                  id="telefono"
+                  {...form.getInputProps("telefono")}
+                />
+                <TextInput
+                  label="Dirección"
+                  id="direccion"
+                  {...form.getInputProps("direccion")}
+                />
+              </Grid.Col>
+            </Grid>
+            <Grid>
+              <Grid.Col md={12}>
+                <TextInput
+                  label="E-mail"
+                  id="e-mail"
+                  {...form.getInputProps("email")}
+                  mb="xs"
+                  disabled
+                />
+              </Grid.Col>
+            </Grid>
 
             <Group position="center" mt="xl" my="lg">
               <Button

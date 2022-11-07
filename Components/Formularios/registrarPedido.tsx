@@ -68,6 +68,11 @@ export const FormularioRegistrarPedido = () => {
             { value: "1", label: "Mesa 3" },
           ]}
         />
+        {/* <Grid>
+              <Grid.Col md={12}>
+
+              </Grid.Col>
+              </Grid> */}
         <SimpleGrid
           cols={2}
           spacing="md"

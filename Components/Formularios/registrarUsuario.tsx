@@ -5,12 +5,13 @@ import {
   Group,
   NumberInput,
   PasswordInput,
-  SimpleGrid,
+  Grid,
   Stack,
-  Tabs,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
+import Link from "next/link";
 import { useForm } from "@mantine/form";
 import { DatePicker, getMonthsNames } from "@mantine/dates";
 import { crearUsuario } from "../../hooks/useUsuario";
@@ -81,112 +82,94 @@ export const FormularioRegistrarUsuario = () => {
 
           <Box>
             <form onSubmit={form.onSubmit(handleSubmit)}>
-              <SimpleGrid
-                cols={2}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
-                ]}
-                my="md"
-              >
-                <TextInput
-                  label="Nombre"
-                  placeholder="Nombre"
-                  id="nombre"
-                  {...form.getInputProps("nombre")}
-                  mb="xs"
-                />
-                <TextInput
-                  label="Apellido"
-                  placeholder="Apellido"
-                  id="apellido"
-                  {...form.getInputProps("apellido")}
-                  mb="xs"
-                />
-                <NumberInput
-                  label="DNI"
-                  placeholder="DNI"
-                  id="dni"
-                  {...form.getInputProps("DNI")}
-                  mb="xs"
-                />
-                <DatePicker
-                  locale="es"
-                  placeholder="Pick date"
-                  label="Fecha de nacimiento"
-                  id="fecha_nacimiento"
-                  {...form.getInputProps("fecha_nacimiento")}
-                  mb="xs"
-                  // withAsterisk
-                />
+              <Grid>
+                <Grid.Col md={6}>
+                  <TextInput
+                    label="Nombre"
+                    placeholder="Nombre"
+                    id="nombre"
+                    {...form.getInputProps("nombre")}
+                    mb="xs"
+                  />
+                  <NumberInput
+                    label="DNI"
+                    placeholder="DNI"
+                    id="dni"
+                    {...form.getInputProps("DNI")}
+                    mb="xs"
+                    hideControls
+                  />
+                  <DatePicker
+                    locale="es"
+                    placeholder="Pick date"
+                    label="Fecha de nacimiento"
+                    id="fecha_nacimiento"
+                    {...form.getInputProps("fecha_nacimiento")}
+                    mb="xs"
+                  />
+                </Grid.Col>
+                <Grid.Col md={6}>
+                  <TextInput
+                    label="Apellido"
+                    placeholder="Apellido"
+                    id="apellido"
+                    {...form.getInputProps("apellido")}
+                    mb="xs"
+                  />
 
-                <NumberInput
-                  // defaultValue={18}
-                  placeholder="Teléfono"
-                  label="Teléfono"
-                  hideControls
-                  id="telefono"
-                  {...form.getInputProps("telefono")}
-                  mb="xs"
-                />
-                <TextInput
-                  label="Dirección"
-                  placeholder="Dirección"
-                  id="direccion"
-                  {...form.getInputProps("direccion")}
-                  mb="xs"
-                />
-              </SimpleGrid>
-              <SimpleGrid
-                cols={1}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
-                ]}
-                my="md"
-              >
-                <TextInput
-                  label="E-mail"
-                  placeholder="E-mail"
-                  id="e-mail"
-                  {...form.getInputProps("email")}
-                  mb="xs"
-                />
-              </SimpleGrid>
-              <SimpleGrid
-                cols={2}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 3, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 1, spacing: "sm" },
-                ]}
-                my="md"
-              >
-                <PasswordInput
-                  placeholder="Contraseña"
-                  label="Contraseña"
-                  // description="Password must include at least one letter, number and special character"
-                  // withAsterisk
-                  id="contrsenia"
-                  {...form.getInputProps("password")}
-                  mb="xs"
-                />
+                  <NumberInput
+                    // defaultValue={18}
+                    placeholder="Teléfono"
+                    label="Teléfono"
+                    hideControls
+                    id="telefono"
+                    {...form.getInputProps("telefono")}
+                    mb="xs"
+                  />
+                  <TextInput
+                    label="Dirección"
+                    placeholder="Dirección"
+                    id="direccion"
+                    {...form.getInputProps("direccion")}
+                    mb="xs"
+                  />
+                </Grid.Col>
+              </Grid>
+              <Grid>
+                <Grid.Col md={12}>
+                  <TextInput
+                    label="E-mail"
+                    placeholder="E-mail"
+                    id="e-mail"
+                    {...form.getInputProps("email")}
+                    mb="xs"
+                  />
+                </Grid.Col>
+              </Grid>
+              <Grid>
+                <Grid.Col md={6}>
+                  <PasswordInput
+                    placeholder="Contraseña"
+                    label="Contraseña"
+                    // description="Password must include at least one letter, number and special character"
+                    // withAsterisk
+                    id="contrsenia"
+                    {...form.getInputProps("password")}
+                    mb="xs"
+                  />
+                </Grid.Col>
+                <Grid.Col md={6}>
+                  <PasswordInput
+                    placeholder="Contraseña"
+                    label="Confirmar contraseña"
+                    // description="Password must include at least one letter, number and special character"
 
-                <PasswordInput
-                  placeholder="Contraseña"
-                  label="Confirmar contraseña"
-                  // description="Password must include at least one letter, number and special character"
-
-                  id="confirmarContrasenia"
-                  {...form.getInputProps("confirmPassword")}
-                  mb="xs"
-                />
-              </SimpleGrid>
+                    id="confirmarContrasenia"
+                    {...form.getInputProps("confirmPassword")}
+                    mb="xs"
+                  />
+                </Grid.Col>
+              </Grid>
 
               <Group position="center" mt="xl" my="lg">
                 <Button
@@ -202,6 +185,23 @@ export const FormularioRegistrarUsuario = () => {
               </Group>
             </form>
           </Box>
+          <Card
+            sx={{ width: 360, display: "flex", justifyContent: "center" }}
+            mx="auto"
+            p="lg"
+          >
+            <Text size="md">Si ya tenés cuenta ingresa</Text>{" "}
+            <Link href="http://localhost:3005/autorizacion/ingreso" passHref>
+              <Text
+                variant="link"
+                sx={{ cursor: "pointer" }}
+                size="md"
+                pl="4px"
+              >
+                aquí
+              </Text>
+            </Link>
+          </Card>
         </>
       </Card>
     </Stack>

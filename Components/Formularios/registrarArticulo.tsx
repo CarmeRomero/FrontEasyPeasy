@@ -4,14 +4,11 @@ import {
   Card,
   Group,
   NumberInput,
-  SimpleGrid,
   Stack,
-  Textarea,
   Grid,
   TextInput,
   Select,
   Switch,
-  Menu,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { BoxMargin, Dots, Edit, Trash } from "tabler-icons-react";
@@ -96,16 +93,6 @@ export const FormularioRegistrarArticulo = () => {
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Grid>
                 <Grid.Col md={12}>
-                  {/* <SimpleGrid
-                cols={2}
-                spacing="lg"
-                breakpoints={[
-                  { maxWidth: "md", cols: 2, spacing: "md" },
-                  { maxWidth: "sm", cols: 2, spacing: "sm" },
-                  { maxWidth: "xs", cols: 2, spacing: "sm" },
-                ]}
-                my="md"
-              > */}
                   <TextInput
                     label="Código"
                     placeholder="Código"
@@ -124,7 +111,6 @@ export const FormularioRegistrarArticulo = () => {
                     id="precio"
                     {...form.getInputProps("precio_venta")}
                   />
-                  {/* </SimpleGrid> */}
                 </Grid.Col>
               </Grid>
               <Grid>

@@ -102,7 +102,7 @@ export const FormularioIngreso = () => {
               />
 
               <Group position="apart" mt="xl">
-                <Link href="/autorizacion/recuperacion-password" passHref>
+                <Link href="/autorizacion/recordar" passHref>
                   <Text variant="link" sx={{ cursor: "pointer" }} size="sm">
                     ¿Olvidaste la contraseña?
                   </Text>
