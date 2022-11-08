@@ -1,9 +1,8 @@
-import { Button } from "@mantine/core";
+import { Badge, Box, Tooltip } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
-import { EliminarMesa } from "./Formularios/EliminarMesa";
-import { RegistrarMesa } from "./Formularios/RegistrarMesa";
+import { useUnoSolo, useUsuarios } from "../hooks/useUsuario";
 
 export const DiagramaMozo = () => {
   const [open, setOpen] = useState(false);
@@ -15,11 +14,14 @@ export const DiagramaMozo = () => {
   const { data, refetch } = useMesas();
   const { mutate } = useMutateModificarMesa();
 
+  const { data: yo } = useUnoSolo();
+
   useEffect(() => {
     if (data) {
       const mesasBase = data.map(
-        ({ color, height, id, num_mesa, width, x, y }: any) => {
+        ({ color, height, id, num_mesa, width, x, y, ...mas }: any) => {
           return {
+            ...mas,
             id,
             num_mesa,
             estilos: { width, height, x, y, background: color },
@@ -31,29 +33,8 @@ export const DiagramaMozo = () => {
     console.log(data);
   }, [data]);
 
-  // const arrastrar = (d: any, mesa: any) => {
-  //   const mesasFiltradas: any[] = mesas.filter(
-  //     (mesalocal: any) => mesalocal.id !== mesa.id
-  //   );
-
-  //   const modificarMesa: any = mesas.find(
-  //     (mesalocal: any) => mesalocal.id == mesa.id
-  //   );
-
-  //   modificarMesa.estilos = {
-  //     ...modificarMesa.estilos,
-  //     x: d.x,
-  //     y: d.y,
-  //   };
-
-  //   const nuevoArreglo: any = [...mesasFiltradas, modificarMesa];
-
-  //   setMesas(nuevoArreglo);
-  // };
-
   const handleClick = (mesa: any, index: any) => {
     console.log(mesa, index);
-    // setMesaSeleccionada(mesa);
   };
 
   const renderMesas = mesas.map((mesa: any, index) => (
@@ -68,67 +49,65 @@ export const DiagramaMozo = () => {
           padding: "20px",
           border: "1px solid black",
           borderRadius: "5px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
         onClick={() => handleClick(mesa, index)}
-        // onDragStop={(e, d) => {
-        //   arrastrar(d, mesa);
-        // }}
         default={{
           ...mesa.estilos,
         }}
       >
-        {mesa.num_mesa}
+        <Tooltip
+          label={
+            mesa.Usuarios != undefined
+              ? `Ocupada por: ${mesa.Usuarios?.nombre}`
+              : `Mesa libre`
+          }
+          withArrow
+        >
+          <Box
+            sx={{
+              border: "1px solid black",
+              borderRadius: "50px",
+              height: "30px",
+              width: "30px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "white",
+              backgroundColor:
+                mesa.id_usuario == yo.id
+                  ? "black"
+                  : mesa.id_usuario == null
+                  ? "yellow"
+                  : "red",
+            }}
+          >
+            {/* {`${mesa.id} - ${yo.id}`} */}
+            {mesa.num_mesa}
+          </Box>
+        </Tooltip>
+        {/* <Badge color="green" variant="filled">
+          {mesa.estado}
+        </Badge> */}
       </Rnd>
     </>
   ));
 
-  // const { mutate: updateMesa } = useMutateModificarMesa();
-  // const handleClickGuardar = () => {
-  //   const arregloMesas = mesas.map((mesa: any) => {
-  //     return {
-  //       id: mesa.id,
-  //       x: mesa.estilos.x,
-  //       y: mesa.estilos.y,
-  //       width: mesa.estilos.width,
-  //       height: mesa.estilos.height,
-  //     };
-  //   });
-  //   updateMesa(arregloMesas, {
-  //     onSuccess: () => {
-  //       // form.reset();
-  //     },
-  //   });
-  //   console.log(arregloMesas);
-  // };
-
   return (
     <>
-      {/* <RegistrarMesa open={open} setOpen={setOpen} refetch={refetch} />
-      <EliminarMesa
-        open={openEliminar}
-        setOpen={setOpenEliminar}
-        refetch={refetch}
-      /> */}
-
-      {/* <Button my="sm" onClick={() => setOpen(true)}>
-        Agregar mesa
-      </Button>
-      <Button my="sm" onClick={() => setOpenEliminar(true)}>
-        eliminar mesa
-      </Button> */}
       <div
         style={{
-          width: "100%",
-          minWidth: "600px",
+          width: "1000px",
+          display: "fixed",
+          // minWidth: "600px",
           height: "400px",
           border: "1px solid black",
         }}
       >
         {renderMesas}
       </div>
-      {/* <Button my="sm" onClick={handleClickGuardar}>
-        Guardar diagrama
-      </Button> */}
     </>
   );
 };

@@ -169,10 +169,8 @@ export function useMutateActualizarEstadoLibre() {
 export const actualizarEstadoOcupado = async (id: number) => {
   const { data } = await axios.put(
     `http://localhost:3000/mesas/actualizarEstadoOcupado/${id}`,
-
-    {
-      withCredentials: true,
-    }
+    null,
+    { withCredentials: true }
   );
   return data;
 };
