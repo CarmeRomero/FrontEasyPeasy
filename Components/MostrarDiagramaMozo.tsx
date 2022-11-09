@@ -39,13 +39,17 @@ export const DiagramaMozo = () => {
 
   const renderMesas = mesas.map((mesa: any, index) => (
     <>
-      <Rnd
+      <Box
         key={index}
-        bounds="parent"
-        position={{ x: mesa.estilos.x, y: mesa.estilos.y }}
-        size={{ width: mesa.estilos.width, height: mesa.estilos.height }}
+        // bounds="parent"
+        // position={{  }}
         style={{
+          position: "relative",
+          left: mesa.estilos.x,
+          top: mesa.estilos.y,
           background: mesa.estilos.background,
+          width: mesa.estilos.width,
+          height: mesa.estilos.height,
           padding: "20px",
           border: "1px solid black",
           borderRadius: "5px",
@@ -53,10 +57,10 @@ export const DiagramaMozo = () => {
           justifyContent: "center",
           alignItems: "center",
         }}
-        onClick={() => handleClick(mesa, index)}
-        default={{
-          ...mesa.estilos,
-        }}
+        // onClick={() => handleClick(mesa, index)}
+        // default={{
+        //   ...mesa.estilos,
+        // }}
       >
         <Tooltip
           label={
@@ -80,7 +84,7 @@ export const DiagramaMozo = () => {
                 mesa.id_usuario == yo.id
                   ? "black"
                   : mesa.id_usuario == null
-                  ? "yellow"
+                  ? "orange"
                   : "red",
             }}
           >
@@ -91,7 +95,7 @@ export const DiagramaMozo = () => {
         {/* <Badge color="green" variant="filled">
           {mesa.estado}
         </Badge> */}
-      </Rnd>
+      </Box>
     </>
   ));
 
@@ -100,13 +104,78 @@ export const DiagramaMozo = () => {
       <div
         style={{
           width: "1000px",
-          display: "fixed",
+          display: "absolute",
           // minWidth: "600px",
           height: "400px",
           border: "1px solid black",
         }}
       >
-        {renderMesas}
+        {mesas.map((mesa: any, index) => (
+          <div
+            style={{
+              position: "absolute",
+            }}
+          >
+            <Box
+              key={index}
+              // bounds="parent"
+              // position={{  }}
+              style={{
+                position: "relative",
+                left: mesa.estilos.x,
+                top: mesa.estilos.y,
+                background: mesa.estilos.background,
+                width: mesa.estilos.width,
+                height: mesa.estilos.height,
+                padding: "20px",
+                border: "1px solid black",
+                borderRadius: "5px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              // onClick={() => handleClick(mesa, index)}
+              // default={{
+              //   ...mesa.estilos,
+              // }}
+            >
+              <Tooltip
+                label={
+                  mesa.Usuarios != undefined
+                    ? `Ocupada por: ${mesa.Usuarios?.nombre}`
+                    : `Mesa libre`
+                }
+                withArrow
+              >
+                <Box
+                  sx={{
+                    border: "1px solid black",
+                    borderRadius: "50px",
+                    height: "30px",
+                    width: "30px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "white",
+                    backgroundColor:
+                      mesa.id_usuario == yo.id
+                        ? "black"
+                        : mesa.id_usuario == null
+                        ? "orange"
+                        : "red",
+                  }}
+                >
+                  {/* {`${mesa.id} - ${yo.id}`} */}
+                  {mesa.num_mesa}
+                </Box>
+              </Tooltip>
+              {/* <Badge color="green" variant="filled">
+                  {mesa.estado}
+                </Badge> */}
+            </Box>
+          </div>
+        ))}
+        {/* {renderMesas} */}
       </div>
     </>
   );
