@@ -6,13 +6,10 @@ import { useUnoSolo, useUsuarios } from "../hooks/useUsuario";
 
 export const DiagramaMozo = () => {
   const [open, setOpen] = useState(false);
-  const [openEliminar, setOpenEliminar] = useState(false);
 
   const [mesas, setMesas] = useState([]);
-  const [mesaSeleccionada, setMesaSeleccionada] = useState();
 
   const { data, refetch } = useMesas();
-  const { mutate } = useMutateModificarMesa();
 
   const { data: yo } = useUnoSolo();
 
@@ -37,68 +34,69 @@ export const DiagramaMozo = () => {
     console.log(mesa, index);
   };
 
-  const renderMesas = mesas.map((mesa: any, index) => (
-    <>
-      <Box
-        key={index}
-        // bounds="parent"
-        // position={{  }}
-        style={{
-          position: "relative",
-          left: mesa.estilos.x,
-          top: mesa.estilos.y,
-          background: mesa.estilos.background,
-          width: mesa.estilos.width,
-          height: mesa.estilos.height,
-          padding: "20px",
-          border: "1px solid black",
-          borderRadius: "5px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        // onClick={() => handleClick(mesa, index)}
-        // default={{
-        //   ...mesa.estilos,
-        // }}
-      >
-        <Tooltip
-          label={
-            mesa.Usuarios != undefined
-              ? `Ocupada por: ${mesa.Usuarios?.nombre}`
-              : `Mesa libre`
-          }
-          withArrow
-        >
-          <Box
-            sx={{
-              border: "1px solid black",
-              borderRadius: "50px",
-              height: "30px",
-              width: "30px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              backgroundColor:
-                mesa.id_usuario == yo.id
-                  ? "black"
-                  : mesa.id_usuario == null
-                  ? "orange"
-                  : "red",
-            }}
-          >
-            {/* {`${mesa.id} - ${yo.id}`} */}
-            {mesa.num_mesa}
-          </Box>
-        </Tooltip>
-        {/* <Badge color="green" variant="filled">
-          {mesa.estado}
-        </Badge> */}
-      </Box>
-    </>
-  ));
+  // const renderMesas = mesas.map((mesa: any, index) => (
+  //   <>
+  //     <Box
+  //       key={index}
+  //       // bounds="parent"
+  //       // position={{  }}
+  //       style={{
+  //         position: "relative",
+  //         left: mesa.estilos.x,
+  //         top: mesa.estilos.y,
+  //         background: mesa.estilos.background,
+  //         width: mesa.estilos.width,
+  //         height: mesa.estilos.height,
+  //         padding: "20px",
+  //         border: "1px solid black",
+  //         borderRadius: "5px",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //       // onClick={() => handleClick(mesa, index)}
+  //       // default={{
+  //       //   ...mesa.estilos,
+  //       // }}
+  //     >
+  //       <Tooltip
+  //         label={
+  //           mesa.Usuarios != undefined
+  //             ? `Ocupada por: ${mesa.Usuarios?.nombre}`
+  //             : `Mesa libre`
+  //         }
+  //         withArrow
+  //       >
+  //         <Box
+  //           sx={{
+  //             border: "1px solid black",
+  //             borderRadius: "50px",
+  //             height: "30px",
+  //             width: "30px",
+  //             display: "flex",
+  //             justifyContent: "center",
+  //             alignItems: "center",
+  //             color: "white",
+  //             backgroundColor:
+  //               mesa.id_usuario == yo.id
+  //                 ? "black"
+  //                 : mesa.id_usuario == null
+  //                 ? "orange"
+  //                 : "red",
+  //           }}
+  //         >
+  //           {/* {`${mesa.id} - ${yo.id}`} */}
+  //           {mesa.num_mesa}
+  //         </Box>
+  //       </Tooltip>
+  //       {/* <Badge color="green" variant="filled">
+  //         {mesa.estado}
+  //       </Badge> */}
+  //     </Box>
+  //   </>
+  // ));
 
+  console.log(mesas);
   return (
     <>
       <div
@@ -141,9 +139,11 @@ export const DiagramaMozo = () => {
             >
               <Tooltip
                 label={
-                  mesa.Usuarios != undefined
-                    ? `Ocupada por: ${mesa.Usuarios?.nombre}`
-                    : `Mesa libre`
+                  mesa.id_usuario == yo.id
+                    ? `Atendida por: ${mesa.Usuarios?.nombre}`
+                    : mesa.Usuarios == undefined
+                    ? `Mesa libre`
+                    : `Atendida por: ${mesa.Usuarios?.nombre}`
                 }
                 withArrow
               >
