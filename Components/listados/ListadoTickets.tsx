@@ -76,7 +76,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 export const ListadoTickets = () => {
   const gridRef = useRef<any>(null); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
-  const { data } = useTickets();
+  const { data, refetch } = useTickets();
 
   const [columnDefs, setColumnDefs] = useState([
     { headerName: "Ticket", field: "num_ticket", minWidth: 100 },
@@ -121,7 +121,7 @@ export const ListadoTickets = () => {
 
   useEffect(() => {
     setRowData(data);
-
+    refetch();
     // const fecha = data.fecha_hora.split("T");
   }, [data]);
 

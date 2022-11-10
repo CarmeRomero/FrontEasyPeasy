@@ -28,6 +28,8 @@ export const RegistrarFormaPago = () => {
     mutate(values, {
       onSuccess: () => {
         console.log(values);
+        formulario.reset();
+
         refetch();
       },
     });
