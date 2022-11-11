@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,7 +34,15 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = [
+  "Lunes",
+  "Martes",
+  "Miercoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+  "Domingo",
+];
 
 export const data = {
   labels,
@@ -66,19 +74,21 @@ export function ReporteAdminTres() {
       }))
     : [];
 
-  labelsDatos.map((item: any) => {
-    console.log(item.label);
-    // const nuevoArreglo: any = [...formasPago, item.label];
-    const formPagoOb = { descripcion: "" };
-    let nuevoArreglo = [...formasPago, item.label];
-    setFormasPago(nuevoArreglo);
+  useEffect(() => {
+    setFormasPago([]);
+    labelsDatos.map((item: any) => {
+      console.log(formasPago);
+      const formPagoOb = { descripcion: "" };
+      // const nuevoArreglo: any = [...formasPago, item.label];
+      // setFormasPago(nuevoArreglo);
+      setFormasPago((prev) => ({
+        ...prev,
+        descripcion: [...formasPago, item.label],
+      }));
+    });
+  }, []);
 
-    // setFormasPago((prev) => ({
-    //   ...prev,
-    //   descripcion: item.label,
-    // }));
-    console.log(nuevoArreglo);
-  });
+  console.log(formasPago);
 
   return (
     <Bar

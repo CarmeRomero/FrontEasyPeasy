@@ -14,6 +14,9 @@ import { useMutateActualizarUsuario, useUnoSolo } from "../../hooks/useUsuario";
 import { useEffect } from "react";
 import { IDatosUsuario } from "../../interfaces/datos-usuario";
 import { IActualizarDatosUsuario } from "../../interfaces/actualizar-datos.usuario";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 
 export const FormularioDatosUsuario = () => {
   const form = useForm<IDatosUsuario>({
@@ -40,15 +43,17 @@ export const FormularioDatosUsuario = () => {
   });
 
   const { data: usuario } = useUnoSolo();
-  console.log(usuario);
 
   useEffect(() => {
     if (usuario) {
       form.setValues(usuario);
       const fecha = new Date(usuario.fecha_nacimiento);
       usuario.fecha_nacimiento = fecha;
+
+      // const dia = moment(usuario.fecha_nacimiento).format("dddd");
+      // console.log(dia);
     }
-    console.log(usuario);
+    // console.log(usuario);
   }, [usuario]);
 
   const { mutate, error, isLoading } = useMutateActualizarUsuario();
@@ -66,6 +71,7 @@ export const FormularioDatosUsuario = () => {
         console.log(values);
       },
     });
+
     return values;
   };
 

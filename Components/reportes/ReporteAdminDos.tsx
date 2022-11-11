@@ -1,28 +1,166 @@
-import { CChart } from "@coreui/react-chartjs";
+import { useState, useEffect } from "react";
+import { useTicketsPagados } from "../../hooks/useTickets";
+import { Box, Grid, TextInput, Divider } from "@mantine/core";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 export const ReporteAdminDos = () => {
+  const [fecha, setFecha] = useState([]);
+  const [lunes, setLunes] = useState(0);
+  const [martes, setMartes] = useState(0);
+  const [miercoles, setMiercoles] = useState(0);
+  const [jueves, setJueves] = useState(0);
+  const [viernes, setViernes] = useState(0);
+  const [sabado, setSabado] = useState(0);
+  const [domingo, setDomingo] = useState(0);
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom" as const,
+      },
+      title: {
+        display: true,
+        // text: "Chart.js Bar Chart",
+      },
+    },
+  };
+
+  // const labels = [
+  //   "Lunes",
+  //   "Martes",
+  //   "Miercoles",
+  //   "Jueves",
+  //   "Viernes",
+  //   "Sábado",
+  //   "Domingo",
+  // ];
+  const labels = ["Días de la semana"];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Lunes",
+        data: labels.map(() => lunes),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Martes",
+        data: labels.map(() => martes),
+        backgroundColor: "#BB78FF",
+      },
+      {
+        label: "Miércoles",
+        data: labels.map(() => miercoles),
+        backgroundColor: "#B8E9FF",
+      },
+      {
+        label: "Jueves",
+        data: labels.map(() => jueves),
+        backgroundColor: "#8EFFBA",
+      },
+      {
+        label: "Viernes",
+        data: labels.map(() => viernes),
+        backgroundColor: "#FFA28C",
+      },
+      {
+        label: "Sábado",
+        data: labels.map(() => sabado),
+        backgroundColor: "#2A8EFF",
+      },
+      {
+        label: "Domingo",
+        data: labels.map(() => domingo),
+        backgroundColor: "#E1FF3E",
+      },
+    ],
+  };
+
+  const { data: tickets, refetch } = useTicketsPagados();
+
+  let lun = 0;
+  let mar = 0;
+  let mier = 0;
+  let jue = 0;
+  let vie = 0;
+  let sab = 0;
+  let dom = 0;
+
+  useEffect(() => {
+    tickets
+      ? tickets.map((fecha: any) => {
+          const dia = moment(fecha.fecha_hora).format("dddd");
+          console.log(dia);
+          dia == "lunes"
+            ? setLunes((lun += 1))
+            : dia == "martes"
+            ? setMartes((mar += 1))
+            : dia == "miércoles"
+            ? setMiercoles((mier += 1))
+            : dia == "jueves"
+            ? setJueves((jue += 1))
+            : dia == "viernes"
+            ? setViernes((vie += 1))
+            : dia == "sábado"
+            ? setSabado((sab += 1))
+            : setDomingo((dom += 1));
+        })
+      : [];
+  }, [tickets]);
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [tarjeta, efectivo, otro]);
+
+  console.log(lunes);
+  console.log(martes);
+  console.log(miercoles);
+  console.log(jueves);
+  console.log(viernes);
+  console.log(sabado);
+  console.log(domingo);
+
   return (
-    <h1>sd</h1>
-    // <CChart
-    //   type="bar"
-    //   data={{
-    //     labels: [
-    //       "January",
-    //       "February",
-    //       "March",
-    //       "April",
-    //       "May",
-    //       "June",
-    //       "July",
-    //     ],
-    //     datasets: [
-    //       {
-    //         label: "GitHub Commits",
-    //         backgroundColor: "#f87979",
-    //         data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
-    //       },
-    //     ],
-    //   }}
-    //     labels="months"
-    // />
+    <>
+      <Box>
+        <Grid>
+          <Grid.Col md={4}></Grid.Col>
+        </Grid>
+      </Box>
+      <Bar
+        style={{
+          maxWidth: "800px",
+          maxHeight: "800px",
+          justifyContent: "center",
+          alignContent: "center",
+          marginLeft: "100px",
+        }}
+        options={options}
+        data={data}
+      />
+    </>
   );
 };

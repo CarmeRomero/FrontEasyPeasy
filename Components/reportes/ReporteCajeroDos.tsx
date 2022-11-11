@@ -1,3 +1,3 @@
 export const ReporteCajeroDos = () => {
-  return <h2>Reporte dos</h2>;
+  return <h2>hola</h2>;
 };
