@@ -4,6 +4,9 @@ import { Rnd } from "react-rnd";
 import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
 import { EliminarMesa } from "./Formularios/EliminarMesa";
 import { RegistrarMesa } from "./Formularios/RegistrarMesa";
+import { showNotification } from "@mantine/notifications";
+import { useModals } from "@mantine/modals";
+import { Check } from "tabler-icons-react";
 
 export const Diagrama = () => {
   const [open, setOpen] = useState(false);
@@ -82,7 +85,26 @@ export const Diagrama = () => {
   ));
 
   const { mutate: updateMesa } = useMutateModificarMesa();
-  const handleClickGuardar = () => {
+  // const handleClickGuardar = () => {
+  //   const arregloMesas = mesas.map((mesa: any) => {
+  //     return {
+  //       id: mesa.id,
+  //       x: mesa.estilos.x,
+  //       y: mesa.estilos.y,
+  //       width: mesa.estilos.width,
+  //       height: mesa.estilos.height,
+  //     };
+  //   });
+  //   updateMesa(arregloMesas, {
+  //     onSuccess: () => {
+  //       // form.reset();
+  //     },
+  //   });
+
+  // };
+
+  const modals = useModals();
+  const openDeleteModal = () => {
     const arregloMesas = mesas.map((mesa: any) => {
       return {
         id: mesa.id,
@@ -92,12 +114,28 @@ export const Diagrama = () => {
         height: mesa.estilos.height,
       };
     });
-    updateMesa(arregloMesas, {
-      onSuccess: () => {
-        // form.reset();
+
+    modals.openConfirmModal({
+      title:
+        "¿Está seguro que desea guardar la nueva disposición de las mesas?",
+      centered: true,
+      labels: { confirm: "Guardar", cancel: "Cancelar" },
+      confirmProps: { color: "green" },
+      onCancel: () => {},
+      onConfirm: () => {
+        updateMesa(arregloMesas, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Disposición de las mesas guardada",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-    console.log(arregloMesas);
   };
 
   return (
@@ -125,7 +163,7 @@ export const Diagrama = () => {
       >
         {renderMesas}
       </div>
-      <Button my="sm" onClick={handleClickGuardar}>
+      <Button my="sm" onClick={openDeleteModal}>
         Guardar diagrama
       </Button>
     </>

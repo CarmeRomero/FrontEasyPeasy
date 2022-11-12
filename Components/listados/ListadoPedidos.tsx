@@ -5,7 +5,7 @@ import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always nee
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 import { ICellRendererParams } from "ag-grid-community";
 import { Badge, Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, Eye, Trash } from "tabler-icons-react";
+import { Check, Dots, Edit, Eye, Trash } from "tabler-icons-react";
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
@@ -16,6 +16,8 @@ import {
 } from "../../hooks/usePedidos";
 import { ListadoDetalle } from "./ListadoDetalle";
 import { useRouter } from "next/router";
+import { showNotification } from "@mantine/notifications";
+import { useModals } from "@mantine/modals";
 
 const btnVerDetalle = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -25,13 +27,29 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
 
   const { refetch } = usePedidosDelUsuario();
   //ELIMINAR ARTICULO
-  const handleDelete = (value: any) => {
-    mutate(value, {
-      onSuccess: () => {
-        refetch();
+
+  const modals = useModals();
+  const openDeleteModal = (value: any) =>
+    modals.openConfirmModal({
+      title: "¿Está seguro que quiere eliminar este pedido?",
+      centered: true,
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {},
+      onConfirm: () => {
+        mutate(value, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Pedido eliminado",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-  };
 
   return (
     <Box
@@ -83,8 +101,9 @@ const btnVerDetalle = ({ data }: ICellRendererParams) => {
         <Menu.Item
           icon={<Trash size={14} />}
           onClick={() => {
-            handleDelete(data.id);
+            openDeleteModal(data.id);
           }}
+          color="red"
         >
           Eliminar
         </Menu.Item>

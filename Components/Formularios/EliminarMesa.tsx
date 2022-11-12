@@ -8,6 +8,9 @@ import {
 import { IEliminarMesa } from "../../interfaces/eliminar-mesa";
 import { IMesa } from "../../interfaces/mesa";
 import { useState } from "react";
+import { showNotification } from "@mantine/notifications";
+import { useModals } from "@mantine/modals";
+import { Check } from "tabler-icons-react";
 
 interface Props {
   open: boolean;
@@ -21,14 +24,40 @@ export const EliminarMesa = ({ open, setOpen, refetch }: Props) => {
   const { data: mesas } = useMesas();
   const { mutate } = useMutateAnularMesa();
 
+  // const handleDelete = (values: any) => {
+  //   mutate(values, {
+  //     onSuccess: () => {
+  //       refetch();
+  //     },
+  //   });
+  //   setOpen(false);
+  // };
+  const modals = useModals();
   const handleDelete = (values: any) => {
-    mutate(values, {
-      onSuccess: () => {
-        refetch();
+    refetch();
+    setOpen(false);
+    modals.openConfirmModal({
+      title: "¿Está seguro de eliminar la mesa?",
+      centered: true,
+      labels: { confirm: "Elimiar", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {},
+      onConfirm: () => {
+        mutate(values, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Se realizó el cobro con éxito!",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-    setOpen(false);
   };
+
   const handleChange = (value: any) => {
     setIdMesa(value);
   };

@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import {
   useMutation,
@@ -22,9 +23,21 @@ export function useMutateFormaPago() {
   const mutation: UseMutationResult<IFormaPago, Error, IFormaPago> =
     useMutation(crearFormaPago, {
       onSuccess: (data) => {
+        showNotification({
+          title: "Éxito!",
+          message: "La forma de pago se creó correctamente!👌",
+          color: "green",
+          autoClose: 6000,
+        });
         console.log("crearFormaPago mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "No se pudo agregar la forma de pago",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("crearFormaPago mutation error", error);
       },
     });

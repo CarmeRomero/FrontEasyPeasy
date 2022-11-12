@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import {
   useMutation,
@@ -24,9 +25,22 @@ export function useMutateArticulo() {
     crearArticulo,
     {
       onSuccess: (data) => {
+        showNotification({
+          // icon:<CircleCheck />,
+          title: "Éxito!",
+          message: "El artículo se creó correctamente!👌",
+          color: "green",
+          autoClose: 6000,
+        });
         console.log("crearArticulo mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "No se pudo generar al intentar crear el artículo",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("crearArticulo mutation error", error);
       },
     }

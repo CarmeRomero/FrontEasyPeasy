@@ -89,15 +89,20 @@ export function useMutateModificarMesa() {
     {
       onSuccess: (data) => {
         showNotification({
-          // icon:<CircleCheck />,
-          title: "La mesa fue actualizada!",
-          message: "Ya se puede usar 👌",
+          title: "Cambio realizado con éxito!",
+          message: "",
           color: "green",
           autoClose: 6000,
         });
         console.log("mesa mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "No pudo guardar los cambios",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("mesa mutation error", error);
       },
     }
@@ -126,6 +131,12 @@ export function useMutateAnularMesa() {
       console.log("mesa mutation success", data);
     },
     onError: (error) => {
+      showNotification({
+        title: "Error!",
+        message: "No pudo eliminarse la mesa",
+        color: "red",
+        autoClose: 6000,
+      });
       console.log("mesa mutation error", error);
     },
   });
@@ -149,12 +160,12 @@ export function useMutateActualizarEstadoLibre() {
     actualizarEstadoLibre,
     {
       onSuccess: (data) => {
-        showNotification({
-          title: "La mesa fue LIBERADA !",
-          message: "Ya se puede usar 👌",
-          color: "green",
-          autoClose: 6000,
-        });
+        // showNotification({
+        //   title: "La mesa fue LIBERADA !",
+        //   message: "Ya se puede usar 👌",
+        //   color: "green",
+        //   autoClose: 6000,
+        // });
         console.log("mesa mutation success", data);
       },
       onError: (error) => {
@@ -180,12 +191,12 @@ export function useMutateActualizarEstadoOcupado() {
     actualizarEstadoOcupado,
     {
       onSuccess: (data) => {
-        showNotification({
-          title: "La mesa fue OCUPADA!",
-          message: "Ya se puede usar 👌",
-          color: "green",
-          autoClose: 6000,
-        });
+        // showNotification({
+        //   title: "La mesa fue OCUPADA!",
+        //   message: "Ya se puede usar 👌",
+        //   color: "green",
+        //   autoClose: 6000,
+        // });
         console.log("mesa mutation success", data);
       },
       onError: (error) => {

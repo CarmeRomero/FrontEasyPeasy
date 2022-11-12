@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import {
   useMutation,
@@ -22,9 +23,22 @@ export function useMutateCrearPedido() {
     crearPedido,
     {
       onSuccess: (data) => {
+        showNotification({
+          // icon:<CircleCheck />,
+          title: "Éxito!",
+          message: "El pedido se creó correctamente!👌",
+          color: "green",
+          autoClose: 6000,
+        });
         console.log("crearPedido mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "Se produjo un error al intentar crear el pedido",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("crearPedido mutation error", error);
       },
     }
@@ -114,6 +128,13 @@ export const actualizarPedido = async (
       withCredentials: true,
     }
   );
+  showNotification({
+    title: "Éxito!",
+    message: "Los cambios fueron guardados correctamente!👌",
+    color: "green",
+    autoClose: 6000,
+  });
+
   return data;
 };
 

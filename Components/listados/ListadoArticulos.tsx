@@ -6,7 +6,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CS
 import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
 import { Badge, Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, Trash } from "tabler-icons-react";
+import { Check, Dots, Edit, Trash, X } from "tabler-icons-react";
 import {
   useArticulos,
   useMutateAnularArticulo,
@@ -14,21 +14,46 @@ import {
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
+import { showNotification } from "@mantine/notifications";
+import { useModals } from "@mantine/modals";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
   const { mutate, isLoading, error } = useMutateAnularArticulo();
-
+  const modals = useModals();
   const { refetch } = useArticulos();
 
   //ELIMINAR ARTICULO
-  const handleDelete = (value: any) => {
-    mutate(value, {
-      onSuccess: () => {
+
+  const openDeleteModal = (value: any) =>
+    modals.openConfirmModal({
+      title: "¿Está seguro que quiere eliminar este usuario?",
+      centered: true,
+      labels: { confirm: "Eliminar artículo", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {
+        showNotification({
+          color: "red",
+          icon: <X />,
+          title: "No se eliminó el artículo",
+          message: "",
+          autoClose: 2000,
+        });
+      },
+      onConfirm: () => {
+        mutate(value, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Artículo eliminado",
+              message: "",
+            });
+          },
+        });
         refetch();
       },
     });
-  };
 
   return (
     <Box
@@ -74,8 +99,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         <Menu.Item
           icon={<Trash size={14} />}
           onClick={() => {
-            handleDelete(data.id);
+            openDeleteModal(data.id);
           }}
+          color="red"
         >
           Eliminar
         </Menu.Item>

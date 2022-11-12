@@ -26,6 +26,7 @@ export const RegistrarCategoria = ({ open, setOpen }: Props) => {
       onSuccess: () => {
         setOpen(false);
         console.log(values);
+        formulario.reset();
         refetch();
       },
     });

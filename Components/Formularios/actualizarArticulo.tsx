@@ -17,6 +17,7 @@ import {
 import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
+import { showNotification } from "@mantine/notifications";
 
 interface Props {
   open: boolean;
@@ -25,8 +26,6 @@ interface Props {
 }
 
 export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
-  const [combo, setCombo] = useState();
-
   const form = useForm<IArticulo>({
     initialValues: {
       codigo: "",
@@ -43,9 +42,9 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
     },
   });
-  const { refetch: asd } = useArticulos();
+  const { refetch } = useArticulos();
 
-  const { data: articuloBd, refetch } = useUnArticulo(id);
+  const { data: articuloBd } = useUnArticulo(id);
   // const { mutate, error, isLoading } = useMutateActualizarArticulo();
   const { data: categorias } = useCategorias();
 
@@ -68,8 +67,15 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: values.precio_venta,
       estado_alta: values.estado_alta,
     };
+
     actualizarArticulo(id, articulo);
     refetch();
+    showNotification({
+      title: "Éxito!",
+      message: "Se guardaron los cambios!👌",
+      color: "green",
+      autoClose: 6000,
+    });
 
     setOpen(false);
   };

@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import {
   useMutation,
@@ -5,11 +6,7 @@ import {
   useQuery,
   UseQueryResult,
 } from "react-query";
-import { Id } from "tabler-icons-react";
 import { ICobro } from "../interfaces/cobro";
-// import { IActualizarFormaPago } from "../interfaces/cobro";
-
-import { IFormaPago } from "../interfaces/registrar-forma-pago";
 import { ITicket } from "../interfaces/ticket";
 
 export const crearTicket = async (ticket: ITicket) => {
@@ -24,9 +21,21 @@ export function useMutateTicket() {
     crearTicket,
     {
       onSuccess: (data) => {
+        showNotification({
+          title: "Éxito!",
+          message: "El ticket fue generado correctamente!👌",
+          color: "green",
+          autoClose: 6000,
+        });
         console.log("crearTicket mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "No se pudo generar el ticket",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("crearTicket mutation error", error);
       },
     }

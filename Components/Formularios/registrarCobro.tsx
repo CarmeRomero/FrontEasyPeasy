@@ -6,6 +6,9 @@ import { useState } from "react";
 import { ICobro } from "../../interfaces/cobro";
 import { actualizarTicket, useTickets } from "../../hooks/useTickets";
 import { useMutateActualizarEstadoLibre } from "../../hooks/useMesas";
+import { showNotification } from "@mantine/notifications";
+import { useModals } from "@mantine/modals";
+import { Check } from "tabler-icons-react";
 
 interface Props {
   open: boolean;
@@ -33,23 +36,53 @@ export const FormularioCobro = ({ open, setOpen, id, mesa, idMesa }: Props) => {
 
   const { data: formaDePago } = useFormasPago();
 
-  // useEffect(() => {}, [formaDePago]);
+  // const handleSubmit = (values: any) => {
+  //   const cobro: ICobro = {
+  //     id_forma_pago: parseInt(values.id_forma_pago),
+  //     estado_pendiente_pago: false,
+  //   };
 
+  //   actualizarTicket(id, cobro);
+  //   mutate(idMesa, {
+  //     onSuccess: () => {
+  //       refetch();
+  //     },
+  //   });
+
+  //   refetch();
+  //   setOpen(true);
+  // };
+
+  const modals = useModals();
   const handleSubmit = (values: any) => {
     const cobro: ICobro = {
       id_forma_pago: parseInt(values.id_forma_pago),
       estado_pendiente_pago: false,
     };
 
-    actualizarTicket(id, cobro);
-    mutate(idMesa, {
-      onSuccess: () => {
-        refetch();
+    refetch();
+    setOpen(false);
+    modals.openConfirmModal({
+      title: "¿Realizar cobro de la mesa?",
+      centered: true,
+      labels: { confirm: "Confirmar", cancel: "Cancelar" },
+      confirmProps: { color: "green" },
+      onCancel: () => {},
+      onConfirm: () => {
+        actualizarTicket(id, cobro);
+        mutate(idMesa, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Se realizó el cobro con éxito!",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-
-    refetch();
-    setOpen(true);
   };
 
   const handleChange = (value: any) => {

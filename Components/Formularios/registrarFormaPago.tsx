@@ -1,12 +1,14 @@
 import { Button, Group, TextInput, Grid, Table, Switch } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Trash } from "tabler-icons-react";
+import { Check, Trash } from "tabler-icons-react";
 import { useState } from "react";
 import {
   useFormasPago,
   useMutateAnularFormaPago,
   useMutateFormaPago,
 } from "../../hooks/useFormasPago";
+import { useModals } from "@mantine/modals";
+import { showNotification } from "@mantine/notifications";
 
 export const RegistrarFormaPago = () => {
   const [checked, setChecked] = useState(false);
@@ -37,27 +39,34 @@ export const RegistrarFormaPago = () => {
 
   const { mutate: eliminar } = useMutateAnularFormaPago();
 
-  const handleDelete = (value: any) => {
-    console.log(value);
-
-    eliminar(value, {
-      onSuccess: () => {
-        refetch();
+  const modals = useModals();
+  const openDeleteModal = (value: any) =>
+    modals.openConfirmModal({
+      title: "¿Está seguro que quiere eliminar esta forma de pago?",
+      centered: true,
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {},
+      onConfirm: () => {
+        eliminar(value, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Forma de pago eliminada",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-  };
 
-  console.log(checked);
   const rows = formaPago
     ? formaPago.map((formaPago: any) => (
         <tr key={formaPago.id}>
           <td>{formaPago.descripcion}</td>
-          {/* <td>
-            <Switch
-              checked={checked}
-              onChange={(event) => setChecked(event.currentTarget.checked)}
-            />
-          </td> */}
+
           <td>
             <Button
               variant="light"
@@ -65,7 +74,7 @@ export const RegistrarFormaPago = () => {
               px={10}
               my={30}
               onClick={() => {
-                handleDelete(formaPago.id);
+                openDeleteModal(formaPago.id);
               }}
             >
               <Trash strokeWidth={2} size={17} />

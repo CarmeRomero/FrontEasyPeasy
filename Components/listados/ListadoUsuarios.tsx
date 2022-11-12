@@ -5,30 +5,50 @@ import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always nee
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 import { ICellRendererParams } from "ag-grid-community";
 import { useRouter } from "next/router";
-import { Badge, Box, Button, Menu } from "@mantine/core";
-import {
-  Dots,
-  Edit,
-  LockAccess,
-  RollerSkating,
-  Trash,
-} from "tabler-icons-react";
+import { Badge, Box, Button, Menu, Text } from "@mantine/core";
+import { Check, Dots, Edit, Trash, X } from "tabler-icons-react";
 import { useMutateAnularUsuario, useUsuarios } from "../../hooks/useUsuario";
 import { SeleccionarRol } from "../Formularios/SeleccionarRol";
+import { useModals } from "@mantine/modals";
+import { showNotification } from "@mantine/notifications";
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
+  const modals = useModals();
   const [open, setOpen] = useState(false);
   const { mutate, isLoading, error } = useMutateAnularUsuario();
 
   const { refetch } = useUsuarios();
 
-  const handleDelete = (value: any) => {
-    mutate(value, {
-      onSuccess: () => {
-        refetch();
+  const openDeleteModal = (value: any) =>
+    modals.openConfirmModal({
+      title: "¿Está seguro que quiere eliminar este usuario?",
+      centered: true,
+
+      labels: { confirm: "Eliminar cuenta", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {
+        showNotification({
+          color: "red",
+          icon: <X />,
+          title: "No se eliminó el usuario",
+          message: "",
+          autoClose: 2000,
+        });
+      },
+      onConfirm: () => {
+        mutate(value, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Usuario eliminado",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-  };
 
   return (
     <Box
@@ -68,8 +88,9 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         <Menu.Item
           icon={<Trash size={14} />}
           onClick={() => {
-            handleDelete(data.id);
+            openDeleteModal(data.id);
           }}
+          color="red"
         >
           Eliminar
         </Menu.Item>

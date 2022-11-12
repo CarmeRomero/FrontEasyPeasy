@@ -1,3 +1,4 @@
+import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 import {
   useMutation,
@@ -22,9 +23,21 @@ export function useMutateCategoria() {
   const mutation: UseMutationResult<ICategorias, Error, ICategorias> =
     useMutation(crearCategoria, {
       onSuccess: (data) => {
+        showNotification({
+          title: "Éxito!",
+          message: "La categoría se creó correctamente!👌",
+          color: "green",
+          autoClose: 6000,
+        });
         console.log("crearCategoria mutation success", data);
       },
       onError: (error) => {
+        showNotification({
+          title: "Error!",
+          message: "No se pudo agregar la categoría",
+          color: "red",
+          autoClose: 6000,
+        });
         console.log("crearCategoria mutation error", error);
       },
     });

@@ -1,11 +1,13 @@
 import { Button, Group, TextInput, Grid, Table } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Trash } from "tabler-icons-react";
+import { showNotification } from "@mantine/notifications";
+import { Check, Trash } from "tabler-icons-react";
 import {
   useCategorias,
   useMutateCategoria,
   useMutateCategoriaEliminar,
 } from "../../hooks/useCategoria";
+import { useModals } from "@mantine/modals";
 
 export const RegistrarCategoria = () => {
   const formulario = useForm({
@@ -25,19 +27,35 @@ export const RegistrarCategoria = () => {
       onSuccess: () => {
         console.log(values);
         refetch();
+        formulario.reset();
       },
     });
   };
 
   const { mutate: eliminar } = useMutateCategoriaEliminar();
-  //ELIMINAR CATEGORIA
-  const handleDelete = (value: any) => {
-    eliminar(value, {
-      onSuccess: () => {
-        refetch();
+
+  const modals = useModals();
+  const openDeleteModal = (value: any) =>
+    modals.openConfirmModal({
+      title: "¿Está seguro que quiere eliminar esta categoría?",
+      centered: true,
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => {},
+      onConfirm: () => {
+        eliminar(value, {
+          onSuccess: () => {
+            showNotification({
+              color: "green",
+              icon: <Check />,
+              title: "Categoría eliminada",
+              message: "",
+            });
+            refetch();
+          },
+        });
       },
     });
-  };
 
   const rows = categoria
     ? categoria.map((cat: any) => (
@@ -50,7 +68,7 @@ export const RegistrarCategoria = () => {
               px={10}
               my={30}
               onClick={() => {
-                handleDelete(cat.id);
+                openDeleteModal(cat.id);
               }}
             >
               <Trash strokeWidth={2} size={17} />
