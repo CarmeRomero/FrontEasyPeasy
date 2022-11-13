@@ -7,8 +7,8 @@ import {
   MODAL_SIZES,
   NumberInput,
 } from "@mantine/core";
-import { useForm } from "@mantine/hooks";
-import { useMutateMesa } from "../../hooks/useMesas";
+import { useForm } from "@mantine/form";
+import { useMesas, useMutateMesa } from "../../hooks/useMesas";
 import { IMesa } from "../../interfaces/mesa";
 
 interface Props {
@@ -18,9 +18,11 @@ interface Props {
 }
 
 export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
+  const { data } = useMesas();
+
   const form = useForm({
     initialValues: {
-      num_mesa: 1,
+      num_mesa: null,
       color: "#a1e6b3",
       ubicacion: "ADENTRO",
       x: 20,
@@ -28,13 +30,12 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
       width: 100,
       height: 100,
     },
-    // validationRules: {
-    //   num_mesa: (value: any) =>
-    //     value == 0 ? "Ingrese un número de mesa correcto" : null,
-    //   descripcion: (value: any) =>
-    //     value.length < 2 ? "Ingrese una descripcion" : null,
-    //   precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
-    // },
+    validate: {
+      num_mesa: (value: any) =>
+        data.map((item: any) => {
+          item.num_mesa === value ? "Ese número de mesa ya existe" : null;
+        }),
+    },
   });
 
   const { mutate } = useMutateMesa();

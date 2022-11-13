@@ -11,19 +11,10 @@ import {
   Switch,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { BoxMargin, Dots, Edit, Trash } from "tabler-icons-react";
-import {
-  useArticulosMismaCategoria,
-  useMutateArticulo,
-} from "../../hooks/useArticulos";
-import {
-  useCategorias,
-  useMutateCategoriaEliminar,
-} from "../../hooks/useCategoria";
+import { useMutateArticulo } from "../../hooks/useArticulos";
+import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
-import { useState, useRef, useEffect, useMemo } from "react";
-import { ICellRendererParams } from "ag-grid-community";
-import { RegistrarCategoria } from "./registrarCategoria";
+import { useState } from "react";
 
 export const FormularioRegistrarArticulo = () => {
   const [id_categoria, setIdCategoria] = useState(null);

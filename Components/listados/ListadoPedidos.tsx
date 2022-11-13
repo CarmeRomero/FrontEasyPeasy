@@ -6,9 +6,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CS
 import { ICellRendererParams } from "ag-grid-community";
 import { Badge, Box, Button, Menu } from "@mantine/core";
 import { Check, Dots, Edit, Eye, Trash } from "tabler-icons-react";
-import { useCategorias } from "../../hooks/useCategoria";
-import { IArticulo } from "../../interfaces/articulo";
-import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
+
 import {
   useMutateAnularPedido,
   usePedido,
@@ -18,6 +16,10 @@ import { ListadoDetalle } from "./ListadoDetalle";
 import { useRouter } from "next/router";
 import { showNotification } from "@mantine/notifications";
 import { useModals } from "@mantine/modals";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
+moment().format("L");
 
 const btnVerDetalle = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -116,7 +118,6 @@ export const ListadoPedidos = () => {
   const gridRef = useRef<any>(null); // Optional - for accessing Grid's API
   const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
 
-  // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
     {
       headerName: "N° de mesa",
@@ -124,10 +125,16 @@ export const ListadoPedidos = () => {
       width: 70,
       resizable: true,
     },
+
     { headerName: "N° de pedido", field: "num_pedido", width: 150 },
     {
       headerName: "Estado",
       field: "estado",
+    },
+    {
+      headerName: "Fecha del pedido",
+      field: "fecha_pedido",
+      width: 150,
     },
     {
       headerName: "Hora del pedido",
@@ -152,19 +159,8 @@ export const ListadoPedidos = () => {
       filter: false,
       cellRenderer: btnVerDetalle,
     },
-
-    // {
-    //   headerName: "ACCIONES",
-    //   field: "ACCIONES",
-    //   pinned: "right",
-    //   resizable: false,
-    //   width: 100,
-    //   filter: false,
-    //   cellRenderer: btnAcciones,
-    // },
   ]);
 
-  // DefaultColDef sets props common to all Columns
   const defaultColDef = useMemo(
     () => ({
       sortable: true,
@@ -182,8 +178,18 @@ export const ListadoPedidos = () => {
 
   const { data, refetch } = usePedidosDelUsuario();
 
+  const pedidos = data?.map((item: any) => ({
+    ...item,
+
+    fecha_hora_pedido: moment(item?.fecha_hora_pedido).format(" h:mm:ss a"),
+    fecha_pedido: moment(item?.fecha_hora_pedido).format("DD-MM-YYYY"),
+    fecha_hora_entrega: item.fecha_hora_entrega
+      ? moment(item?.fecha_hora_entrega).format(" h:mm:ss a")
+      : "-",
+  }));
+
   useEffect(() => {
-    setRowData(data);
+    setRowData(pedidos);
     refetch();
   }, [data]);
 

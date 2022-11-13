@@ -8,6 +8,8 @@ import {
   TextInput,
   Center,
 } from "@mantine/core";
+import Link from "next/link";
+
 import {
   useMutateConfirmarEmail,
   useMutateRecuperar,
@@ -67,7 +69,14 @@ const ConfirmarEmailPage = () => {
             mb="xs"
           />
 
-          <Group position="right" mt="xl">
+          <Group position="apart" mt="xl">
+            <Link
+              color="blue"
+              href="http://localhost:3005/autorizacion/ingreso"
+              passHref
+            >
+              Volver
+            </Link>
             <Button type="submit">Enviar</Button>
           </Group>
         </form>

@@ -4,16 +4,15 @@ import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 import { ICellRendererParams } from "ag-grid-community";
-import { Box, Button, Menu } from "@mantine/core";
-import { Dots, Edit, FileInvoice, Trash } from "tabler-icons-react";
-import {
-  useArticulos,
-  useMutateAnularArticulo,
-} from "../../hooks/useArticulos";
-import { FormularioActualizarArticulo } from "../Formularios/actualizarArticulo";
+import { Box, Button } from "@mantine/core";
+import { FileInvoice } from "tabler-icons-react";
+
 import { useTickets } from "../../hooks/useTickets";
 import { Ticket } from "../Formularios/Ticket";
 import { FormularioCobro } from "../Formularios/registrarCobro";
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 
 const btnAcciones = ({ data }: ICellRendererParams) => {
   const [open, setOpen] = useState(false);
@@ -93,8 +92,8 @@ export const ListadoTickets = () => {
     },
 
     {
-      headerName: "Forma de pago",
-      field: "formas_pago.descripcion",
+      headerName: "Mozo",
+      field: "Usuarios.nombre",
       minWidth: 100,
     },
     {
@@ -119,8 +118,13 @@ export const ListadoTickets = () => {
     []
   );
 
+  const tickets = data?.map((item: any) => ({
+    ...item,
+
+    fecha_hora: moment(item?.fecha_hora).format("DD-MM-YYYY - h:mm:ss a"),
+  }));
   useEffect(() => {
-    setRowData(data);
+    setRowData(tickets);
     refetch();
     // const fecha = data.fecha_hora.split("T");
   }, [data]);

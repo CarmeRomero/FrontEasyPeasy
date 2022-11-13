@@ -14,7 +14,9 @@ import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useUnTicket } from "../../hooks/useTickets";
 import { ITicketDetalle } from "../../interfaces/ticket-detalle";
-
+import moment from "moment";
+import "moment/locale/es";
+moment.locale("es");
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -53,7 +55,11 @@ export const Ticket = ({ open, setOpen, id }: Props) => {
   });
 
   console.log(ticket);
-  // var mes = new Date(ticket?.fecha_hora);
+
+  // const tickets = ticket?.map((item: any) => ({
+  //   ...item,
+  //   fecha_hora: moment(item?.fecha_hora).format("DD-MM-YYYY - h:mm:ss a"),
+  // }));
 
   return (
     <Modal opened={open} onClose={() => setOpen(false)} size={MODAL_SIZES.md}>
@@ -84,11 +90,14 @@ export const Ticket = ({ open, setOpen, id }: Props) => {
             <Divider variant="dashed" />
             <Group position="center" px={10}>
               <Text>Fecha: </Text>
-              <Text>{ticket && ticket.fecha_hora}</Text>
+              <Text>
+                {ticket &&
+                  moment(ticket.fecha_hora).format("DD-MM-YYYY - h:mm:ss a")}
+              </Text>
             </Group>
             <Group position="center" px={10}>
-              <Text>Forma de pago: </Text>
-              <Text>{ticket && ticket.formas_pago?.descripcion}</Text>
+              <Text>Mozo: </Text>
+              <Text>{ticket && ticket.Usuarios.nombre}</Text>
             </Group>
           </Grid.Col>
         </Grid>

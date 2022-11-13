@@ -23,10 +23,11 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
                 display: "flex",
                 // justifyContent: "left",
                 justifyContent: "center",
+                backgroundColor: "rgb(187, 162, 255)",
 
                 alignItems: "center",
-                height: "90vh",
-                marginLeft: "80px",
+                height: "100vh",
+                // marginLeft: "30px",
                 // marginLeft: 50,
               }}
             >

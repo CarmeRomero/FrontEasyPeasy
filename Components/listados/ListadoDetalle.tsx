@@ -85,7 +85,7 @@ export const ListadoDetalle = ({
     setDetalle(detallito);
   }, []);
 
-  console.log(detalle);
+  // console.log(detalle);
 
   const registrarDetalle = () => {
     // setDetalle(...prev, nuevoDetalle);
