@@ -14,7 +14,8 @@ export const Presentation: FC<Props> = ({ title }) => {
         backgroundColor: "black",
         width: "100%",
         minHeight: "auto",
-        backgroundImage: "url(/img/illustration.png)",
+        backgroundImage:
+          "url(https://i.pinimg.com/236x/3d/8b/e8/3d8be817b8a1b70452890e02c8279d1f.jpg)",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "auto 400px",

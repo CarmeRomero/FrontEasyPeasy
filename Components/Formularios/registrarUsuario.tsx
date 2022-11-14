@@ -62,7 +62,19 @@ export const FormularioRegistrarUsuario = () => {
 
   return (
     <Stack spacing="xs">
-      <Card sx={{ width: "100%" }} mx="auto" p="lg" mt="lg">
+      <Card
+        sx={{
+          width: "100%",
+          boxShadow:
+            "0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%)",
+          opacity: 0.95,
+          color: "rgb(235, 232, 242)",
+        }}
+        mx="lg"
+        my="md"
+        p="lg"
+        mt="lg"
+      >
         <>
           {/* <LoadingOverlay visible={isLoading} />
               <Group position="center" mb="md">
@@ -83,7 +95,7 @@ export const FormularioRegistrarUsuario = () => {
           <Box>
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Grid>
-                <Grid.Col md={6}>
+                <Grid.Col xs={4}>
                   <TextInput
                     label="Nombre"
                     placeholder="Nombre"
@@ -91,14 +103,7 @@ export const FormularioRegistrarUsuario = () => {
                     {...form.getInputProps("nombre")}
                     mb="xs"
                   />
-                  <NumberInput
-                    label="DNI"
-                    placeholder="DNI"
-                    id="dni"
-                    {...form.getInputProps("DNI")}
-                    mb="xs"
-                    hideControls
-                  />
+
                   <DatePicker
                     locale="es"
                     placeholder="Pick date"
@@ -108,7 +113,7 @@ export const FormularioRegistrarUsuario = () => {
                     mb="xs"
                   />
                 </Grid.Col>
-                <Grid.Col md={6}>
+                <Grid.Col xs={4}>
                   <TextInput
                     label="Apellido"
                     placeholder="Apellido"
@@ -118,13 +123,22 @@ export const FormularioRegistrarUsuario = () => {
                   />
 
                   <NumberInput
-                    // defaultValue={18}
                     placeholder="Teléfono"
                     label="Teléfono"
                     hideControls
                     id="telefono"
                     {...form.getInputProps("telefono")}
                     mb="xs"
+                  />
+                </Grid.Col>
+                <Grid.Col xs={4}>
+                  <NumberInput
+                    label="DNI"
+                    placeholder="DNI"
+                    id="dni"
+                    {...form.getInputProps("DNI")}
+                    mb="xs"
+                    hideControls
                   />
                   <TextInput
                     label="Dirección"
@@ -136,7 +150,7 @@ export const FormularioRegistrarUsuario = () => {
                 </Grid.Col>
               </Grid>
               <Grid>
-                <Grid.Col md={12}>
+                <Grid.Col xs={12}>
                   <TextInput
                     label="E-mail"
                     placeholder="E-mail"
@@ -147,23 +161,19 @@ export const FormularioRegistrarUsuario = () => {
                 </Grid.Col>
               </Grid>
               <Grid>
-                <Grid.Col md={6}>
+                <Grid.Col xs={6}>
                   <PasswordInput
                     placeholder="Contraseña"
                     label="Contraseña"
-                    // description="Password must include at least one letter, number and special character"
-                    // withAsterisk
                     id="contrsenia"
                     {...form.getInputProps("password")}
                     mb="xs"
                   />
                 </Grid.Col>
-                <Grid.Col md={6}>
+                <Grid.Col xs={6}>
                   <PasswordInput
                     placeholder="Contraseña"
                     label="Confirmar contraseña"
-                    // description="Password must include at least one letter, number and special character"
-
                     id="confirmarContrasenia"
                     {...form.getInputProps("confirmPassword")}
                     mb="xs"
@@ -185,12 +195,13 @@ export const FormularioRegistrarUsuario = () => {
               </Group>
             </form>
           </Box>
-          <Card
-            sx={{ width: 360, display: "flex", justifyContent: "center" }}
-            mx="auto"
-            p="lg"
+
+          <Box
+            sx={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Text size="md">Si ya tenés cuenta ingresa</Text>{" "}
+            <Text size="md" sx={{ color: "black" }}>
+              Si ya tenés cuenta ingresa
+            </Text>{" "}
             <Link href="http://localhost:3005/autorizacion/ingreso" passHref>
               <Text
                 variant="link"
@@ -201,7 +212,7 @@ export const FormularioRegistrarUsuario = () => {
                 aquí
               </Text>
             </Link>
-          </Card>
+          </Box>
         </>
       </Card>
     </Stack>

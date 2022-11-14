@@ -32,7 +32,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       id_categoria: null,
       descripcion: "",
       precio_venta: null,
-      estado_alta: false,
+      estado_alta: true,
     },
     validate: {
       id_categoria: (value: any) =>
@@ -42,10 +42,10 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       precio_venta: (value: any) => (value <= 0 ? "Ingrese un precio" : null),
     },
   });
-  const { refetch } = useArticulos();
 
+  const [checked, setChecked] = useState(false);
+  const { refetch } = useArticulos();
   const { data: articuloBd } = useUnArticulo(id);
-  // const { mutate, error, isLoading } = useMutateActualizarArticulo();
   const { data: categorias } = useCategorias();
 
   useEffect(() => {
@@ -65,7 +65,9 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
       id_categoria: parseInt(values.id_categoria),
       descripcion: values.descripcion,
       precio_venta: values.precio_venta,
-      estado_alta: values.estado_alta,
+      estado_alta: checked
+        ? (values.estado_alta = true)
+        : (values.estado_alta = false),
     };
 
     actualizarArticulo(id, articulo);
@@ -83,6 +85,16 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   const handleChange = (value: any) => {
     form.setFieldValue("id_categoria", value);
   };
+
+  const switchChange = (value: any) => {
+    if (checked) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+    form.setFieldValue("estado_alta", checked);
+  };
+  console.log(checked);
 
   return (
     <Modal
@@ -137,6 +149,8 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             <Switch
               label="Habilitar"
               color="grape"
+              // checked={checked}
+              // onChange={switchChange}
               {...form.getInputProps("estado_alta")}
             />
           </Grid.Col>

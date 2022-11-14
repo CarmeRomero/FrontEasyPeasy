@@ -105,3 +105,27 @@ export function useTicketsPagados(): UseQueryResult<any, Error> {
     staleTime: Infinity,
   });
 }
+
+export const obtenerTicketsDesdeHasta = async (desde: Date, hasta: Date) => {
+  const { data } = await axios.get(
+    `http://localhost:3000/tickets/listado-tickets/desdeHasta/${desde}/${hasta}`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return data;
+};
+
+export function useTicketsDesdeHasta(
+  desde: any,
+  hasta: any
+): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(
+    ["ticket"],
+    () => obtenerTicketsDesdeHasta(desde, hasta),
+    {
+      staleTime: Infinity,
+    }
+  );
+}

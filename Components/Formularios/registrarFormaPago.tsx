@@ -71,8 +71,8 @@ export const RegistrarFormaPago = () => {
             <Button
               variant="light"
               color="red"
-              px={10}
-              my={30}
+              // px={10}
+              // my={30}
               onClick={() => {
                 openDeleteModal(formaPago.id);
               }}

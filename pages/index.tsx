@@ -1,12 +1,15 @@
-// import { NextPage } from "next";
-//import { AuthLayout } from "../components/layouts/AuthBoard";
-//import { DashboardLayout } from "../components/layouts/DashBoard";
+import { Grid } from "@mantine/core";
 import { FormularioIngreso } from "../Components/Formularios/login";
-// import HomePage from "./usuarios";
-// import RegistrarUsuarioPage from "./usuarios";
+import { AuthLayout } from "../Components/Layouts/AuthBoard";
 
 const Home = () => {
-  <FormularioIngreso />; // <HomePage />;
+  <AuthLayout title="Ingreso">
+    <Grid columns={12}>
+      <Grid.Col span={12}>
+        <FormularioIngreso />
+      </Grid.Col>
+    </Grid>
+  </AuthLayout>;
 };
 
 export default Home;

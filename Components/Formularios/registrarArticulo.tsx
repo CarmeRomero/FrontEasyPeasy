@@ -25,7 +25,7 @@ export const FormularioRegistrarArticulo = () => {
       id_categoria: null,
       descripcion: "",
       precio_venta: null,
-      estado_alta: false,
+      estado_alta: true,
     },
     validate: {
       codigo: (value: any) => (value.length <= 0 ? "Ingrese un codigo" : null),
@@ -47,11 +47,12 @@ export const FormularioRegistrarArticulo = () => {
       id_categoria: parseInt(values.id_categoria),
       descripcion: values.descripcion,
       precio_venta: values.precio_venta,
-      estado_alta: values.estado_alta,
+      estado_alta: true,
     };
     mutate(articulo, {
       onSuccess: () => {
         console.log(values);
+        form.reset();
       },
     });
   };
@@ -60,19 +61,6 @@ export const FormularioRegistrarArticulo = () => {
     form.setFieldValue("id_categoria", value);
     setIdCategoria(value);
   };
-
-  // const { refetch } = useCategorias();
-
-  // const { mutate: mutateCategoria } = useMutateCategoriaEliminar();
-
-  // //ELIMINAR CATEGORIA
-  // const handleDelete = (value: any) => {
-  //   mutateCategoria(value, {
-  //     onSuccess: () => {
-  //       refetch();
-  //     },
-  //   });
-  // };
 
   return (
     <Stack spacing="xs">
@@ -105,7 +93,7 @@ export const FormularioRegistrarArticulo = () => {
                 </Grid.Col>
               </Grid>
               <Grid>
-                <Grid.Col md={9}>
+                <Grid.Col md={12}>
                   <Select
                     label="Categoría"
                     placeholder="Seleccione una"
@@ -126,41 +114,13 @@ export const FormularioRegistrarArticulo = () => {
                   />
                 </Grid.Col>
 
-                {/* <Grid.Col md={1}>
-                  <Menu
-                    placement="end"
-                    control={
-                      <Button variant="light" color="grape" px={10} my={30}>
-                        <Dots strokeWidth={2} size={17} />
-                      </Button>
-                    }
-                    withArrow
-                  >
-                    <Menu.Item
-                      icon={<Edit size={14} />}
-                      onClick={() => {
-                        setOpen(true);
-                      }}
-                    >
-                      Agregar categoría
-                    </Menu.Item>
-                    <Menu.Item
-                      icon={<Trash size={14} />}
-                      onClick={() => {
-                        handleDelete(id_categoria);
-                      }}
-                    >
-                      Eliminar
-                    </Menu.Item>
-                  </Menu>
-                </Grid.Col> */}
-                <Grid.Col md={3} mt={35} pl={30}>
+                {/* <Grid.Col md={3} mt={35} pl={30}>
                   <Switch
                     label="Habilitar"
                     color="grape"
                     {...form.getInputProps("estado_alta")}
                   />
-                </Grid.Col>
+                </Grid.Col> */}
               </Grid>
 
               <Group position="center" mt="xl" my="md">

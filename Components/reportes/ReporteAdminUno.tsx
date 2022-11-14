@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { useTicketsPagados } from "../../hooks/useTickets";
-import { Box, Grid, TextInput, Divider } from "@mantine/core";
+import {
+  useTicketsDesdeHasta,
+  useTicketsPagados,
+} from "../../hooks/useTickets";
+import { Box, Grid, TextInput, Divider, Button } from "@mantine/core";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +15,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useFormasPago } from "../../hooks/useFormasPago";
-import { prepareServerlessUrl } from "next/dist/server/base-server";
+import { DatePicker } from "@mantine/dates";
+import { useForm } from "@mantine/form";
 
 ChartJS.register(
   CategoryScale,
@@ -32,11 +36,10 @@ export const ReporteAdminUno = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "right" as const,
       },
       title: {
         display: true,
-        text: "Chart.js Bar Chart",
       },
     },
   };
@@ -87,10 +90,39 @@ export const ReporteAdminUno = () => {
     refetch();
   }, [tarjeta, efectivo, otro]);
 
-  console.log(tarjeta);
-  console.log(efectivo);
-  console.log(otro);
+  const [desde, setDesde] = useState("");
+  const [hasta, setHasta] = useState("");
+  const form = useForm({
+    initialValues: {
+      desde: null,
+      hasta: null,
+    },
+    validate: {},
+  });
 
+  // const { data: TicketsDesdeHasta } = useTicketsDesdeHasta(
+  //   "2022-11-013T18:25:43.511Z",
+  //   "2022-11-11T18:25:43.511Z"
+  // );
+
+  // const handleSubmit = (values: any) => {
+  //   // setDesde(values.desde);
+  //   // setHasta(values.hasta);
+  //   // cargarValores();
+  //   console.log(TicketsDesdeHasta);
+  //   return values;
+  // };
+
+  // const cargarValores = () =>
+  //   TicketsDesdeHasta
+  //     ? TicketsDesdeHasta.map((formaPago: any) => {
+  //         formaPago.formas_pago?.descripcion == "Tarjeta"
+  //           ? setTarjeta((sumaTar += 1))
+  //           : formaPago.formas_pago?.descripcion == "Efectivo"
+  //           ? setEfectivo((sumaEfe += 1))
+  //           : setOtro((sumaOtro += 1));
+  //       })
+  //     : [];
   return (
     <>
       <Box>
@@ -167,6 +199,39 @@ export const ReporteAdminUno = () => {
           </Grid.Col>
         </Grid>
       </Box>
+      {/* <form onSubmit={form.onSubmit(handleSubmit)}> */}
+      <Grid>
+        <Grid.Col md={4}>
+          <DatePicker
+            placeholder="Seleccione una fecha"
+            label="Desde"
+            required
+            {...form.getInputProps("desde")}
+          />
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <DatePicker
+            placeholder="Seleccione una fecha"
+            label="Hasta"
+            required
+            {...form.getInputProps("hasta")}
+          />
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Button
+            mt={22}
+            variant="outline"
+            fullWidth
+            color="grape"
+            radius="xl"
+            size="md"
+            type="submit"
+          >
+            Consultar
+          </Button>
+        </Grid.Col>
+      </Grid>
+      {/* </form> */}
       <Bar
         style={{
           maxWidth: "800px",

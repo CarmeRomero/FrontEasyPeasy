@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Card, Grid, Image } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
@@ -147,25 +147,83 @@ export const Diagrama = () => {
         refetch={refetch}
       />
 
-      <Button my="sm" onClick={() => setOpen(true)}>
-        Agregar mesa
-      </Button>
-      <Button my="sm" onClick={() => setOpenEliminar(true)}>
-        eliminar mesa
-      </Button>
-      <div
-        style={{
-          width: "100%",
-          minWidth: "600px",
-          height: "400px",
-          border: "1px solid black",
-        }}
-      >
-        {renderMesas}
-      </div>
-      <Button my="sm" onClick={openDeleteModal}>
-        Guardar diagrama
-      </Button>
+      <Grid>
+        <Grid.Col md={12}>
+          <div
+            style={{
+              width: "100%",
+              minWidth: "600px",
+              height: "400px",
+              border: "1px solid black",
+            }}
+          >
+            {renderMesas}
+          </div>
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              <Image
+                src="https://img.freepik.com/vector-premium/cafeteria-moderna-cafeteria-muebles-interiores-restaurante_7081-1432.jpg?w=2000"
+                height={160}
+                alt="Norway"
+              />
+            </Card.Section>
+
+            <Button
+              variant="outline"
+              color="violet"
+              fullWidth
+              style={{ marginTop: 14 }}
+              onClick={() => setOpen(true)}
+            >
+              Agregar mesa
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              <Image
+                src="https://img.freepik.com/vector-gratis/diseno-interiores-cafeteria-moderna-cafeteria-acogedora-vacia-mostrador-cafe-te-estantes-menu-tazas-platos-mesas-sillas_575670-342.jpg?w=740&t=st=1668354811~exp=1668355411~hmac=71ff6bcfebf26421ad7d9268666aeaf99d3127847d3412bda0f6f2a9b1378ac8"
+                height={160}
+                alt="No way!"
+              />
+            </Card.Section>
+
+            <Button
+              variant="outline"
+              color="violet"
+              fullWidth
+              style={{ marginTop: 14 }}
+              onClick={() => setOpenEliminar(true)}
+            >
+              Eliminar mesa
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              <Image
+                src="https://img.freepik.com/vector-gratis/interior-cafeteria-moderna-diseno-plano_23-2147902989.jpg?w=360"
+                height={160}
+                alt="No way!"
+              />
+            </Card.Section>
+
+            <Button
+              variant="outline"
+              color="violet"
+              fullWidth
+              style={{ marginTop: 14 }}
+              onClick={openDeleteModal}
+            >
+              Guardar diagrama
+            </Button>
+          </Card>
+        </Grid.Col>
+      </Grid>
     </>
   );
 };

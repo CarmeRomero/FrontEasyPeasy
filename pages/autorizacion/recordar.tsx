@@ -48,13 +48,17 @@ const ConfirmarEmailPage = () => {
           width: 360,
           boxShadow:
             "0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%)",
+          opacity: 0.95,
+          color: "rgb(235, 232, 242)",
         }}
         mx="auto"
         p="lg"
       >
         <LoadingOverlay visible={isLoading} />
         <Group position="center" mb="md">
-          <Title order={3}>Recuperación de cuenta</Title>
+          <Title order={3} sx={{ color: "black" }}>
+            Recuperación de cuenta
+          </Title>
         </Group>
 
         <Divider pt="xs" />

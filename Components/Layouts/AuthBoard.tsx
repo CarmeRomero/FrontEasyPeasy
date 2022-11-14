@@ -1,4 +1,5 @@
 import { Box, Center, Grid } from "@mantine/core";
+import { Color } from "ag-grid-community";
 import Head from "next/head";
 import { FC } from "react";
 
@@ -21,12 +22,20 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
               sx={{
                 // fontSize: "10px",
                 display: "flex",
+
                 // justifyContent: "left",
                 justifyContent: "center",
-                backgroundColor: "rgb(187, 162, 255)",
-
+                backgroundImage:
+                  "url(https://www.pointbleudesign.com/wp-content/uploads/2019/09/European-Specialty-Coffee-Market-by-Pointbleu-Design-Blog.jpg )",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100%",
+                opacity: 0.8,
                 alignItems: "center",
-                height: "100vh",
+                height: "610px",
+
+                // width: "100vm",
+
                 // marginLeft: "30px",
                 // marginLeft: 50,
               }}

@@ -1,7 +1,7 @@
 import { Button, Group, TextInput, Grid, Table } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import { Check, Trash } from "tabler-icons-react";
+import { Box, Check, Trash } from "tabler-icons-react";
 import {
   useCategorias,
   useMutateCategoria,
@@ -65,8 +65,8 @@ export const RegistrarCategoria = () => {
             <Button
               variant="light"
               color="red"
-              px={10}
-              my={30}
+              // px={10}
+              // my={30}
               onClick={() => {
                 openDeleteModal(cat.id);
               }}
@@ -108,8 +108,9 @@ export const RegistrarCategoria = () => {
           </Grid.Col>
         </Grid>
       </form>
-      <Grid px="xl">
-        <Table horizontalSpacing="lg" verticalSpacing="xs">
+
+      <Grid>
+        <Table horizontalSpacing="xl">
           <thead>
             <tr>
               <th>Categoría </th>

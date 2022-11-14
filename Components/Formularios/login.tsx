@@ -57,6 +57,8 @@ export const FormularioIngreso = () => {
           width: 360,
           boxShadow:
             "0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%)",
+          opacity: 0.95,
+          color: "rgb(235, 232, 242)",
         }}
         mx="auto"
         p="lg"
@@ -64,7 +66,9 @@ export const FormularioIngreso = () => {
         <>
           <LoadingOverlay visible={isLoading} />
           <Group position="center" mb="md">
-            <Title order={3}>Iniciar sesión</Title>
+            <Title order={3} sx={{ color: "black" }}>
+              Iniciar sesión
+            </Title>
           </Group>
 
           <Divider pt="xs" />
