@@ -108,6 +108,28 @@ export const SidebarMozo = () => {
       ],
     },
     {
+      name: "Reporte",
+      items: [
+        {
+          name: "Top 10 pedidos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/reportes/mozo-uno",
+        },
+      ],
+    },
+    {
       name: "Usuarios",
       items: [
         {

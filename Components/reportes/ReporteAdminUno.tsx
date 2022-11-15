@@ -74,17 +74,17 @@ export const ReporteAdminUno = () => {
   let sumaEfe = 0;
   let sumaTar = 0;
   let sumaOtro = 0;
-  useEffect(() => {
-    tickets
-      ? tickets.map((formaPago: any) => {
-          formaPago.formas_pago?.descripcion == "Tarjeta"
-            ? setTarjeta((sumaTar += 1))
-            : formaPago.formas_pago?.descripcion == "Efectivo"
-            ? setEfectivo((sumaEfe += 1))
-            : setOtro((sumaOtro += 1));
-        })
-      : [];
-  }, [tickets]);
+  // useEffect(() => {
+  //   tickets
+  //     ? tickets.map((formaPago: any) => {
+  //         formaPago.formas_pago?.descripcion == "Tarjeta"
+  //           ? setTarjeta((sumaTar += 1))
+  //           : formaPago.formas_pago?.descripcion == "Efectivo"
+  //           ? setEfectivo((sumaEfe += 1))
+  //           : setOtro((sumaOtro += 1));
+  //       })
+  //     : [];
+  // }, [tickets]);
 
   useEffect(() => {
     refetch();
@@ -100,29 +100,30 @@ export const ReporteAdminUno = () => {
     validate: {},
   });
 
-  // const { data: TicketsDesdeHasta } = useTicketsDesdeHasta(
-  //   "2022-11-013T18:25:43.511Z",
-  //   "2022-11-11T18:25:43.511Z"
-  // );
+  const { data: TicketsDesdeHasta } = useTicketsDesdeHasta(
+    new Date("2022-11-13T18:25:43.511Z"),
+    new Date("s2022-11-11T18:25:43.511Z")
+  );
+  console.log(TicketsDesdeHasta);
 
-  // const handleSubmit = (values: any) => {
-  //   // setDesde(values.desde);
-  //   // setHasta(values.hasta);
-  //   // cargarValores();
-  //   console.log(TicketsDesdeHasta);
-  //   return values;
-  // };
+  const handleSubmit = (values: any) => {
+    // setDesde(values.desde);
+    // setHasta(values.hasta);
+    // cargarValores();
+    console.log(TicketsDesdeHasta);
+    return values;
+  };
 
-  // const cargarValores = () =>
-  //   TicketsDesdeHasta
-  //     ? TicketsDesdeHasta.map((formaPago: any) => {
-  //         formaPago.formas_pago?.descripcion == "Tarjeta"
-  //           ? setTarjeta((sumaTar += 1))
-  //           : formaPago.formas_pago?.descripcion == "Efectivo"
-  //           ? setEfectivo((sumaEfe += 1))
-  //           : setOtro((sumaOtro += 1));
-  //       })
-  //     : [];
+  const cargarValores = () =>
+    TicketsDesdeHasta
+      ? TicketsDesdeHasta.map((formaPago: any) => {
+          formaPago.formas_pago?.descripcion == "Tarjeta"
+            ? setTarjeta((sumaTar += 1))
+            : formaPago.formas_pago?.descripcion == "Efectivo"
+            ? setEfectivo((sumaEfe += 1))
+            : setOtro((sumaOtro += 1));
+        })
+      : [];
   return (
     <>
       <Box>
@@ -199,39 +200,39 @@ export const ReporteAdminUno = () => {
           </Grid.Col>
         </Grid>
       </Box>
-      {/* <form onSubmit={form.onSubmit(handleSubmit)}> */}
-      <Grid>
-        <Grid.Col md={4}>
-          <DatePicker
-            placeholder="Seleccione una fecha"
-            label="Desde"
-            required
-            {...form.getInputProps("desde")}
-          />
-        </Grid.Col>
-        <Grid.Col md={4}>
-          <DatePicker
-            placeholder="Seleccione una fecha"
-            label="Hasta"
-            required
-            {...form.getInputProps("hasta")}
-          />
-        </Grid.Col>
-        <Grid.Col md={4}>
-          <Button
-            mt={22}
-            variant="outline"
-            fullWidth
-            color="grape"
-            radius="xl"
-            size="md"
-            type="submit"
-          >
-            Consultar
-          </Button>
-        </Grid.Col>
-      </Grid>
-      {/* </form> */}
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Grid>
+          <Grid.Col md={4}>
+            <DatePicker
+              placeholder="Seleccione una fecha"
+              label="Desde"
+              required
+              {...form.getInputProps("desde")}
+            />
+          </Grid.Col>
+          <Grid.Col md={4}>
+            <DatePicker
+              placeholder="Seleccione una fecha"
+              label="Hasta"
+              required
+              {...form.getInputProps("hasta")}
+            />
+          </Grid.Col>
+          <Grid.Col md={4}>
+            <Button
+              mt={22}
+              variant="outline"
+              fullWidth
+              color="grape"
+              radius="xl"
+              size="md"
+              type="submit"
+            >
+              Consultar
+            </Button>
+          </Grid.Col>
+        </Grid>
+      </form>
       <Bar
         style={{
           maxWidth: "800px",

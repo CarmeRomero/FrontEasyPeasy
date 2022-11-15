@@ -106,9 +106,23 @@ export function useTicketsPagados(): UseQueryResult<any, Error> {
   });
 }
 
+// export const obtenerTicketFecha = async (desde: Date, hasta: Date) => {
+//   fetch(
+//     `http://localhost:3000/tickets/listado-tickets/desdeHasta?desde=${desde.toJSON()}&hasta=${hasta.toJSON()}`
+//   )
+//     .then((response) => response.json())
+//     .then((data) => {
+//       return data;
+//     });
+// };
+
 export const obtenerTicketsDesdeHasta = async (desde: Date, hasta: Date) => {
+  console.log(desde.toJSON());
+  console.log(hasta.toJSON());
+
   const { data } = await axios.get(
-    `http://localhost:3000/tickets/listado-tickets/desdeHasta/${desde}/${hasta}`,
+    `http://localhost:3000/tickets/listado-tickets/desdeHasta?desde=${desde.toJSON()}&hasta=${hasta.toJSON()}`,
+
     {
       withCredentials: true,
     }
@@ -118,8 +132,8 @@ export const obtenerTicketsDesdeHasta = async (desde: Date, hasta: Date) => {
 };
 
 export function useTicketsDesdeHasta(
-  desde: any,
-  hasta: any
+  desde: Date,
+  hasta: Date
 ): UseQueryResult<any, Error> {
   return useQuery<any, Error>(
     ["ticket"],

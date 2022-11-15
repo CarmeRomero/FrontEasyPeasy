@@ -106,7 +106,7 @@ export const FormularioRegistrarUsuario = () => {
 
                   <DatePicker
                     locale="es"
-                    placeholder="Pick date"
+                    placeholder="Seleccione una fecha"
                     label="Fecha de nacimiento"
                     id="fecha_nacimiento"
                     {...form.getInputProps("fecha_nacimiento")}
