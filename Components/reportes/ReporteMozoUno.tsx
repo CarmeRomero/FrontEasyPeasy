@@ -1,8 +1,9 @@
 import { Button, Grid, Table } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTicketsDesdeHasta } from "../../hooks/useTickets";
+import { useUnUsuarioDistinto, useUsuarios } from "../../hooks/useUsuario";
 
 export const ReporteMozoUno = () => {
   const [desde, setDesde] = useState(new Date());
@@ -20,29 +21,45 @@ export const ReporteMozoUno = () => {
   const [reportePedido, setReportePedido] = useState([]);
 
   const handleSubmit = async (values: any) => {
-    setDesde(values.desde);
-    setHasta(values.hasta);
-
-    // const response = await obtenerTicketFecha(values.desde, values.hasta);
-
     fetch(
-      `http://localhost:3000/tickets/listado-tickets/desdeHasta?desde=${values.desde.toJSON()}&hasta=${values.hasta.toJSON()}`
+      `http://localhost:3000/pedidos/listado-pedido/desdeHasta?desde=${values.desde.toJSON()}&hasta=${values.hasta.toJSON()}`
     )
       .then((response) => response.json())
-      .then((data) => setReportePedido(data));
+      .then((data) => {
+        let listaMozo: any = [];
+
+        data.forEach((x: any) => {
+          let mozo = moz?.find((elemento: any) =>
+            elemento.id === x.id_usuario ? elemento.nombre : null
+          );
+          listaMozo.push(mozo);
+        });
+        console.log(listaMozo);
+        const rowssss = data
+          ? data.map((reportePedido: any, index: number) => (
+              <tr key={reportePedido.id_usuario}>
+                <td>{listaMozo[index].nombre}</td>
+                <td>{listaMozo[index].apellido}</td>
+                <td>{reportePedido._count.num_pedido}</td>
+              </tr>
+            ))
+          : [];
+        setReportePedido(data);
+        setRows(rowssss);
+      });
   };
 
   console.log(reportePedido);
 
-  const rows = reportePedido
-    ? reportePedido.map((reportePedido: any) => (
-        <tr key={reportePedido.id}>
-          <td>{reportePedido.Usuarios.nombre}</td>
+  const [listaUsuarios, setListaUsuarios] = useState([]);
 
-          <td>{reportePedido.Usuarios.apellido}</td>
-        </tr>
-      ))
-    : [];
+  const { data: moz } = useUsuarios();
+
+  useEffect(() => {
+    console.log(listaUsuarios);
+  }, [reportePedido]);
+
+  const [rows, setRows] = useState(null);
 
   return (
     <>
@@ -85,6 +102,7 @@ export const ReporteMozoUno = () => {
             <tr>
               <th>Nombre</th>
               <th>Apellido</th>
+              <th>Cantidad</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
@@ -93,5 +111,3 @@ export const ReporteMozoUno = () => {
     </>
   );
 };
-
-export const TablaReporte = () => {};

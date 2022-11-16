@@ -71,6 +71,7 @@ export function useUsuarios(): UseQueryResult<any, Error> {
   });
 }
 
+// usuario logueado
 export const obtenerUnoSolo = async () => {
   const { data } = await axios.get(`http://localhost:3000/usuarios/usuario`, {
     withCredentials: true,
@@ -83,6 +84,24 @@ export function useUnoSolo(): UseQueryResult<any, Error> {
     staleTime: Infinity,
   });
 }
+
+// usuario diferente al logueado
+export const obtenerUnUsuarioDistinto = async (id: number) => {
+  const { data } = await axios.get(
+    `http://localhost:3000/usuarios/usuario/${id}`,
+    {
+      withCredentials: true,
+    }
+  );
+  return data;
+};
+
+export function useUnUsuarioDistinto(id: number): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(["usuario"], () => obtenerUnUsuarioDistinto(id), {
+    staleTime: Infinity,
+  });
+}
+
 //MODIFICAR USUARIO
 export const actualizarUsuario = async (
   actualizarDatosUsuario: IActualizarDatosUsuario

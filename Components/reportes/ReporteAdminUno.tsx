@@ -44,36 +44,27 @@ export const ReporteAdminUno = () => {
     },
   };
 
-  const labels = ["Formas de pago"];
+  const labels = ["Tarjeta", "efectivo", "otro"];
 
-  const data = {
-    labels,
+  const [datos, setdatos] = useState({
+    labels: labels,
     datasets: [
       {
-        label: "Tarjeta",
+        label: "Cantidad",
 
-        data: labels.map(() => tarjeta),
+        data: [tarjeta, efectivo, otro],
 
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Efectivo",
-        data: labels.map(() => efectivo),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-      {
-        label: "Otros",
-        data: labels.map(() => otro),
-        backgroundColor: "rgb(170, 247, 189)",
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.5)",
+          "rgba(53, 162, 235, 0.5)",
+          "rgb(170, 247, 189)",
+        ],
       },
     ],
-  };
+  });
 
   const { data: tickets, refetch } = useTicketsPagados();
 
-  let sumaEfe = 0;
-  let sumaTar = 0;
-  let sumaOtro = 0;
   // useEffect(() => {
   //   tickets
   //     ? tickets.map((formaPago: any) => {
@@ -90,8 +81,6 @@ export const ReporteAdminUno = () => {
     refetch();
   }, [tarjeta, efectivo, otro]);
 
-  const [desde, setDesde] = useState("");
-  const [hasta, setHasta] = useState("");
   const form = useForm({
     initialValues: {
       desde: null,
@@ -100,30 +89,51 @@ export const ReporteAdminUno = () => {
     validate: {},
   });
 
-  const { data: TicketsDesdeHasta } = useTicketsDesdeHasta(
-    new Date("2022-11-13T18:25:43.511Z"),
-    new Date("s2022-11-11T18:25:43.511Z")
-  );
-  console.log(TicketsDesdeHasta);
-
   const handleSubmit = (values: any) => {
-    // setDesde(values.desde);
-    // setHasta(values.hasta);
-    // cargarValores();
-    console.log(TicketsDesdeHasta);
+    fetch(
+      `http://localhost:3000/tickets/listado-tickets/desdeHasta?desde=${values.desde.toJSON()}&hasta=${values.hasta.toJSON()}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        let sumaEfe = 0;
+        let sumaTar = 0;
+        let sumaOtro = 0;
+        setTarjeta(0),
+          setEfectivo(0),
+          setOtro(0),
+          data
+            ? data?.map((formaPago: any) => {
+                formaPago.formas_pago?.descripcion == "Tarjeta"
+                  ? setTarjeta((sumaTar += 1))
+                  : formaPago.formas_pago?.descripcion == "Efectivo"
+                  ? setEfectivo((sumaEfe += 1))
+                  : setOtro((sumaOtro += 1));
+              })
+            : [];
+      });
+
     return values;
   };
 
-  const cargarValores = () =>
-    TicketsDesdeHasta
-      ? TicketsDesdeHasta.map((formaPago: any) => {
-          formaPago.formas_pago?.descripcion == "Tarjeta"
-            ? setTarjeta((sumaTar += 1))
-            : formaPago.formas_pago?.descripcion == "Efectivo"
-            ? setEfectivo((sumaEfe += 1))
-            : setOtro((sumaOtro += 1));
-        })
-      : [];
+  useEffect(() => {
+    setdatos({
+      labels: labels,
+      datasets: [
+        {
+          label: "Cantidad",
+
+          data: [tarjeta, efectivo, otro],
+
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.5)",
+            "rgba(53, 162, 235, 0.5)",
+            "rgb(170, 247, 189)",
+          ],
+        },
+      ],
+    });
+  }, [tarjeta, efectivo, otro]);
+
   return (
     <>
       <Box>
@@ -242,7 +252,8 @@ export const ReporteAdminUno = () => {
           marginLeft: "100px",
         }}
         options={options}
-        data={data}
+        data={datos}
+        // onUpdate={updatePlot}
       />
     </>
   );
