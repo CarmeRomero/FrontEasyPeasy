@@ -110,7 +110,7 @@ export const SidebarCajero = () => {
       name: "Reportes",
       items: [
         {
-          name: "Reporte 1",
+          name: "Caja nueva",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -127,7 +127,7 @@ export const SidebarCajero = () => {
           path: "/reportes/cajero-uno",
         },
         {
-          name: "Reporte 2",
+          name: "Caja",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}

@@ -174,50 +174,12 @@ export const SidebarAdmin = () => {
         },
       ],
     },
-    {
-      name: "Tickets",
-      items: [
-        {
-          name: "Generar ticket",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/ticket",
-        },
-        {
-          name: "Listado de tickets",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/ticket/listado-tickets",
-        },
-      ],
-    },
+
     {
       name: "Reportes",
       items: [
         {
-          name: "Reporte 1",
+          name: "Principales formas de pago",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -234,7 +196,7 @@ export const SidebarAdmin = () => {
           path: "/reportes/admin-uno",
         },
         {
-          name: "Reporte 2",
+          name: "Recurrencia",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -251,7 +213,7 @@ export const SidebarAdmin = () => {
           path: "/reportes/admin-dos",
         },
         {
-          name: "Reporte 3",
+          name: "Pedidos por mozo",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -266,6 +228,23 @@ export const SidebarAdmin = () => {
             />
           ),
           path: "/reportes/admin-tres",
+        },
+        {
+          name: "Venta en el año",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/reportes/admin-cuatro",
         },
       ],
     },

@@ -5,12 +5,13 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import moment from "moment";
 import "moment/locale/es";
 moment.locale("es");
@@ -18,7 +19,8 @@ moment.locale("es");
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
@@ -42,59 +44,36 @@ export const ReporteAdminDos = () => {
       },
       title: {
         display: true,
-        // text: "Chart.js Bar Chart",
       },
     },
   };
 
-  // const labels = [
-  //   "Lunes",
-  //   "Martes",
-  //   "Miercoles",
-  //   "Jueves",
-  //   "Viernes",
-  //   "Sábado",
-  //   "Domingo",
-  // ];
-  const labels = ["Días de la semana"];
+  const labels = [
+    "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo",
+  ];
 
   const data = {
-    labels,
+    labels: labels,
     datasets: [
       {
-        label: "Lunes",
-        data: labels.map(() => lunes),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Martes",
-        data: labels.map(() => martes),
-        backgroundColor: "#BB78FF",
-      },
-      {
-        label: "Miércoles",
-        data: labels.map(() => miercoles),
-        backgroundColor: "#B8E9FF",
-      },
-      {
-        label: "Jueves",
-        data: labels.map(() => jueves),
-        backgroundColor: "#8EFFBA",
-      },
-      {
-        label: "Viernes",
-        data: labels.map(() => viernes),
-        backgroundColor: "#FFA28C",
-      },
-      {
-        label: "Sábado",
-        data: labels.map(() => sabado),
-        backgroundColor: "#2A8EFF",
-      },
-      {
-        label: "Domingo",
-        data: labels.map(() => domingo),
-        backgroundColor: "#E1FF3E",
+        label: "Pedidos por día",
+        data: [lunes, martes, miercoles, jueves, viernes, sabado, domingo],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.5)",
+          "#BB78FF",
+          "#B8E9FF",
+          "#FFA28C",
+          "#8EFFBA",
+          "#2A8EFF",
+          "#E1FF3E",
+        ],
+        borderColor: "rgb(204, 191, 242)",
       },
     ],
   };
@@ -150,7 +129,7 @@ export const ReporteAdminDos = () => {
           <Grid.Col md={4}></Grid.Col>
         </Grid>
       </Box>
-      <Bar
+      <Line
         style={{
           maxWidth: "800px",
           maxHeight: "800px",

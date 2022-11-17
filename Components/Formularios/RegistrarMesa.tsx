@@ -32,16 +32,27 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
     },
     validate: {
       num_mesa: (value: any) =>
-        data.map((item: any) => {
-          item.num_mesa === value ? "Ese número de mesa ya existe" : null;
-        }),
+        data?.find((elemento: any) =>
+          elemento.num_mesa === value.num_mesa
+            ? "Ese número de mesa ya existe"
+            : null
+        ),
     },
   });
 
+  let existeMesa = false;
+  console.log(data);
   const { mutate } = useMutateMesa();
 
   const handleSubmit = (values: any) => {
-    console.log(values);
+    // data.forEach((values: any) => {
+    //   data?.find((elemento: any) =>
+    //     elemento.num_mesa === values.num_mesa
+    //       ? "Ese número de mesa ya existe"
+    //       : null
+    //   );
+    // });
+
     mutate(values, {
       onSuccess: () => {
         refetch();

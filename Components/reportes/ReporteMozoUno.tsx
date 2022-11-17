@@ -1,4 +1,4 @@
-import { Button, Grid, Table } from "@mantine/core";
+import { Button, Divider, Grid, Table } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState, useEffect } from "react";
@@ -13,10 +13,11 @@ export const ReporteMozoUno = () => {
       desde: null,
       hasta: null,
     },
-    validate: {},
+    validate: {
+      desde: (value: any) => (value == null ? "Ingrese una fecha" : null),
+      hasta: (value: any) => (value == null ? "Ingrese una fecha " : null),
+    },
   });
-
-  // const { data } = useTicketsDesdeHasta(desde, hasta);
 
   const [reportePedido, setReportePedido] = useState([]);
 
@@ -40,10 +41,13 @@ export const ReporteMozoUno = () => {
               <tr key={reportePedido.id_usuario}>
                 <td>{listaMozo[index].nombre}</td>
                 <td>{listaMozo[index].apellido}</td>
+                <td>{listaMozo[index].email}</td>
+
                 <td>{reportePedido._count.num_pedido}</td>
               </tr>
             ))
           : [];
+        console.log(listaMozo);
         setReportePedido(data);
         setRows(rowssss);
       });
@@ -70,6 +74,7 @@ export const ReporteMozoUno = () => {
               placeholder="Seleccione una fecha"
               label="Desde"
               required
+              error="Ingrese una fecha"
               {...form.getInputProps("desde")}
             />
           </Grid.Col>
@@ -78,6 +83,7 @@ export const ReporteMozoUno = () => {
               placeholder="Seleccione una fecha"
               label="Hasta"
               required
+              error="Ingrese una fecha"
               {...form.getInputProps("hasta")}
             />
           </Grid.Col>
@@ -96,13 +102,15 @@ export const ReporteMozoUno = () => {
           </Grid.Col>
         </Grid>
       </form>
+      <Divider my="xl" />
       {reportePedido.length > 0 ? (
         <Table horizontalSpacing="lg" verticalSpacing="xs">
           <thead>
             <tr>
               <th>Nombre</th>
               <th>Apellido</th>
-              <th>Cantidad</th>
+              <th>E-mail</th>
+              <th>Pedidos</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

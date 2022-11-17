@@ -37,55 +37,58 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
     }
   }, []);
 
-  console.log(usuario);
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
-        />
-      </Head>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-        }}
-      >
-        {usuario && usuario.rol == "ADMIN" ? (
-          <SidebarAdmin />
-        ) : usuario && usuario.rol == "VISITANTE" ? (
-          <SidebarVISITANTE />
-        ) : usuario && usuario.rol == "MOZO" ? (
-          <SidebarMozo />
-        ) : (
-          <SidebarCajero />
-        )}
-        <Box
-          sx={{
-            backgroundColor: "white",
-            flex: 1,
-          }}
-          id="main-content"
-        >
-          <Header />
-          <Title mt={60} align="center">
-            {title}
-          </Title>
+      <Grid>
+        <Grid.Col md={12}>
+          <Head>
+            <title>{title}</title>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+            />
+          </Head>
           <Box
             sx={{
               display: "flex",
-              flex: 1,
-              justifyContent: "center",
-              minHeight: "min-content",
-              margin: "52px 52px",
+              width: "100%",
             }}
           >
-            <Box sx={{ width: "100%" }}>{children}</Box>
+            {usuario && usuario.rol == "ADMIN" ? (
+              <SidebarAdmin />
+            ) : usuario && usuario.rol == "VISITANTE" ? (
+              <SidebarVISITANTE />
+            ) : usuario && usuario.rol == "MOZO" ? (
+              <SidebarMozo />
+            ) : (
+              <SidebarCajero />
+            )}
+            <Box
+              sx={{
+                backgroundColor: "white",
+                flex: 1,
+              }}
+              id="main-content"
+            >
+              <Header />
+              <Title mt={60} align="center">
+                {title}
+              </Title>
+              <Box
+                sx={{
+                  display: "flex",
+                  flex: 1,
+                  justifyContent: "center",
+                  minHeight: "min-content",
+                  margin: "52px 52px",
+                }}
+              >
+                <Box sx={{ width: "100%" }}>{children}</Box>
+              </Box>
+            </Box>
           </Box>
-        </Box>
-      </Box>
+        </Grid.Col>
+      </Grid>
     </>
   );
 };

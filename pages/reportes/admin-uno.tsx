@@ -4,7 +4,7 @@ import { ReporteAdminUno } from "../../Components/reportes/ReporteAdminUno";
 
 const AdminReporteUnoPage = () => {
   return (
-    <DashboardLayout title="Reporte 1">
+    <DashboardLayout title="Métodos de pago más utilizados">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ReporteAdminUno />

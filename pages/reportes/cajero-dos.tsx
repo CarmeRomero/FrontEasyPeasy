@@ -1,13 +1,13 @@
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
 import { Grid } from "@mantine/core";
-import { ReporteCajeroDos } from "../../Components/reportes/ReporteCajeroDos";
+import { ReporteCajeroUno } from "../../Components/reportes/ReporteCajeroUno";
 
 const AdminReporteUnoPage = () => {
   return (
-    <DashboardLayout title="Reporte 2">
+    <DashboardLayout title="Caja">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <ReporteCajeroDos />
+          <ReporteCajeroUno />
         </Grid.Col>
       </Grid>
     </DashboardLayout>

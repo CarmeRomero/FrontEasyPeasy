@@ -1,17 +1,17 @@
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
 import { Grid } from "@mantine/core";
-import { ReporteMozoUno } from "../../Components/reportes/ReporteMozoUno";
+import { ReporteAdminCuatro } from "../../Components/reportes/ReporteAdminCuatro";
 
-const AdminReporteUnoPage = () => {
+const AdminReporteTresPage = () => {
   return (
-    <DashboardLayout title="Cantidad de pedidos por mozo">
+    <DashboardLayout title="Balance en el año">
       <Grid columns={12}>
         <Grid.Col span={12}>
-          <ReporteMozoUno />
+          <ReporteAdminCuatro />
         </Grid.Col>
       </Grid>
     </DashboardLayout>
   );
 };
 
-export default AdminReporteUnoPage;
+export default AdminReporteTresPage;

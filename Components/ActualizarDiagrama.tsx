@@ -148,25 +148,13 @@ export const Diagrama = () => {
       />
 
       <Grid>
-        <Grid.Col md={12}>
-          <div
-            style={{
-              width: "100%",
-              minWidth: "600px",
-              height: "400px",
-              border: "1px solid black",
-            }}
-          >
-            {renderMesas}
-          </div>
-        </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card my={30} shadow="xs" radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-premium/cafeteria-moderna-cafeteria-muebles-interiores-restaurante_7081-1432.jpg?w=2000"
+                src="https://img.freepik.com/vector-premium/textura-angustiada-grunge_1102-1279.jpg?w=2000"
                 height={160}
-                alt="Norway"
+                alt="No way!"
               />
             </Card.Section>
 
@@ -182,10 +170,10 @@ export const Diagrama = () => {
           </Card>
         </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card my={30} shadow="xs" radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-gratis/diseno-interiores-cafeteria-moderna-cafeteria-acogedora-vacia-mostrador-cafe-te-estantes-menu-tazas-platos-mesas-sillas_575670-342.jpg?w=740&t=st=1668354811~exp=1668355411~hmac=71ff6bcfebf26421ad7d9268666aeaf99d3127847d3412bda0f6f2a9b1378ac8"
+                src="https://img.freepik.com/vector-premium/textura-angustiada-grunge_1102-1279.jpg?w=2000"
                 height={160}
                 alt="No way!"
               />
@@ -203,10 +191,10 @@ export const Diagrama = () => {
           </Card>
         </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card my={30} shadow="xs" radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-gratis/interior-cafeteria-moderna-diseno-plano_23-2147902989.jpg?w=360"
+                src="https://img.freepik.com/vector-premium/textura-angustiada-grunge_1102-1279.jpg?w=2000"
                 height={160}
                 alt="No way!"
               />
@@ -222,6 +210,18 @@ export const Diagrama = () => {
               Guardar diagrama
             </Button>
           </Card>
+        </Grid.Col>
+        <Grid.Col md={12}>
+          <div
+            style={{
+              width: "100%",
+              minWidth: "600px",
+              height: "400px",
+              border: "1px solid black",
+            }}
+          >
+            {renderMesas}
+          </div>
         </Grid.Col>
       </Grid>
     </>

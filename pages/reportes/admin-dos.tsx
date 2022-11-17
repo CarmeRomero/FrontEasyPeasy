@@ -4,7 +4,7 @@ import { ReporteAdminDos } from "../../Components/reportes/ReporteAdminDos";
 
 const AdminReporteUnoPage = () => {
   return (
-    <DashboardLayout title="Reporte 1">
+    <DashboardLayout title="Días de la semana con más recurrencia">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ReporteAdminDos />

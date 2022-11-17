@@ -32,9 +32,10 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
                 backgroundSize: "100%",
                 opacity: 0.8,
                 alignItems: "center",
-                height: "610px",
+                height: "600px",
 
-                // width: "100vm",
+                minWidth: "500vm",
+                minHeight: "500vm",
 
                 // marginLeft: "30px",
                 // marginLeft: 50,
