@@ -18,6 +18,7 @@ import { useCategorias } from "../../hooks/useCategoria";
 import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { showNotification } from "@mantine/notifications";
+import { checkServerIdentity } from "tls";
 
 interface Props {
   open: boolean;
@@ -43,7 +44,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
     },
   });
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState();
   const { refetch } = useArticulos();
   const { data: articuloBd } = useUnArticulo(id);
   const { data: categorias } = useCategorias();
@@ -55,7 +56,10 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
         descripcion: articuloBd.descripcion,
         precio_venta: articuloBd.precio_venta,
         id_categoria: articuloBd.id_categoria,
+        estado_alta: articuloBd.estado_alta,
       });
+
+      setChecked(articuloBd.estado_alta);
     }
   }, [articuloBd]);
 
@@ -87,14 +91,9 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   };
 
   const switchChange = (value: any) => {
-    if (checked) {
-      setChecked(true);
-    } else {
-      setChecked(false);
-    }
-    form.setFieldValue("estado_alta", checked);
+    // form.setFieldValue("estado_alta", checked);
+    console.log(value);
   };
-  console.log(checked);
 
   return (
     <Modal
@@ -149,8 +148,8 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             <Switch
               label="Habilitar"
               color="grape"
-              // checked={checked}
-              // onChange={switchChange}
+              // checked={}
+              onChange={switchChange}
               {...form.getInputProps("estado_alta")}
             />
           </Grid.Col>

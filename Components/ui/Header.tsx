@@ -15,6 +15,7 @@ export const Header: FC<Props> = ({ backgroundColor = "#081c34" }) => {
     <Box
       sx={{
         display: "flex",
+        flex: "fixed",
         flexDirection: "row",
         width: "100%",
         zIndex: 3,

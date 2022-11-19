@@ -1,11 +1,18 @@
 import { Grid } from "@mantine/core";
-import { NavbarNested } from "../Components/Layouts/sideBar";
+import { HeaderResponsive } from "../Components/HeaderResponsive/HeaderResponsive";
 
 const MiPage = () => {
   return (
     <Grid columns={12}>
       <Grid.Col span={12}>
-        <NavbarNested />
+        <HeaderResponsive
+          links={[
+            { link: "/autorizacion/ingreso", label: "ingreso" },
+            { link: "/autorizacion", label: "ingreso" },
+            { link: "/autorizacion", label: "ingreso" },
+            { link: "/autorizacion", label: "ingreso" },
+          ]}
+        />
       </Grid.Col>
     </Grid>
   );

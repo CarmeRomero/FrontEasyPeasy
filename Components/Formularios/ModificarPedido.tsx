@@ -23,7 +23,7 @@ import {
   DentalBroken,
   Trash,
 } from "tabler-icons-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { IModificarPedido } from "../../interfaces/modificar-pedido";
 import { useMesas } from "../../hooks/useMesas";
 
@@ -35,6 +35,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
   // const [articulosHard, setArticulosHard] = useState([]);
 
   const { data: articulos } = useArticulos();
+  const [value, setValue] = useState("artículo");
 
   const { data: pedidoPorId, isLoading } = usePedido(idPedido);
   const { data: mesas } = useMesas();
@@ -64,6 +65,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
         estado: pedidoPorId.estado,
         Detalle_Pedidos: pedidoPorId.Detalle_Pedidos,
       });
+      console.log(pedidoPorId);
     }
   }, [pedidoPorId]);
 
@@ -71,6 +73,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
     if (articulos) {
       form.setValues(articulos);
     }
+    console.log(articulos);
   }, []);
 
   // const { mutate } = useMutateModificarPedido();
@@ -106,8 +109,8 @@ export const ModificarPedido = ({ idPedido }: Props) => {
     actualizarPedido(idPedido, pedido);
   };
 
-  const handleChangeArticulo = async (event: any, index: any) => {
-    // console.log(prop);
+  const handleChangeArticulo = async (index: any) => {
+    console.log(event);
     form.setFieldValue(`Detalle_Pedidos.${index}.id_articulo`, event);
     const articulo = articulos.find((e: any) => e.id == event);
     form.setFieldValue(
@@ -120,20 +123,22 @@ export const ModificarPedido = ({ idPedido }: Props) => {
     form.setFieldValue(`id_mesa`, event);
   };
 
+  console.log(document.getElementById("articulo"));
   const fields = form.values.Detalle_Pedidos.map((item, index) => (
     <Group key={index} mt="xs">
       <Grid>
         <Grid.Col xs={7} md={8}>
-          <Select
-            label="Seleccione un artículo"
-            placeholder="Seleccione una"
+          {/* <select
+            value={value}
+            // label="Seleccione un artículo"
+            // placeholder="Seleccione una"
             id="articulo"
-            onChange={(e) => handleChangeArticulo(e, index)}
+            onChange={(e) => handleChangeArticulo( index)}
             autoComplete="off"
-            // value={valor}
             // {...form.getInputProps(`Detalle_Pedidos.${index}.cantidad`)}
-            maxDropdownHeight={230}
-            nothingFound="No hay artículos"
+            // maxDropdownHeight={230}
+            // nothingFound="No hay artículos"
+            
             data={
               articulos
                 ? articulos.map(({ id, descripcion }: any) => ({
@@ -142,7 +147,12 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                   }))
                 : []
             }
-          />
+          /> */}
+          {/* <select name="select">
+      <option value="value1">Value 1</option>
+  <option value="value2" selected>Value 2</option>
+  <option value="value3">Value 3</option>
+</select> */}
         </Grid.Col>
 
         <Grid.Col xs={3} md={2}>
@@ -170,11 +180,9 @@ export const ModificarPedido = ({ idPedido }: Props) => {
 
   const [active, setActive] = useState(1);
   const entregado = () => {
-    // setActive((current) => (current < 2 ? current + 1 : current));
     setActive((current) => (current < 2 ? (current = 2) : current));
   };
   const cancelado = () => {
-    // setActive((current) => (current < 2 ? current + 2 : current));
     setActive((current) => (current < 2 ? (current = 3) : current));
   };
 
@@ -287,7 +295,9 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                 placeholder="Seleccione una"
                 id="mesas"
                 onChange={handleChangeMesa}
-                // searchable
+                // defaultValue={
+                //   pedidoPorId ? pedidoPorId?.id_mesa?.toString() : "-"
+                // }
                 autoComplete="off"
                 maxDropdownHeight={230}
                 nothingFound="No hay mesas"
