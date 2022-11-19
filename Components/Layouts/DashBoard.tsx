@@ -21,8 +21,6 @@ import { SidebarVISITANTE } from "../ui/SidebarVisitante";
 import { SidebarMozo } from "../ui/SidebarMozo";
 import { SidebarCajero } from "../ui/SidebarCajero";
 
-// import { SidebarVISITANTE } from "../ui/SidebarVisitante";
-
 interface Props {
   children?: React.ReactNode | undefined;
   title?: string;
@@ -42,7 +40,7 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
       <Grid>
         <Grid.Col md={12}>
           <Head>
-            <title>{title}</title>
+            <Title order={1}>{title}</Title>
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
@@ -65,22 +63,37 @@ export const DashboardLayout: FC<Props> = ({ children, title }) => {
             )}
             <Box
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "#FFFFFF",
                 flex: 1,
               }}
               id="main-content"
             >
               <Header />
-              <Title mt={60} align="center">
+
+              <Title
+                mx={30}
+                mt={55}
+                order={2}
+                // style={{
+                //   color: "rgb(80, 77, 89)",
+                //   padding: "15px",
+                //   border: "0.5px solid rgb(204, 199, 219)",
+                //   borderRadius: "9px",
+                //   backgroundColor: "#F4FFE8",
+                // }}
+                align="center"
+              >
                 {title}
               </Title>
+
               <Box
                 sx={{
                   display: "flex",
                   flex: 1,
                   justifyContent: "center",
                   minHeight: "min-content",
-                  margin: "52px 52px",
+                  width: "100%",
+                  margin: "20px 65px",
                 }}
               >
                 <Box sx={{ width: "100%" }}>{children}</Box>

@@ -1,17 +1,41 @@
-import { useState, useEffect } from "react";
-import { useTicketsPagados } from "../../hooks/useTickets";
-import { Box, Grid, TextInput, Divider, Button } from "@mantine/core";
-
-import { DatePicker } from "@mantine/dates";
-import { useForm } from "@mantine/form";
+import {
+  createStyles,
+  Group,
+  Paper,
+  Text,
+  ThemeIcon,
+  SimpleGrid,
+  Divider,
+} from "@mantine/core";
+import { ArrowDownRight, ArrowUpRight } from "tabler-icons-react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/es";
+import { useTicketsPagados } from "../../hooks/useTickets";
 moment.locale("es");
 
-export const ReporteCajeroUno = () => {
+const useStyles = createStyles((theme) => ({
+  root: {
+    padding: theme.spacing.xl * 1.5,
+  },
+
+  label: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+}));
+
+export function ReporteCajeroUno() {
+  const { classes } = useStyles();
+
   const [tarjeta, setTarjeta] = useState(0);
   const [efectivo, setEfectivo] = useState(0);
   const [otro, setOtro] = useState(0);
+  const [countTarjeta, setCountTarjeta] = useState(0);
+  const [countEfectivo, setCountEfectivo] = useState(0);
+  const [countOtro, setCountOtro] = useState(0);
+  const [tarjetaDiaAnterior, setTarjetaDiaAnterior] = useState(0);
+  const [efectivoDiaAnterior, setEfectivoDiaAnterior] = useState(0);
+  const [otroDiaAnterior, setOtroDiaAnterior] = useState(0);
 
   const { data: tickets, refetch } = useTicketsPagados();
 
@@ -26,6 +50,12 @@ export const ReporteCajeroUno = () => {
         let sumaEfe = 0;
         let sumaTar = 0;
         let sumaOtro = 0;
+        let countTar = 0;
+        let countEfe = 0;
+        let countOtr = 0;
+        let sumaEfeDiaAnterior = 0;
+        let sumaTarDiaAnterior = 0;
+        let sumaOtroDiaAnterior = 0;
         setTarjeta(0),
           setEfectivo(0),
           setOtro(0),
@@ -40,129 +70,159 @@ export const ReporteCajeroUno = () => {
                       moment().format("DD-MM-YYYY")
                   ? setEfectivo((sumaEfe += parseInt(formaPago.total)))
                   : formaPago.formas_pago?.descripcion !== "Tarjeta" &&
-                    formaPago.formas_pago?.descripcion == "Efectivo" &&
+                    formaPago.formas_pago?.descripcion !== "Efectivo" &&
                     moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
                       moment().format("DD-MM-YYYY")
                   ? setOtro((sumaOtro += parseInt(formaPago.total)))
                   : 0;
+                console.log(moment(formaPago.fecha_hora).format("DD-MM-YYYY"));
               })
             : [];
-      });
-  }, []);
 
-  // const handleSubmit = (values: any) => {
-  //   return values;
-  // };
+        data
+          ? data?.map((formaPago: any) => {
+              formaPago.formas_pago?.descripcion == "Tarjeta" &&
+              moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                moment().format("DD-MM-YYYY")
+                ? setCountTarjeta((countTar += 1))
+                : formaPago.formas_pago?.descripcion == "Efectivo" &&
+                  moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                    moment().format("DD-MM-YYYY")
+                ? setCountEfectivo((countEfe += 1))
+                : formaPago.formas_pago?.descripcion !== "Tarjeta" &&
+                  formaPago.formas_pago?.descripcion !== "Efectivo" &&
+                  moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                    moment().format("DD-MM-YYYY")
+                ? setCountOtro((countOtr += 1))
+                : 0;
+            })
+          : [];
+
+        data
+          ? data?.map((formaPago: any) => {
+              formaPago.formas_pago?.descripcion == "Tarjeta" &&
+              moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                moment().subtract(1, "days").format("DD-MM-YYYY")
+                ? setTarjetaDiaAnterior(
+                    (sumaTarDiaAnterior += parseInt(formaPago.total))
+                  )
+                : formaPago.formas_pago?.descripcion == "Efectivo" &&
+                  moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                    moment().subtract(1, "days").format("DD-MM-YYYY")
+                ? setEfectivoDiaAnterior(
+                    (sumaEfeDiaAnterior += parseInt(formaPago.total))
+                  )
+                : formaPago.formas_pago?.descripcion !== "Tarjeta" &&
+                  formaPago.formas_pago?.descripcion !== "Efectivo" &&
+                  moment(formaPago.fecha_hora).format("DD-MM-YYYY") ==
+                    moment().subtract(1, "days").format("DD-MM-YYYY")
+                ? setOtroDiaAnterior(
+                    (sumaOtroDiaAnterior += parseInt(formaPago.total))
+                  )
+                : 0;
+            })
+          : [];
+
+        console.log(moment().format("DD-MM-YYYY"));
+
+        console.log(sumaEfe);
+        console.log(sumaTar);
+        console.log(sumaOtro);
+        console.log(countTar);
+        console.log(countEfe);
+        console.log(countOtro);
+        console.log(sumaEfeDiaAnterior);
+        console.log(sumaTarDiaAnterior);
+        console.log(sumaOtroDiaAnterior);
+      });
+  }, [tarjeta, efectivo, otro, countEfectivo, countOtro, countTarjeta]);
+
+  const data = [
+    {
+      title: "Tarjeta",
+      value: "$ " + tarjeta,
+      cantidad: countTarjeta,
+      diff: (tarjeta / tarjetaDiaAnterior) * 100 - 100,
+    },
+    {
+      title: "Efectivo",
+      value: "$ " + efectivo,
+      cantidad: countEfectivo,
+      diff: (efectivo / efectivoDiaAnterior) * 100 - 100,
+    },
+    {
+      title: "Otra forma de pago",
+      value: "$ " + otro,
+      cantidad: countOtro,
+      diff: (otro / otroDiaAnterior) * 100 - 100,
+    },
+  ];
+  console.log(data);
+
+  const stats = data.map((stat) => {
+    const DiffIcon = stat.diff > 0 ? ArrowUpRight : ArrowDownRight;
+
+    return (
+      <Paper withBorder p="md" radius="md" key={stat.title}>
+        <Group position="apart">
+          <div>
+            <Text
+              color="dimmed"
+              transform="uppercase"
+              weight={700}
+              size="md"
+              className={classes.label}
+            >
+              {stat.title}
+            </Text>
+            <Text weight={700} size="xl">
+              {stat.value}
+            </Text>
+
+            <Text
+              color="dimmed"
+              // transform="lowercase"
+              weight={700}
+              size="md"
+              className={classes.label}
+            >
+              Tickets generados: {stat.cantidad}
+            </Text>
+          </div>
+          <ThemeIcon
+            color="gray"
+            variant="light"
+            sx={(theme) => ({
+              color: stat.diff > 0 ? theme.colors.teal[6] : theme.colors.red[6],
+            })}
+            size={38}
+            radius="md"
+          >
+            <DiffIcon size={28} />
+          </ThemeIcon>
+        </Group>
+        <Text color="dimmed" size="sm" mt="md">
+          <Text
+            component="span"
+            color={stat.diff > 0 ? "teal" : "red"}
+            weight={700}
+          >
+            {isNaN(stat.diff) || stat.diff == Infinity
+              ? 0
+              : Math.round(stat.diff)}{" "}
+            %
+          </Text>{" "}
+          {stat.diff > 0 ? "Por encima" : "Por abajo"} del día de ayer.
+        </Text>
+      </Paper>
+    );
+  });
 
   return (
-    <>
-      <Box>
-        <Grid>
-          <Grid.Col md={4}>
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Tarjeta
-            </h2>
-
-            <Box
-              style={{
-                border: "1px solid rgb(187, 162, 255)",
-                borderRadius: "5px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                maxHeight: "100px",
-              }}
-            >
-              <h1>{tarjeta}</h1>
-            </Box>
-          </Grid.Col>
-          <Grid.Col md={4}>
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Efectivo
-            </h2>
-            <Box
-              style={{
-                border: "1px solid rgb(187, 162, 255)",
-                borderRadius: "5px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                maxHeight: "100px",
-              }}
-            >
-              <h1>{efectivo}</h1>
-            </Box>
-          </Grid.Col>
-          <Grid.Col md={4}>
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Otra forma de pago
-            </h2>
-            <Box
-              style={{
-                border: "1px solid rgb(187, 162, 255)",
-                borderRadius: "5px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                maxHeight: "100px",
-              }}
-            >
-              <h1>{otro}</h1>
-            </Box>
-          </Grid.Col>
-        </Grid>
-      </Box>
-      {/* <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Grid>
-          <Grid.Col md={4}>
-            <DatePicker
-              placeholder="Seleccione una fecha"
-              label="Desde"
-              required
-              {...form.getInputProps("desde")}
-            />
-          </Grid.Col>
-          <Grid.Col md={4}>
-            <DatePicker
-              placeholder="Seleccione una fecha"
-              label="Hasta"
-              required
-              {...form.getInputProps("hasta")}
-            />
-          </Grid.Col>
-          <Grid.Col md={4}>
-            <Button
-              mt={22}
-              variant="outline"
-              fullWidth
-              color="grape"
-              radius="xl"
-              size="md"
-              type="submit"
-            >
-              Consultar
-            </Button>
-          </Grid.Col>
-        </Grid>
-      </form> */}
-    </>
+    <div className={classes.root}>
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+        {stats}
+      </SimpleGrid>
+    </div>
   );
-};
+}

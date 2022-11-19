@@ -1,6 +1,6 @@
 import { DashboardLayout } from "../../Components/Layouts/DashBoard";
 import { Grid } from "@mantine/core";
-import { ReporteCajeroUno } from "../../Components/reportes/ReporteCajeroUno";
+import { ReporteCajeroUno } from "../../Components/reportes/ReporteCajeroUno-BKP";
 
 const AdminReporteUnoPage = () => {
   return (

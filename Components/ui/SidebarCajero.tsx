@@ -110,7 +110,7 @@ export const SidebarCajero = () => {
       name: "Reportes",
       items: [
         {
-          name: "Caja nueva",
+          name: "Caja",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -126,23 +126,23 @@ export const SidebarCajero = () => {
           ),
           path: "/reportes/cajero-uno",
         },
-        {
-          name: "Caja",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/reportes/cajero-dos",
-        },
+        // {
+        //   name: "Caja",
+        //   icon: (
+        //     <BuildingSkyscraper
+        //       strokeWidth={2}
+        //       color={"rgba(255,255,255,.8)"}
+        //       style={{
+        //         fontSize: "20px",
+        //         height: "20px",
+        //         lineHeight: "20px",
+        //         width: "20px",
+        //         minWidth: "20px",
+        //       }}
+        //     />
+        //   ),
+        //   path: "/reportes/cajero-dos",
+        // },
       ],
     },
 
