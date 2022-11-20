@@ -2,7 +2,7 @@ import { useArticulos } from "../../hooks/useArticulos";
 import {
   Box,
   Button,
-  Select,
+  // Select,
   Card,
   Textarea,
   Grid,
@@ -26,6 +26,25 @@ import {
 import { useEffect, useState, useRef } from "react";
 import { IModificarPedido } from "../../interfaces/modificar-pedido";
 import { useMesas } from "../../hooks/useMesas";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   idPedido: number;
@@ -35,7 +54,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
   // const [articulosHard, setArticulosHard] = useState([]);
 
   const { data: articulos } = useArticulos();
-  const [value, setValue] = useState("artículo");
+  const [value, setValue] = useState("23");
 
   const { data: pedidoPorId, isLoading } = usePedido(idPedido);
   const { data: mesas } = useMesas();
@@ -109,21 +128,31 @@ export const ModificarPedido = ({ idPedido }: Props) => {
     actualizarPedido(idPedido, pedido);
   };
 
-  const handleChangeArticulo = async (index: any) => {
-    console.log(event);
-    form.setFieldValue(`Detalle_Pedidos.${index}.id_articulo`, event);
-    const articulo = articulos.find((e: any) => e.id == event);
+  const handleChangeArticulo = async (e: any, item: any, index: any) => {
+    debugger;
+    setValue(e.target.value);
+    form.setFieldValue(`Detalle_Pedidos.${index}.id_articulo`, e.target.value);
+    const articulo = articulos.find((x: any) => x.id == e.target.value);
     form.setFieldValue(
       `Detalle_Pedidos.${index}.precio`,
       articulo.precio_venta
     );
   };
 
+  console.log(form.values.Detalle_Pedidos);
+  // const handleChangeArticulo = async (e: any, item: any, index: any) => {
+  //   console.log(index);
+  //   console.log(e);
+  //   console.log(item);
+  // };
+
   const handleChangeMesa = (event: any) => {
     form.setFieldValue(`id_mesa`, event);
   };
 
-  console.log(document.getElementById("articulo"));
+  const [arrayArt, setArrayArt] = useState([]);
+  console.log(form.values.Detalle_Pedidos.length);
+  console.log(pedidoPorId?.Detalle_Pedidos.length);
   const fields = form.values.Detalle_Pedidos.map((item, index) => (
     <Group key={index} mt="xs">
       <Grid>
@@ -148,11 +177,23 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                 : []
             }
           /> */}
-          {/* <select name="select">
-      <option value="value1">Value 1</option>
-  <option value="value2" selected>Value 2</option>
-  <option value="value3">Value 3</option>
-</select> */}
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id={index.toString()}
+              value={form.values.Detalle_Pedidos[index].id_articulo}
+              label="Age"
+              onChange={(e) => handleChangeArticulo(e, item, index)}
+            >
+              {articulos
+                ? articulos.map(({ id, descripcion }: any) => (
+                    <MenuItem value={id}>{descripcion}</MenuItem>
+                  ))
+                : null}
+            </Select>
+          </FormControl>
         </Grid.Col>
 
         <Grid.Col xs={3} md={2}>
@@ -259,13 +300,13 @@ export const ModificarPedido = ({ idPedido }: Props) => {
               <Card p="lg" radius="md" withBorder>
                 <Box>
                   <Box sx={{ maxWidth: 500 }} mx="auto">
-                    {fields.length > 0 ? (
+                    {/* {fields.length > 0 ? (
                       <Box></Box>
                     ) : (
                       <Text color="dimmed" align="center">
                         No hay ningún artículo
                       </Text>
-                    )}
+                    )} */}
 
                     {fields}
 
@@ -295,11 +336,8 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                 placeholder="Seleccione una"
                 id="mesas"
                 onChange={handleChangeMesa}
-                // defaultValue={
-                //   pedidoPorId ? pedidoPorId?.id_mesa?.toString() : "-"
-                // }
                 autoComplete="off"
-                maxDropdownHeight={230}
+                // maxDropdownHeight={230}
                 nothingFound="No hay mesas"
                 data={
                   mesas

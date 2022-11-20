@@ -1,18 +1,12 @@
 import { Grid } from "@mantine/core";
-import { HeaderResponsive } from "../Components/HeaderResponsive/HeaderResponsive";
+import Paperbase from "../Components/HeaderResponsive/paperbase";
+import Dashboard from "../Components/Layouts/DashBoard";
 
 const MiPage = () => {
   return (
     <Grid columns={12}>
       <Grid.Col span={12}>
-        <HeaderResponsive
-          links={[
-            { link: "/autorizacion/ingreso", label: "ingreso" },
-            { link: "/autorizacion", label: "ingreso" },
-            { link: "/autorizacion", label: "ingreso" },
-            { link: "/autorizacion", label: "ingreso" },
-          ]}
-        />
+        <Paperbase />
       </Grid.Col>
     </Grid>
   );
