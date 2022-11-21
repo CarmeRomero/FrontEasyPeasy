@@ -73,10 +73,11 @@ export const ReporteAdminCuatro = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right" as const,
+        position: "bottom" as const,
       },
       title: {
         display: true,
+        text: "El gráfico muestra la ganancia (expresada en miles) y cantidad de ventas mensual",
       },
     },
   };

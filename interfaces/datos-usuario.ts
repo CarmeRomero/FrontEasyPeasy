@@ -5,6 +5,6 @@ export interface IDatosUsuario {
   rol?: string;
   DNI: number | null;
   fecha_nacimiento: Date | string | null;
-  telefono: number | null;
+  telefono: string | null;
   direccion: string;
 }

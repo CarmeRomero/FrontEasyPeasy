@@ -11,9 +11,7 @@ interface Props {
 export const AuthLayout: FC<Props> = ({ children, title }) => {
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <Head>{/* <title>{title}</title> */}</Head>
 
       <main>
         <Grid>

@@ -176,10 +176,10 @@ export const SidebarAdmin = () => {
     },
 
     {
-      name: "Reportes",
+      name: "Estadísticas de ingresos",
       items: [
         {
-          name: "Principales formas de pago",
+          name: "Ingresos y medio de pago",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -196,7 +196,7 @@ export const SidebarAdmin = () => {
           path: "/reportes/admin-uno",
         },
         {
-          name: "Recurrencia",
+          name: "Promedio de ganancia",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -212,25 +212,9 @@ export const SidebarAdmin = () => {
           ),
           path: "/reportes/admin-dos",
         },
+
         {
-          name: "Pedidos por mozo",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/reportes/admin-tres",
-        },
-        {
-          name: "Venta en el año",
+          name: "Estadísticas anuales",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -245,6 +229,28 @@ export const SidebarAdmin = () => {
             />
           ),
           path: "/reportes/admin-cuatro",
+        },
+      ],
+    },
+    {
+      name: "Atención de los mozos",
+      items: [
+        {
+          name: "Cantidad de pedidos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/reportes/admin-tres",
         },
       ],
     },

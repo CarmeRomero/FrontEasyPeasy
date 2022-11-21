@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Divider,
 } from "@mantine/core";
-import { ArrowDownRight, ArrowUpRight } from "tabler-icons-react";
+import { ArrowDownRight, ArrowUpRight, Box } from "tabler-icons-react";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/es";
@@ -219,10 +219,19 @@ export function ReporteCajeroUno() {
   });
 
   return (
-    <div className={classes.root}>
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        {stats}
-      </SimpleGrid>
-    </div>
+    <>
+      <div className={classes.root}>
+        <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+          {stats}
+        </SimpleGrid>
+      </div>
+      <Paper withBorder p="md" radius="md" mx={35}>
+        <Group position="center">
+          <Text color="red" size="xl" mt="md">
+            <h1>{moment().format("LL")}</h1>
+          </Text>
+        </Group>
+      </Paper>
+    </>
   );
 }

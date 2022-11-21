@@ -1,6 +1,5 @@
 import { Grid } from "@mantine/core";
 import Paperbase from "../Components/HeaderResponsive/paperbase";
-import Dashboard from "../Components/Layouts/DashBoard";
 
 const MiPage = () => {
   return (

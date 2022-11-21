@@ -5,7 +5,7 @@ import { ReporteCajeroUno } from "../../Components/reportes/ReporteCajeroUno";
 
 const AdminReporteUnoPage = () => {
   return (
-    <DashboardLayout title="Reporte 1">
+    <DashboardLayout title="Ingresos del día">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ReporteCajeroUno />

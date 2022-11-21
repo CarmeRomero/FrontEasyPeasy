@@ -53,19 +53,6 @@ export const obtenerArticulos = async (): Promise<any> => {
   const { data } = await axios.get(`http://localhost:3000/articulos`, {
     withCredentials: true,
   });
-  // const articulos = data
-  //   ? data?.map((obj: any) => {
-  //       return {
-  //         value: obj.id,
-  //         label: obj.descripcion,
-  //       };
-  //     })
-  //   : [
-  //       {
-  //         value: "16",
-  //         label: "sandia",
-  //       },
-  //     ];
 
   return data;
 };
@@ -177,3 +164,24 @@ export const actualizarArticulo = async (id: number, articulo: IArticulo) => {
   );
   return data;
 };
+
+export const obtenerArticulosMasConsumidos = async (): Promise<any> => {
+  const { data } = await axios.get(
+    `http://localhost:3000/articulos/mas-consumidos`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return data;
+};
+
+export function useArticulosMasConsumidos(): UseQueryResult<any, Error> {
+  return useQuery<any, Error>(
+    ["articulos"],
+    () => obtenerArticulosMasConsumidos(),
+    {
+      staleTime: Infinity,
+    }
+  );
+}

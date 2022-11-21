@@ -8,6 +8,8 @@ import {
   NumberInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
+import { X } from "tabler-icons-react";
 import { useMesas, useMutateMesa } from "../../hooks/useMesas";
 import { IMesa } from "../../interfaces/mesa";
 
@@ -25,15 +27,16 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
       num_mesa: null,
       color: "#a1e6b3",
       ubicacion: "ADENTRO",
-      x: 20,
-      y: 50,
+      x: null,
+      y: null,
       width: 100,
       height: 100,
     },
     validate: {
+      x: (value: any) => (value <= 0 ? "Ingrese un codigo" : null),
       num_mesa: (value: any) =>
         data?.find((elemento: any) =>
-          elemento.num_mesa === value.num_mesa
+          elemento.num_mesa == value.num_mesa
             ? "Ese número de mesa ya existe"
             : null
         ),
@@ -46,19 +49,28 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
 
   const handleSubmit = (values: any) => {
     // data.forEach((values: any) => {
-    //   data?.find((elemento: any) =>
-    //     elemento.num_mesa === values.num_mesa
-    //       ? "Ese número de mesa ya existe"
-    //       : null
-    //   );
-    // });
+    const mesa = data?.filter((elemento: any) =>
+      elemento.num_mesa == values.num_mesa
+        ? "Ese número de mesa ya existe"
+        : null
+    );
 
-    mutate(values, {
-      onSuccess: () => {
-        refetch();
-      },
-    });
-    setOpen(false);
+    console.log(mesa);
+    console.log(values);
+
+    mesa.length <= 0
+      ? mutate(values, {
+          onSuccess: () => {
+            refetch();
+            setOpen(false);
+          },
+        })
+      : showNotification({
+          color: "red",
+          icon: <X />,
+          title: "Ya existe una mesa con ese número",
+          message: "",
+        });
   };
 
   return (
@@ -77,6 +89,7 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
               autoComplete="off"
               id="num_mesa"
               hideControls
+              required
               {...form.getInputProps("num_mesa")}
             />
             <TextInput

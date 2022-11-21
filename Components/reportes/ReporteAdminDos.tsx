@@ -72,6 +72,7 @@ export const ReporteAdminDos = () => {
       },
       title: {
         display: true,
+        text: "El gráfico muestra lo que gasta un cliente en promedio por cada día de la semana dentro del plazo ingresado.",
       },
     },
   };
@@ -90,7 +91,7 @@ export const ReporteAdminDos = () => {
     labels: labels,
     datasets: [
       {
-        label: "Pedidos por día",
+        label: "Gasto promedio por cliente",
         data: [lunes, martes, miercoles, jueves, viernes, sabado, domingo],
         backgroundColor: [
           "rgba(255, 99, 132, 0.5)",
@@ -186,7 +187,8 @@ export const ReporteAdminDos = () => {
       labels: labels,
       datasets: [
         {
-          label: "Pedidos por día",
+          label: "Gasto promedio por cliente",
+
           data: [
             promediolunes,
             promediomartes,
@@ -284,6 +286,7 @@ export const ReporteAdminDos = () => {
           justifyContent: "center",
           alignContent: "center",
           marginLeft: "100px",
+          marginTop: "20px",
         }}
         options={options}
         data={datos}

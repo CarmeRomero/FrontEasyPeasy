@@ -108,10 +108,10 @@ export const SidebarMozo = () => {
       ],
     },
     {
-      name: "Reporte",
+      name: "Ranking",
       items: [
         {
-          name: "Top 10 pedidos",
+          name: "Pedidos por mozo",
           icon: (
             <BuildingSkyscraper
               strokeWidth={2}
@@ -130,7 +130,7 @@ export const SidebarMozo = () => {
       ],
     },
     {
-      name: "Usuarios",
+      name: "Perfil",
       items: [
         {
           name: "Mis datos",

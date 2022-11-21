@@ -39,7 +39,7 @@ export const EliminarMesa = ({ open, setOpen, refetch }: Props) => {
     modals.openConfirmModal({
       title: "¿Está seguro de eliminar la mesa?",
       centered: true,
-      labels: { confirm: "Elimiar", cancel: "Cancelar" },
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
       confirmProps: { color: "red" },
       onCancel: () => {},
       onConfirm: () => {

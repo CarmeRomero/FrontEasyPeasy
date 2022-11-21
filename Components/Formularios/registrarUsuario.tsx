@@ -28,13 +28,15 @@ export const FormularioRegistrarUsuario = () => {
       rol: "VISITANTE",
       DNI: null,
       fecha_nacimiento: null,
-      telefono: null,
+      telefono: "",
       direccion: "",
     },
     validate: {
       nombre: (value: any) => (value.length <= 0 ? "Ingrese un nombre" : null),
       apellido: (value: any) =>
         value.length <= 0 ? "Ingrese un apellido" : null,
+      telefono: (value: any) =>
+        value.length <= 6 ? "Ingrese un teléfono" : null,
       email: (value: any) =>
         /^\S+@\S+$/.test(value) ? null : "Email inválido",
       password: (value: any) =>
@@ -55,8 +57,20 @@ export const FormularioRegistrarUsuario = () => {
   // const { mutate, error, isLoading } = useMutateCliente();
 
   const handleSubmit = (values: any) => {
-    console.log(values);
-    crearUsuario(values);
+    const datosUsuario = {
+      DNI: values.DNI,
+      apellido: values.apellido,
+      direccion: values.direccion,
+      email: values.email,
+      fecha_nacimiento: values.fecha_nacimiento,
+      nombre: values.nombre,
+      password: values.password,
+      rol: "VISITANTE",
+      telefono: values.telefono.toString(),
+    };
+    // console.log(values);
+    // console.log(usuario);
+    crearUsuario(datosUsuario);
     return values;
   };
 

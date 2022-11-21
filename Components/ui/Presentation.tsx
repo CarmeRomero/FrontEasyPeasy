@@ -13,7 +13,6 @@ import {
   Text,
 } from "@mantine/core";
 import { Check } from "tabler-icons-react";
-import image from "./image.svg";
 interface Props {
   title: string;
 }
@@ -27,7 +26,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   content: {
-    maxWidth: 450,
+    maxWidth: 480,
     marginRight: theme.spacing.xl * 3,
 
     [theme.fn.smallerThan("md")]: {
@@ -80,14 +79,12 @@ export const Presentation: FC<Props> = ({ title }) => {
       <Container>
         <div className={classes.inner}>
           <div className={classes.content}>
-            <Title className={classes.title}>
-              A <span className={classes.highlight}>modern</span> React <br />{" "}
-              components library
-            </Title>
+            {/* <Title className={classes.title}> */}
+            {/* A <span className={classes.highlight}>modern</span> React <br />{" "}
+              components library */}
+            {/* </Title> */}
             <Text color="dimmed" mt="md">
-              Build fully functional accessible web applications faster than
-              ever – Mantine includes more than 120 customizable components and
-              hooks to cover you in any situation
+              Ya formas parte de <b>Easy Peasy! </b> -
             </Text>
 
             <List
@@ -101,31 +98,32 @@ export const Presentation: FC<Props> = ({ title }) => {
               }
             >
               <List.Item>
-                <b>TypeScript based</b> – build type safe applications, all
-                components and hooks export types
+                <b>Registrar tus pedidos</b> – Vas a poder tomar los pedidos de
+                los clientes de forma rápida y sencilla!
               </List.Item>
               <List.Item>
-                <b>Free and open source</b> – all packages have MIT license, you
-                can use Mantine in any project
+                <b>Control de la caja</b> – Te facilitamos el cierre de caja,
+                vas a poder visualizar las ganancias del día y la forma en la
+                que fueron ingresadas.
               </List.Item>
               <List.Item>
-                <b>No annoying focus ring</b> – focus ring will appear only when
-                user navigates with keyboard
+                <b>Más estadísticas!</b> – Contamos con reportes semanales,
+                mensuales y diarios para acompañarte en la toma de decisiones.
               </List.Item>
             </List>
 
             <Group mt={30}>
               <Button radius="xl" size="md" className={classes.control}>
-                Get started
+                Preguntas frecuentes
               </Button>
-              <Button
+              {/* <Button
                 variant="default"
                 radius="xl"
                 size="md"
                 className={classes.control}
               >
                 Source code
-              </Button>
+              </Button> */}
             </Group>
           </div>
           <Image

@@ -140,10 +140,11 @@ export const ReporteAdminUno = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "right" as const,
+        position: "bottom" as const,
       },
       title: {
         display: true,
+        text: "El gráfico muestra qué porcentaje de los ingresos fue abonado a través de tarjeta, en efectivo o con otra forma de pago",
       },
     },
   };
@@ -297,6 +298,7 @@ export const ReporteAdminUno = () => {
           justifyContent: "center",
           alignContent: "center",
           marginLeft: "100px",
+          marginTop: "20px",
         }}
         options={options}
         data={datos}

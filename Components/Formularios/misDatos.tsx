@@ -27,7 +27,7 @@ export const FormularioDatosUsuario = () => {
       rol: "",
       DNI: null,
       fecha_nacimiento: null,
-      telefono: null,
+      telefono: "",
       direccion: "",
     },
     validate: {

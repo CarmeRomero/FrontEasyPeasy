@@ -9,29 +9,39 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Home, Settings } from "tabler-icons-react";
 import { NextLink } from "@mantine/next";
+import TicketsPage from "../../pages/ticket";
 
 const categories = [
   {
     id: "Principales",
     children: [
       {
-        id: "Mis datos",
+        id: "Tickets",
         icon: <Settings />,
+        path: "tickets",
+        element: <TicketsPage />,
         active: true,
-        path: "/usuarios/datos-usuario",
       },
+      {
+        id: "Caja",
+        icon: <Settings />,
+        path: "/reportes/cajero-uno",
+        active: true,
+      },
+    ],
+  },
+  {
+    id: "Perfil",
+    children: [
       {
         id: "Mis datos",
         icon: <Settings />,
         path: "/usuarios/datos-usuario",
+        active: true,
       },
+      { id: "Cerrar sesión", icon: <Settings />, active: true },
     ],
   },
-  // {
-  //   id: "Reportes",
-  //   children: [{ id: "Cerrar sesión", icon: <Settings />,
-  //   path:"/reportes/datos-usuario" }],
-  // },
 ];
 
 const item = {
@@ -49,7 +59,7 @@ const itemCategory = {
   px: 3,
 };
 
-export default function Navigator(props: DrawerProps) {
+export default function NavigatorCajero(props: DrawerProps) {
   const { ...other } = props;
 
   return (

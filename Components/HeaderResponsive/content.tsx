@@ -24,9 +24,9 @@ export default function Content({ children }: Props) {
         position="static"
         color="default"
         elevation={0}
-        sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
+        sx={{ borderBottom: "0px solid rgba(0, 0, 0, 0.0)" }}
       >
-        <Toolbar>
+        {/* <Toolbar>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
               <Search color="inherit" />
@@ -44,8 +44,8 @@ export default function Content({ children }: Props) {
             </Grid>
             <Grid item></Grid>
           </Grid>
-          {children}
-        </Toolbar>
+        </Toolbar> */}
+        {children}
       </AppBar>
     </Paper>
   );

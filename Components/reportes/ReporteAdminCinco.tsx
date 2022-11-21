@@ -2,10 +2,11 @@ import { Box, Button, Divider, Grid, Group, Table } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState, useEffect } from "react";
+import { useArticulosMasConsumidos } from "../../hooks/useArticulos";
 import { useTicketsDesdeHasta } from "../../hooks/useTickets";
 import { useUnUsuarioDistinto, useUsuarios } from "../../hooks/useUsuario";
 
-export const ReporteMozoUno = () => {
+export const ReporteAdminCinco = () => {
   const [desde, setDesde] = useState(new Date());
   const [hasta, setHasta] = useState(new Date());
   const form = useForm({
@@ -21,6 +22,8 @@ export const ReporteMozoUno = () => {
 
   const [reportePedido, setReportePedido] = useState([]);
 
+  const { data } = useArticulosMasConsumidos();
+  console.log(data);
   const handleSubmit = async (values: any) => {
     fetch(
       `http://localhost:3000/pedidos/listado-pedido/desdeHasta?desde=${values.desde.toJSON()}&hasta=${values.hasta.toJSON()}`

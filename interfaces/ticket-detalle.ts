@@ -41,7 +41,7 @@ export interface Usuarios {
   rol: string;
   DNI: number;
   fecha_nacimiento: Date;
-  telefono: number;
+  telefono: string;
   direccion: string;
   fecha_baja?: any;
 }

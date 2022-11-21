@@ -158,7 +158,7 @@ export const RegistrarTicket = () => {
             radius="lg"
             variant="outline"
             type="submit"
-            mt="xs"
+            mt={30}
             onClick={handleSubmit}
             sx={{
               width: 50,

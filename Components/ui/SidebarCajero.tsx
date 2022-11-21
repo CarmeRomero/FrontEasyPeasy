@@ -85,29 +85,7 @@ export const SidebarCajero = () => {
       ],
     },
     {
-      name: "Usuarios",
-      items: [
-        {
-          name: "Mis datos",
-          icon: (
-            <BuildingSkyscraper
-              strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
-              style={{
-                fontSize: "20px",
-                height: "20px",
-                lineHeight: "20px",
-                width: "20px",
-                minWidth: "20px",
-              }}
-            />
-          ),
-          path: "/usuarios/datos-usuario",
-        },
-      ],
-    },
-    {
-      name: "Reportes",
+      name: "Ingresos",
       items: [
         {
           name: "Caja",
@@ -126,23 +104,28 @@ export const SidebarCajero = () => {
           ),
           path: "/reportes/cajero-uno",
         },
-        // {
-        //   name: "Caja",
-        //   icon: (
-        //     <BuildingSkyscraper
-        //       strokeWidth={2}
-        //       color={"rgba(255,255,255,.8)"}
-        //       style={{
-        //         fontSize: "20px",
-        //         height: "20px",
-        //         lineHeight: "20px",
-        //         width: "20px",
-        //         minWidth: "20px",
-        //       }}
-        //     />
-        //   ),
-        //   path: "/reportes/cajero-dos",
-        // },
+      ],
+    },
+    {
+      name: "Perfil",
+      items: [
+        {
+          name: "Mis datos",
+          icon: (
+            <BuildingSkyscraper
+              strokeWidth={2}
+              color={"rgba(255,255,255,.8)"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/usuarios/datos-usuario",
+        },
       ],
     },
 

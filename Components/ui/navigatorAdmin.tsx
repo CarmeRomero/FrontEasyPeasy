@@ -8,30 +8,36 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Home, Settings } from "tabler-icons-react";
-import { NextLink } from "@mantine/next";
+// import HomeIcon from "@mui/icons-material/Home";
+// import PeopleIcon from "@mui/icons-material/People";
+// import DnsRoundedIcon from "@mui/icons-material/DnsRounded";
+// import PermMediaOutlinedIcon from "@mui/icons-material/PhotoSizeSelectActual";
+// import PublicIcon from "@mui/icons-material/Public";
+// import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
+// import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
+// import TimerIcon from "@mui/icons-material/Timer";
+// import SettingsIcon from "@mui/icons-material/Settings";
+// import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
 
 const categories = [
   {
     id: "Principales",
     children: [
       {
-        id: "Mis datos",
+        id: "Usuarios",
         icon: <Settings />,
         active: true,
-        path: "/usuarios/datos-usuario",
       },
-      {
-        id: "Mis datos",
-        icon: <Settings />,
-        path: "/usuarios/datos-usuario",
-      },
+      { id: "Menú", icon: <Settings /> },
+      { id: "Formas de pago", icon: <Settings /> },
+      { id: "Categorías", icon: <Settings /> },
+      { id: "Mesas", icon: <Settings /> },
     ],
   },
-  // {
-  //   id: "Reportes",
-  //   children: [{ id: "Cerrar sesión", icon: <Settings />,
-  //   path:"/reportes/datos-usuario" }],
-  // },
+  {
+    id: "Reportes",
+    children: [{ id: "Analítica", icon: <Settings /> }],
+  },
 ];
 
 const item = {
@@ -49,7 +55,7 @@ const itemCategory = {
   px: 3,
 };
 
-export default function Navigator(props: DrawerProps) {
+export default function NavigatorAdmin(props: DrawerProps) {
   const { ...other } = props;
 
   return (

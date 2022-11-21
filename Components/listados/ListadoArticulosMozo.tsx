@@ -20,6 +20,7 @@ import {
   useMesas,
   useMutateActualizarEstadoOcupado,
 } from "../../hooks/useMesas";
+import { showNotification } from "@mantine/notifications";
 
 export const ListadoArticulosMozo = () => {
   const { data: usuario } = useUnoSolo();
@@ -35,13 +36,11 @@ export const ListadoArticulosMozo = () => {
       Detalle_Pedidos: [],
     },
     validate: {
-      id_mesa: (value: any) => (value <= 0 ? "Ingresar una mesa" : null),
-      fecha_hora_pedido: (value: any) =>
-        value != null ? "Ingresar fecha y hora de pedido" : null,
-      // Detalle_Pedidos: (value: any) =>
-      //   (value = [] ? "Seleccione los productos" : null),
+      id_mesa: (value: any) => (value === null ? "Ingrese una mesa" : null),
     },
   });
+
+  console.log(form.values.id_mesa);
   const { mutate, error, isLoading } = useMutateCrearPedido();
   const { data: mesas } = useMesas();
   const { mutate: estadoMesa } = useMutateActualizarEstadoOcupado();
@@ -56,16 +55,34 @@ export const ListadoArticulosMozo = () => {
       estado: "PENDIENTE",
       Detalle_Pedidos: values.Detalle_Pedidos,
     };
-    mutate(pedido, {
-      onSuccess: () => {
-        console.log(values);
-      },
-    });
-    estadoMesa(values.id_mesa, {
-      onSuccess: () => {
-        console.log("idMESA:" + values.id_mesa);
-      },
-    });
+
+    if (pedido.id_mesa === null) {
+      showNotification({
+        title: "Error!",
+        message: "Ingrese una mesa",
+        color: "red",
+        autoClose: 3000,
+      });
+    }
+    if (pedido.Detalle_Pedidos.length > 0) {
+      mutate(pedido, {
+        onSuccess: () => {
+          console.log(values);
+        },
+      });
+      estadoMesa(values.id_mesa, {
+        onSuccess: () => {
+          console.log("idMESA:" + values.id_mesa);
+        },
+      });
+    } else {
+      showNotification({
+        title: "Error!",
+        message: "Ingrese un artículo al pedido",
+        color: "red",
+        autoClose: 6000,
+      });
+    }
   };
 
   const handleChangeArticulo = async (event: any, index: any) => {

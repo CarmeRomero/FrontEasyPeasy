@@ -4,7 +4,7 @@ import { ReporteAdminDos } from "../../Components/reportes/ReporteAdminDos";
 
 const AdminReporteUnoPage = () => {
   return (
-    <DashboardLayout title="Promedio de ganancia por día">
+    <DashboardLayout title="Promedio de ganancia por cliente">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ReporteAdminDos />
