@@ -9,6 +9,17 @@ import {
   ListDetails,
   Box as Caja,
   Brackets,
+  Coffee,
+  List,
+  Category2,
+  CreditCard,
+  BoxMultiple,
+  ChartBar,
+  ChartAreaLine,
+  ChartPie,
+  ListCheck,
+  Logout,
+  ListSearch,
 } from "tabler-icons-react";
 import { UiContext } from "../../context";
 import NextLink from "next/link";
@@ -51,9 +62,9 @@ export const SidebarAdmin = () => {
         {
           name: "Listado de usuarios",
           icon: (
-            <BuildingSkyscraper
+            <Users
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -74,9 +85,9 @@ export const SidebarAdmin = () => {
         {
           name: "Agregar artículo",
           icon: (
-            <BuildingSkyscraper
+            <Coffee
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -91,9 +102,9 @@ export const SidebarAdmin = () => {
         {
           name: "Listado de artículos",
           icon: (
-            <BuildingSkyscraper
+            <List
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -114,9 +125,9 @@ export const SidebarAdmin = () => {
         {
           name: "Agregar categoría",
           icon: (
-            <BuildingSkyscraper
+            <Category2
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -136,9 +147,9 @@ export const SidebarAdmin = () => {
         {
           name: "Agregar forma de pago",
           icon: (
-            <BuildingSkyscraper
+            <CreditCard
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -158,9 +169,9 @@ export const SidebarAdmin = () => {
         {
           name: "Agregar mesa",
           icon: (
-            <BuildingSkyscraper
+            <BoxMultiple
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -181,9 +192,9 @@ export const SidebarAdmin = () => {
         {
           name: "Ingresos y medio de pago",
           icon: (
-            <BuildingSkyscraper
+            <ChartBar
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -198,9 +209,9 @@ export const SidebarAdmin = () => {
         {
           name: "Promedio de ganancia",
           icon: (
-            <BuildingSkyscraper
+            <ChartAreaLine
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -216,9 +227,9 @@ export const SidebarAdmin = () => {
         {
           name: "Estadísticas anuales",
           icon: (
-            <BuildingSkyscraper
+            <ChartPie
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -233,14 +244,14 @@ export const SidebarAdmin = () => {
       ],
     },
     {
-      name: "Atención de los mozos",
+      name: "Ranked",
       items: [
         {
-          name: "Cantidad de pedidos",
+          name: "Mozos con más pedidos",
           icon: (
-            <BuildingSkyscraper
+            <ListCheck
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -252,17 +263,34 @@ export const SidebarAdmin = () => {
           ),
           path: "/reportes/admin-tres",
         },
+        {
+          name: "Artículos más pedidos",
+          icon: (
+            <ListSearch
+              strokeWidth={2}
+              color={"#FF6B6B"}
+              style={{
+                fontSize: "20px",
+                height: "20px",
+                lineHeight: "20px",
+                width: "20px",
+                minWidth: "20px",
+              }}
+            />
+          ),
+          path: "/reportes/admin-cinco",
+        },
       ],
     },
     {
       name: "Cerrar Sesión",
       items: [
         {
-          name: "Cerrar Sesión",
+          name: "Salir",
           icon: (
-            <BuildingSkyscraper
+            <Logout
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -391,7 +419,7 @@ const NavHeader = () => {
             size="lg"
             ml={12}
             weight={700}
-            sx={{ letterSpacing: "1px", color: "pink" }}
+            sx={{ letterSpacing: "1px", color: "#dec20b" }}
           >
             EASY PEASY
           </Text>

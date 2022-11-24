@@ -165,9 +165,12 @@ export const actualizarArticulo = async (id: number, articulo: IArticulo) => {
   return data;
 };
 
-export const obtenerArticulosMasConsumidos = async (): Promise<any> => {
+export const obtenerArticulosMasConsumidos = async (
+  desde: any,
+  hasta: any
+): Promise<any> => {
   const { data } = await axios.get(
-    `http://localhost:3000/articulos/mas-consumidos`,
+    `http://localhost:3000/pedidos/consumidos?desde=${desde.toJSON()}&hasta=${hasta.toJSON()}`,
     {
       withCredentials: true,
     }
@@ -176,10 +179,13 @@ export const obtenerArticulosMasConsumidos = async (): Promise<any> => {
   return data;
 };
 
-export function useArticulosMasConsumidos(): UseQueryResult<any, Error> {
+export function useArticulosMasConsumidos(
+  desde: any,
+  hasta: any
+): UseQueryResult<any, Error> {
   return useQuery<any, Error>(
     ["articulos"],
-    () => obtenerArticulosMasConsumidos(),
+    () => obtenerArticulosMasConsumidos(desde, hasta),
     {
       staleTime: Infinity,
     }

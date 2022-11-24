@@ -150,7 +150,7 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
           <Button
             variant="outline"
             fullWidth
-            color="grape"
+            color="red"
             radius="xl"
             size="md"
             type="submit"

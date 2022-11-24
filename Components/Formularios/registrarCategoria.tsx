@@ -63,7 +63,7 @@ export const RegistrarCategoria = () => {
           <td>{cat.descripcion}</td>
           <td>
             <Button
-              variant="light"
+              variant="filled"
               color="red"
               // px={10}
               // my={30}
@@ -95,9 +95,9 @@ export const RegistrarCategoria = () => {
           <Grid.Col xs={6} md={6}>
             <Group position="center" mt="xl" my="lg">
               <Button
-                variant="outline"
+                variant="filled"
                 fullWidth
-                color="grape"
+                color="yellow"
                 radius="xl"
                 size="md"
                 type="submit"

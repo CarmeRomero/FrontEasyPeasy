@@ -6,5 +6,6 @@ export interface IModificarPedido {
   fecha_hora_entrega?: Date | null;
   observaciones: string;
   estado?: string;
+  activo: boolean;
   Detalle_Pedidos: IActualizarDetallePedido[];
 }

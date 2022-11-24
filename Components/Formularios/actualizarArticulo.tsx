@@ -159,7 +159,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
           <Button
             variant="outline"
             fullWidth
-            color="grape"
+            color="red"
             radius="xl"
             size="md"
             type="submit"

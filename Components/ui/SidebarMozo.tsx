@@ -9,6 +9,12 @@ import {
   ListDetails,
   Box as Caja,
   Brackets,
+  Logout,
+  PencilMinus,
+  ListCheck,
+  BoxMultiple,
+  List,
+  PlaylistAdd,
 } from "tabler-icons-react";
 import { UiContext } from "../../context";
 import NextLink from "next/link";
@@ -51,7 +57,7 @@ export const SidebarMozo = () => {
         {
           name: "Registrar pedido",
           icon: (
-            <BuildingSkyscraper
+            <PlaylistAdd
               strokeWidth={2}
               onClick={() => algo(null)}
               color={"rgba(255,255,255,.8)"}
@@ -69,7 +75,7 @@ export const SidebarMozo = () => {
         {
           name: "Listado de pedidos",
           icon: (
-            <BuildingSkyscraper
+            <List
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -91,7 +97,7 @@ export const SidebarMozo = () => {
         {
           name: "Mesas",
           icon: (
-            <BuildingSkyscraper
+            <BoxMultiple
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -113,7 +119,7 @@ export const SidebarMozo = () => {
         {
           name: "Pedidos por mozo",
           icon: (
-            <BuildingSkyscraper
+            <ListCheck
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -135,7 +141,7 @@ export const SidebarMozo = () => {
         {
           name: "Mis datos",
           icon: (
-            <BuildingSkyscraper
+            <PencilMinus
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -156,9 +162,9 @@ export const SidebarMozo = () => {
       name: "Cerrar Sesión",
       items: [
         {
-          name: "Cerrar Sesión",
+          name: "Salir",
           icon: (
-            <BuildingSkyscraper
+            <Logout
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{

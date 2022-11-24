@@ -4,7 +4,7 @@ import { ReporteAdminCinco } from "../../Components/reportes/ReporteAdminCinco";
 
 const AdminReporteTresPage = () => {
   return (
-    <DashboardLayout title="Balance en el año">
+    <DashboardLayout title="Artículos más pedidos">
       <Grid columns={12}>
         <Grid.Col span={12}>
           <ReporteAdminCinco />

@@ -127,7 +127,7 @@ export const FormularioRegistrarArticulo = () => {
                 <Button
                   variant="outline"
                   fullWidth
-                  color="grape"
+                  color="red"
                   radius="xl"
                   size="md"
                   type="submit"

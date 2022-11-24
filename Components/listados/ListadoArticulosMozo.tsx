@@ -33,6 +33,7 @@ export const ListadoArticulosMozo = () => {
       fecha_hora_entrega: null,
       observaciones: "",
       estado: "",
+      activo: true,
       Detalle_Pedidos: [],
     },
     validate: {
@@ -53,6 +54,7 @@ export const ListadoArticulosMozo = () => {
       fecha_hora_entrega: null,
       observaciones: values.observaciones,
       estado: "PENDIENTE",
+      activo: true,
       Detalle_Pedidos: values.Detalle_Pedidos,
     };
 

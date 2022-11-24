@@ -161,18 +161,18 @@ export const Diagrama = () => {
           </div>
         </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-premium/cafeteria-moderna-cafeteria-muebles-interiores-restaurante_7081-1432.jpg?w=2000"
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
                 height={160}
                 alt="Norway"
               />
             </Card.Section>
 
             <Button
-              variant="outline"
-              color="violet"
+              variant="filled"
+              color="red"
               fullWidth
               style={{ marginTop: 14 }}
               onClick={() => setOpen(true)}
@@ -182,18 +182,18 @@ export const Diagrama = () => {
           </Card>
         </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-gratis/diseno-interiores-cafeteria-moderna-cafeteria-acogedora-vacia-mostrador-cafe-te-estantes-menu-tazas-platos-mesas-sillas_575670-342.jpg?w=740&t=st=1668354811~exp=1668355411~hmac=71ff6bcfebf26421ad7d9268666aeaf99d3127847d3412bda0f6f2a9b1378ac8"
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
                 height={160}
                 alt="No way!"
               />
             </Card.Section>
 
             <Button
-              variant="outline"
-              color="violet"
+              variant="filled"
+              color="red"
               fullWidth
               style={{ marginTop: 14 }}
               onClick={() => setOpenEliminar(true)}
@@ -203,18 +203,18 @@ export const Diagrama = () => {
           </Card>
         </Grid.Col>
         <Grid.Col md={4}>
-          <Card mt={30} shadow="xl" radius="xl" withBorder p="xl" component="a">
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
             <Card.Section>
               <Image
-                src="https://img.freepik.com/vector-gratis/interior-cafeteria-moderna-diseno-plano_23-2147902989.jpg?w=360"
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
                 height={160}
                 alt="No way!"
               />
             </Card.Section>
 
             <Button
-              variant="outline"
-              color="violet"
+              variant="filled"
+              color="red"
               fullWidth
               style={{ marginTop: 14 }}
               onClick={openDeleteModal}

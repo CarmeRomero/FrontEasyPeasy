@@ -63,7 +63,7 @@ export const FormularioDatosUsuario = () => {
       nombre: values.nombre,
       apellido: values.apellido,
       fecha_nacimiento: values.fecha_nacimiento,
-      telefono: values.telefono,
+      telefono: values.telefono.toString(),
       direccion: values.direccion,
     };
     mutate(datosEnviar, {
@@ -137,7 +137,7 @@ export const FormularioDatosUsuario = () => {
               <Button
                 variant="outline"
                 fullWidth
-                color="grape"
+                color="red"
                 radius="xl"
                 size="md"
                 type="submit"

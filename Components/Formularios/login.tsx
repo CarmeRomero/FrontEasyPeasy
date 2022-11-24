@@ -57,8 +57,9 @@ export const FormularioIngreso = () => {
           width: 360,
           boxShadow:
             "0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%)",
-          opacity: 0.95,
+          opacity: 0.8,
           color: "rgb(235, 232, 242)",
+          backgroundColor: "rgba(0,0,0,.4)",
         }}
         mx="auto"
         p="lg"
@@ -66,7 +67,7 @@ export const FormularioIngreso = () => {
         <>
           <LoadingOverlay visible={isLoading} />
           <Group position="center" mb="md">
-            <Title order={3} sx={{ color: "black" }}>
+            <Title order={3} sx={{ color: "white" }}>
               Iniciar sesión
             </Title>
           </Group>
@@ -92,6 +93,7 @@ export const FormularioIngreso = () => {
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <TextInput
                 label="E-mail"
+                sx={{ color: "black" }}
                 placeholder="yo@email.com"
                 id="email"
                 {...form.getInputProps("email")}
@@ -107,22 +109,35 @@ export const FormularioIngreso = () => {
 
               <Group position="apart" mt="xl">
                 <Link href="/autorizacion/recordar" passHref>
-                  <Text variant="link" sx={{ cursor: "pointer" }} size="sm">
-                    ¿Olvidaste la contraseña?
+                  <Text
+                    variant="link"
+                    sx={{ cursor: "pointer", color: "white" }}
+                    size="sm"
+                  >
+                    <b>¿Olvidaste la contraseña?</b>
                   </Text>
                 </Link>
-                <Button type="submit">Ingresar</Button>
+                <Button color="red" type="submit">
+                  Ingresar
+                </Button>
               </Group>
             </form>
           </Box>
         </>
       </Card>
       <Card
-        sx={{ width: 360, display: "flex", justifyContent: "center" }}
+        sx={{
+          width: 360,
+          display: "flex",
+          justifyContent: "center",
+          backgroundColor: "rgba(0,0,0,.4)",
+        }}
         mx="auto"
         p="lg"
       >
-        <Text size="md">Si todavía no tenés cuenta registrate</Text>{" "}
+        <Text size="md" sx={{ color: "white" }}>
+          Si todavía no tenés cuenta registrate
+        </Text>{" "}
         <Link href="http://localhost:3005/usuarios/registrar-usuario" passHref>
           <Text variant="link" sx={{ cursor: "pointer" }} size="md" pl="4px">
             aquí

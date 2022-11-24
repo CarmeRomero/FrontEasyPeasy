@@ -84,7 +84,13 @@ export const ReporteAdminUno = () => {
     // const DiffIcon = stat.diff > 0 ? ArrowUpRight : ArrowDownRight;
 
     return (
-      <Paper withBorder p="md" radius="md" key={stat.title}>
+      <Paper
+        withBorder
+        p="md"
+        radius="md"
+        key={stat.title}
+        style={{ backgroundColor: "rgb(139, 125, 123,.1)" }}
+      >
         <Group position="apart">
           <div>
             <Text
@@ -250,7 +256,7 @@ export const ReporteAdminUno = () => {
 
   return (
     <>
-      <div className={classes.root}>
+      <div className={classes.root} style={{ color: "#f6dcac" }}>
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
           {stats}
         </SimpleGrid>

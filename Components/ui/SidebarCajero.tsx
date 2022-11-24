@@ -9,6 +9,12 @@ import {
   ListDetails,
   Box as Caja,
   Brackets,
+  FileInvoice,
+  List,
+  ReportMoney,
+  Coin,
+  PencilMinus,
+  Logout,
 } from "tabler-icons-react";
 import { UiContext } from "../../context";
 import NextLink from "next/link";
@@ -51,7 +57,7 @@ export const SidebarCajero = () => {
         {
           name: "Generar ticket",
           icon: (
-            <BuildingSkyscraper
+            <FileInvoice
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -68,7 +74,7 @@ export const SidebarCajero = () => {
         {
           name: "Listado de tickets",
           icon: (
-            <BuildingSkyscraper
+            <List
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -90,7 +96,7 @@ export const SidebarCajero = () => {
         {
           name: "Caja",
           icon: (
-            <BuildingSkyscraper
+            <Coin
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -112,7 +118,7 @@ export const SidebarCajero = () => {
         {
           name: "Mis datos",
           icon: (
-            <BuildingSkyscraper
+            <PencilMinus
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{
@@ -133,9 +139,9 @@ export const SidebarCajero = () => {
       name: "Cerrar Sesión",
       items: [
         {
-          name: "Cerrar Sesión",
+          name: "Salir",
           icon: (
-            <BuildingSkyscraper
+            <Logout
               strokeWidth={2}
               color={"rgba(255,255,255,.8)"}
               style={{

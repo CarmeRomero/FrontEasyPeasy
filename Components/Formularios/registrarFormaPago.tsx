@@ -69,7 +69,7 @@ export const RegistrarFormaPago = () => {
 
           <td>
             <Button
-              variant="light"
+              variant="filled"
               color="red"
               // px={10}
               // my={30}
@@ -103,7 +103,7 @@ export const RegistrarFormaPago = () => {
               <Button
                 variant="outline"
                 fullWidth
-                color="grape"
+                color="red"
                 radius="xl"
                 size="md"
                 type="submit"

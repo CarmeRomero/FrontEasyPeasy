@@ -49,9 +49,9 @@ export const RegistrarCategoria = ({ open, setOpen }: Props) => {
         />
         <Group position="center" mt="xl" my="lg">
           <Button
-            variant="outline"
+            variant="filled"
             fullWidth
-            color="grape"
+            color="yelow"
             radius="xl"
             size="md"
             type="submit"

@@ -44,6 +44,8 @@ export const RegistrarTicket = () => {
         setDetalle([]);
         setNumPedido(0);
       }
+
+      console.log(pedidoMesa);
       // } else {
       //   setDetalle([]);
       //     form.setValues({

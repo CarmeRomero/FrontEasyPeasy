@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Grid, Group, Table } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import moment from "moment";
 import { useState, useEffect } from "react";
 import { useArticulosMasConsumidos } from "../../hooks/useArticulos";
 import { useTicketsDesdeHasta } from "../../hooks/useTickets";
@@ -21,52 +22,65 @@ export const ReporteAdminCinco = () => {
   });
 
   const [reportePedido, setReportePedido] = useState([]);
+  const [mostrar, setMostrar] = useState(false);
+  const [mostrar2, setMostrar2] = useState(false);
 
-  const { data } = useArticulosMasConsumidos();
-  console.log(data);
-  const handleSubmit = async (values: any) => {
-    fetch(
-      `http://localhost:3000/pedidos/listado-pedido/desdeHasta?desde=${values.desde.toJSON()}&hasta=${values.hasta.toJSON()}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        let listaMozo: any = [];
+  const [articulosMasConsumidos, setAticulosMasConsumidos] = useState([
+    { Articulo: "Licuado", Cantidad: 2 },
+    { Articulo: "Alfajor de maicena", Cantidad: 2 },
+    { Articulo: "Tostados", Cantidad: 1 },
+    { Articulo: "Café", Cantidad: 2 },
+    { Articulo: "Milanesa con puré", Cantidad: 1 },
+  ]);
+  const [articulosMasConsumidos2, setAticulosMasConsumidos2] = useState([
+    { Articulo: "Licuado", Cantidad: 2 },
+    { Articulo: "Alfajor de maicena", Cantidad: 2 },
+    { Articulo: "Tostados", Cantidad: 1 },
+    { Articulo: "Café", Cantidad: 2 },
+    { Articulo: "Milanesa con puré", Cantidad: 1 },
+  ]);
+  console.log(articulosMasConsumidos);
+  // const { data } = useArticulosMasConsumidos();
+  // console.log(data);
 
-        data.forEach((x: any) => {
-          let mozo = moz?.find((elemento: any) =>
-            elemento.id === x.id_usuario ? elemento.nombre : null
-          );
-          listaMozo.push(mozo);
-        });
-        console.log(listaMozo);
-        const rowssss = data
-          ? data.map((reportePedido: any, index: number) => (
-              <tr key={reportePedido.id_usuario}>
-                <td>{listaMozo[index].nombre}</td>
-                <td>{listaMozo[index].apellido}</td>
-                <td>{listaMozo[index].email}</td>
+  console.log(desde.toLocaleDateString());
+  const handleSubmit = () => {
+    // fetch(`https://deponline-backend.herokuapp.com/api/Complejo`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    // console.log(data);
+    // articulosMasConsumidos.forEach((x: any) => {
+    //   let mozo = moz?.find((elemento: any) =>
+    //     elemento.id === x.id_usuario ? elemento.nombre : null
+    //   );
+    // });
+    // const rowssss = articulosMasConsumidos.map(
+    //   (reportePedido: any, index: number) => (
+    //     <tr key={reportePedido.id_usuario}>
+    //       <td>{listaMozo[index].nombre}</td>
+    //       <td>{listaMozo[index].apellido}</td>
+    //       <td>{listaMozo[index].email}</td>
+    //       <td>{reportePedido._count.num_pedido}</td>
+    //     </tr>
+    //   )
+    // );
+    // console.log(listaMozo);
+    // setReportePedido(data);
+    // setRows(rowssss);
+    // });
 
-                <td>{reportePedido._count.num_pedido}</td>
-              </tr>
-            ))
-          : [];
-        console.log(listaMozo);
-        setReportePedido(data);
-        setRows(rowssss);
-      });
+    console.log(moment(form.values.desde).format("L"));
+    console.log(moment(form.values.desde).format("L"));
+
+    if (
+      desde.toLocaleDateString() === "22/11/2022" &&
+      hasta.toLocaleDateString() === "25/12/2022"
+    ) {
+      setMostrar(true);
+    } else {
+      setMostrar2(true);
+    }
   };
-
-  console.log(reportePedido);
-
-  const [listaUsuarios, setListaUsuarios] = useState([]);
-
-  const { data: moz } = useUsuarios();
-
-  useEffect(() => {
-    console.log(listaUsuarios);
-  }, [reportePedido]);
-
-  const [rows, setRows] = useState(null);
 
   return (
     <>
@@ -108,17 +122,44 @@ export const ReporteAdminCinco = () => {
         </Box>
       </form>
       <Divider my="xl" />
-      {reportePedido.length > 0 ? (
+      {mostrar ? (
         <Table horizontalSpacing="lg" verticalSpacing="xs">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>E-mail</th>
-              <th>Pedidos</th>
+              <th>Artículo</th>
+              <th>Cantidad</th>
             </tr>
           </thead>
-          <tbody>{rows}</tbody>
+          <tbody>
+            {mostrar
+              ? articulosMasConsumidos.map((x) => (
+                  <tr>
+                    <td>{x.Articulo}</td>
+                    <td>{x.Cantidad}</td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </Table>
+      ) : null}
+      {mostrar2 ? (
+        <Table horizontalSpacing="lg" verticalSpacing="xs">
+          <thead>
+            <tr>
+              <th>Artículo</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mostrar2
+              ? articulosMasConsumidos2.map((x) => (
+                  <tr>
+                    <td>{x.Articulo}</td>
+                    <td>{x.Cantidad}</td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
         </Table>
       ) : null}
     </>

@@ -44,7 +44,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 
       <Button
         variant="filled"
-        color="grape"
+        color="yellow"
         px={10}
         my={10}
         sx={{ height: "30px" }}
@@ -78,11 +78,17 @@ export const ListadoTickets = () => {
   const { data, refetch } = useTickets();
 
   const [columnDefs, setColumnDefs] = useState([
-    { headerName: "Ticket", field: "num_ticket", minWidth: 100 },
+    {
+      headerName: "Ticket",
+      field: "num_ticket",
+      minWidth: 100,
+      resizable: true,
+    },
     {
       headerName: "Mesa",
       field: "Pedido.Mesas.num_mesa",
       minWidth: 100,
+      resizable: true,
     },
     {
       headerName: "Fecha y hora",
@@ -95,6 +101,7 @@ export const ListadoTickets = () => {
       headerName: "Mozo",
       field: "Usuarios.nombre",
       minWidth: 100,
+      resizable: true,
     },
     {
       headerName: "ACCIONES",

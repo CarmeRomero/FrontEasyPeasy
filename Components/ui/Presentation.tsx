@@ -78,13 +78,13 @@ export const Presentation: FC<Props> = ({ title }) => {
     <div>
       <Container>
         <div className={classes.inner}>
-          <div className={classes.content}>
+          <div className={classes.content} color="#f6dcac">
             {/* <Title className={classes.title}> */}
             {/* A <span className={classes.highlight}>modern</span> React <br />{" "}
               components library */}
             {/* </Title> */}
             <Text color="dimmed" mt="md">
-              Ya formas parte de <b>Easy Peasy! </b> -
+              Ya formas parte de <b>Easy Peasy! </b>
             </Text>
 
             <List
@@ -113,7 +113,12 @@ export const Presentation: FC<Props> = ({ title }) => {
             </List>
 
             <Group mt={30}>
-              <Button radius="xl" size="md" className={classes.control}>
+              <Button
+                radius="xl"
+                size="md"
+                color="red"
+                className={classes.control}
+              >
                 Preguntas frecuentes
               </Button>
               {/* <Button
@@ -128,9 +133,11 @@ export const Presentation: FC<Props> = ({ title }) => {
           </div>
           <Image
             src={
-              "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1539725401/content-items/002/562/024/C-original.jpg?1539725401"
+              // "https://cdn.domestika.org/c_limit,dpr_auto,f_auto,q_auto,w_820/v1539725401/content-items/002/562/024/C-original.jpg?1539725401"
+              "https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
             }
             className={classes.image}
+            radius={150}
           />
         </div>
       </Container>

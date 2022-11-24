@@ -67,7 +67,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         control={
           <Button
             variant="light"
-            color="grape"
+            color="yellow"
             px={10}
             my={10}
             sx={{ height: "30px" }}

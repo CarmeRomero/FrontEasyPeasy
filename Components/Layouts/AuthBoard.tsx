@@ -1,8 +1,9 @@
 import { Box, Center, Grid } from "@mantine/core";
+import { sliderClasses } from "@mui/material";
 import { Color } from "ag-grid-community";
 import Head from "next/head";
 import { FC } from "react";
-
+import img from "../../img/img1.png";
 interface Props {
   children?: React.ReactNode | undefined;
   title?: string;
@@ -23,12 +24,13 @@ export const AuthLayout: FC<Props> = ({ children, title }) => {
 
                 // justifyContent: "left",
                 justifyContent: "center",
-                backgroundImage:
-                  "url(https://www.pointbleudesign.com/wp-content/uploads/2019/09/European-Specialty-Coffee-Market-by-Pointbleu-Design-Blog.jpg )",
+                // backgroundImage: `url(${img})`,
+                backgroundImage: `url(https://cdn.pixabay.com/photo/2022/04/10/15/20/yellow-background-7123585_960_720.jpg)`,
+
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100%",
-                opacity: 0.8,
+                opacity: 1,
                 alignItems: "center",
                 height: "600px",
 

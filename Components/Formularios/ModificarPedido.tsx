@@ -55,6 +55,7 @@ interface Props {
 export const ModificarPedido = ({ idPedido }: Props) => {
   // const [articulosHard, setArticulosHard] = useState([]);
 
+  console.log(idPedido);
   const { data: articulos } = useArticulos();
   const [value, setValue] = useState("23");
 
@@ -69,6 +70,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
       fecha_hora_entrega: null,
       observaciones: "",
       estado: "",
+      activo: true,
       Detalle_Pedidos: [],
     },
     validate: {},
@@ -84,6 +86,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
         fecha_hora_entrega: pedidoPorId.fecha_hora_entrega,
         observaciones: pedidoPorId.observaciones,
         estado: pedidoPorId.estado,
+        activo: pedidoPorId.activo,
         Detalle_Pedidos: pedidoPorId.Detalle_Pedidos,
       });
       console.log(pedidoPorId);
@@ -100,12 +103,13 @@ export const ModificarPedido = ({ idPedido }: Props) => {
   // const { mutate } = useMutateModificarPedido();
   const handleSubmit = (values: any) => {
     active == 1
-      ? (values.estado = "PENDIENTE")
+      ? (values.estado = "PENDIENTE") && (values.activo = true)
       : active == 2
       ? (values.estado = "ENTREGADO") &&
-        (values.fecha_hora_entrega = new Date())
+        (values.fecha_hora_entrega = new Date()) &&
+        (values.activo = true)
       : active == 3
-      ? (values.estado = "CANCELADO")
+      ? (values.estado = "CANCELADO") && (values.activo = false)
       : "";
 
     const detalle_pedido = values.Detalle_Pedidos.map((detalle: any) => {
@@ -119,6 +123,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
       fecha_hora_entrega: values.fecha_hora_entrega,
       observaciones: values.observaciones,
       estado: values.estado,
+      activo: values.activo,
       Detalle_Pedidos: values.Detalle_Pedidos,
     };
 
@@ -332,7 +337,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
                         <CirclePlus size={30} strokeWidth={2} color={"white"} />
                       }
                       mt={20}
-                      color="grape"
+                      color="teal"
                       radius="lg"
                       onClick={() =>
                         form.insertListItem("Detalle_Pedidos", {
@@ -401,7 +406,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
               {...form.getInputProps("observaciones")}
             />
             <Button
-              color="grape"
+              color="red"
               radius="lg"
               variant="outline"
               type="submit"
@@ -416,7 +421,7 @@ export const ModificarPedido = ({ idPedido }: Props) => {
           {/* <Text size="sm" weight={500} mt="md">
             Form values:
           </Text> */}
-          <Code block>{JSON.stringify(form.values, null, 2)}</Code>
+          {/* <Code block>{JSON.stringify(form.values, null, 2)}</Code> */}
         </form>
       )}
     </div>

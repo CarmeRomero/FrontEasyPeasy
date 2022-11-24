@@ -122,7 +122,7 @@ export const FormularioCobro = ({ open, setOpen, id, mesa, idMesa }: Props) => {
           <Button
             variant="outline"
             fullWidth
-            color="grape"
+            color="red"
             radius="xl"
             size="md"
             type="submit"
