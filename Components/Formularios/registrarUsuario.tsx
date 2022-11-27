@@ -10,14 +10,20 @@ import {
   Text,
   TextInput,
   Title,
+  Checkbox,
 } from "@mantine/core";
 import Link from "next/link";
 import { useForm } from "@mantine/form";
 import { DatePicker, getMonthsNames } from "@mantine/dates";
 import { crearUsuario } from "../../hooks/useUsuario";
 import { IUsuario } from "../../interfaces/usuario";
-
+import { TerminosYCondiciones } from "../reportes/terminosCondiciones/terminosCondiciones";
+import { useState } from "react";
+import { showNotification } from "@mantine/notifications";
+import { X } from "tabler-icons-react";
 export const FormularioRegistrarUsuario = () => {
+  const [open, setOpen] = useState(false);
+
   const form = useForm<IUsuario>({
     initialValues: {
       nombre: "",
@@ -68,14 +74,25 @@ export const FormularioRegistrarUsuario = () => {
       rol: "VISITANTE",
       telefono: values.telefono.toString(),
     };
-    // console.log(values);
+    console.log(values.terminosCondiciones);
     // console.log(usuario);
-    crearUsuario(datosUsuario);
+    if (values.terminosCondiciones) {
+      crearUsuario(datosUsuario);
+    } else {
+      showNotification({
+        color: "red",
+        icon: <X />,
+        title: "No puede registrarse sin aceptar los términos y condiciones.",
+        message: "",
+      });
+    }
+
     return values;
   };
 
   return (
     <Stack spacing="xs">
+      <TerminosYCondiciones open={open} setOpen={setOpen} />
       <Card
         sx={{
           width: "100%",
@@ -195,6 +212,14 @@ export const FormularioRegistrarUsuario = () => {
                 </Grid.Col>
               </Grid>
 
+              <Checkbox
+                mt="md"
+                sx={{ justifyContent: "center" }}
+                label="Acepto los términos y condiciones"
+                {...form.getInputProps("terminosCondiciones", {
+                  type: "checkbox",
+                })}
+              />
               <Group position="center" mt="xl" my="lg">
                 <Button
                   variant="outline"
@@ -209,7 +234,11 @@ export const FormularioRegistrarUsuario = () => {
               </Group>
             </form>
           </Box>
-
+          <Group position="center" mt={6}>
+            <Button variant="subtle" onClick={() => setOpen(true)}>
+              Ver términos y condiciones
+            </Button>
+          </Group>
           <Box
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
