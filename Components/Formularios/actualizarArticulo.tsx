@@ -19,7 +19,7 @@ import { IArticulo } from "../../interfaces/articulo";
 import { useState, useRef, useEffect, useMemo } from "react";
 import { showNotification } from "@mantine/notifications";
 import { checkServerIdentity } from "tls";
-import { MenuItem, Select } from "@mui/material";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 interface Props {
   open: boolean;
@@ -60,6 +60,7 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
         estado_alta: true,
       });
     }
+    console.log(articuloBd);
   }, [articuloBd]);
 
   const handleSubmit = (values: any) => {
@@ -89,11 +90,6 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
   const handleChange = (e: any) => {
     form.setFieldValue(`id_categoria`, e.target.value);
     console.log(e.target.value);
-  };
-
-  const switchChange = (value: any) => {
-    // form.setFieldValue("estado_alta", checked);
-    console.log(value);
   };
 
   return (
@@ -132,25 +128,28 @@ export const FormularioActualizarArticulo = ({ open, setOpen, id }: Props) => {
             <Text style={{ fontSize: "14px" }} weight={500}>
               Categoría
             </Text>
-            <Select
-              labelId="demo-simple-select-label"
-              label="Número de mesa"
-              // value={form.values.id_mesa}
-              value={form.values.id_categoria}
-              onChange={(e) => handleChange(e)}
-              sx={{
-                width: "100%",
-                marginTop: "5px",
-                height: "42px",
-                fontSize: "14px",
-              }}
-            >
-              {categorias
-                ? categorias.map(({ descripcion, id }: any) => (
-                    <MenuItem value={id}>{descripcion}</MenuItem>
-                  ))
-                : null}
-            </Select>
+            <FormControl fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                label="Categoría"
+                // value={form.values.id_mesa}
+                value={form.values.id_categoria}
+                onChange={(e) => handleChange(e)}
+                sx={{
+                  width: "100%",
+                  marginTop: "5px",
+                  height: "42px",
+                  fontSize: "14px",
+                }}
+              >
+                {categorias
+                  ? categorias.map(({ id, descripcion }: any) => (
+                      <MenuItem value={id}>{descripcion}</MenuItem>
+                    ))
+                  : null}
+              </Select>
+            </FormControl>
+
             {/* <Select
               label="Categoría"
               placeholder="Seleccione una"

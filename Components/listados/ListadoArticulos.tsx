@@ -39,6 +39,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
           message: "",
           autoClose: 2000,
         });
+        refetch();
       },
       onConfirm: () => {
         mutate(value, {
@@ -146,10 +147,12 @@ export const ListadoArticulos = () => {
     []
   );
 
-  const { data } = useArticulos();
+  const { data, refetch } = useArticulos();
 
   useEffect(() => {
     setRowData(data);
+    refetch();
+    console.log(data);
   }, [data]);
 
   return (

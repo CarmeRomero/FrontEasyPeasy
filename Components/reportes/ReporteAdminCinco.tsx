@@ -28,15 +28,16 @@ export const ReporteAdminCinco = () => {
   const [articulosMasConsumidos, setAticulosMasConsumidos] = useState([
     { Articulo: "Licuado", Cantidad: 2 },
     { Articulo: "Alfajor de maicena", Cantidad: 2 },
-    { Articulo: "Tostados", Cantidad: 1 },
     { Articulo: "Café", Cantidad: 2 },
+    { Articulo: "Tostados", Cantidad: 1 },
     { Articulo: "Milanesa con puré", Cantidad: 1 },
   ]);
   const [articulosMasConsumidos2, setAticulosMasConsumidos2] = useState([
     { Articulo: "Licuado", Cantidad: 2 },
     { Articulo: "Alfajor de maicena", Cantidad: 2 },
-    { Articulo: "Tostados", Cantidad: 1 },
     { Articulo: "Café", Cantidad: 2 },
+
+    { Articulo: "Tostados", Cantidad: 1 },
     { Articulo: "Milanesa con puré", Cantidad: 1 },
   ]);
   console.log(articulosMasConsumidos);

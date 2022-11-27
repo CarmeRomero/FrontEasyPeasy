@@ -21,7 +21,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 
   const openDeleteModal = (value: any) =>
     modals.openConfirmModal({
-      title: "¿Está seguro que quiere eliminar este usuario?",
+      title: "¿Está seguro que quiere dar de baja este usuario?",
       centered: true,
 
       labels: { confirm: "Eliminar cuenta", cancel: "Cancelar" },
@@ -30,7 +30,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
         showNotification({
           color: "red",
           icon: <X />,
-          title: "No se eliminó el usuario",
+          title: "No se dió de baja el usuario",
           message: "",
           autoClose: 2000,
         });
@@ -41,7 +41,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
             showNotification({
               color: "green",
               icon: <Check />,
-              title: "Usuario eliminado",
+              title: "Usuario dado de baja",
               message: "",
             });
             refetch();
@@ -92,7 +92,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
           }}
           color="red"
         >
-          Eliminar
+          Dar de baja
         </Menu.Item>
       </Menu>
     </Box>

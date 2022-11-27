@@ -77,6 +77,8 @@ export const Diagrama = () => {
           padding: "20px",
           border: "1px solid black",
           borderRadius: "5px",
+          display: "flex",
+          justifyContent: "center",
         }}
         onClick={() => handleClick(mesa, index)}
         onDragStop={(e, d) => {
