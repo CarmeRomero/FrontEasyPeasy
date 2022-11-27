@@ -101,9 +101,9 @@ export const ReporteAdminCuatro = () => {
     labels: labels,
     datasets: [
       {
-        type: "line" as const,
+        type: "bar" as const,
         label: "Cantidad de ventas mensuales",
-        borderColor: "rgb(255, 99, 132)",
+        borderColor: "red",
         borderWidth: 2,
         fill: false,
         data: [

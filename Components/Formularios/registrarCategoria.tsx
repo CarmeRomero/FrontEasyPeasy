@@ -1,4 +1,4 @@
-import { Button, Group, TextInput, Grid, Table } from "@mantine/core";
+import { Button, Group, TextInput, Grid, Table, Tooltip } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { Box, Check, Trash } from "tabler-icons-react";
@@ -62,18 +62,19 @@ export const RegistrarCategoria = () => {
         <tr key={cat.id}>
           <td>{cat.descripcion}</td>
           <td>
-            <Button
-              variant="filled"
-              color="red"
-              // px={10}
-              // my={30}
-              onClick={() => {
-                openDeleteModal(cat.id);
-              }}
-            >
-              <Trash strokeWidth={2} size={17} />
-              Eliminar Categoría
-            </Button>
+            <Tooltip label="Eliminar Categoría">
+              <Button
+                variant="filled"
+                color="red"
+                // px={10}
+                // my={30}
+                onClick={() => {
+                  openDeleteModal(cat.id);
+                }}
+              >
+                <Trash strokeWidth={2} size={17} />
+              </Button>
+            </Tooltip>
           </td>
         </tr>
       ))

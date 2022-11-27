@@ -1,4 +1,12 @@
-import { Button, Group, TextInput, Grid, Table, Switch } from "@mantine/core";
+import {
+  Button,
+  Group,
+  TextInput,
+  Grid,
+  Table,
+  Switch,
+  Tooltip,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Check, Trash } from "tabler-icons-react";
 import { useState } from "react";
@@ -68,18 +76,19 @@ export const RegistrarFormaPago = () => {
           <td>{formaPago.descripcion}</td>
 
           <td>
-            <Button
-              variant="filled"
-              color="red"
-              // px={10}
-              // my={30}
-              onClick={() => {
-                openDeleteModal(formaPago.id);
-              }}
-            >
-              <Trash strokeWidth={2} size={17} />
-              Eliminar Forma de pago
-            </Button>
+            <Tooltip label="Eliminar Categoría">
+              <Button
+                variant="filled"
+                color="red"
+                // px={10}
+                // my={30}
+                onClick={() => {
+                  openDeleteModal(formaPago.id);
+                }}
+              >
+                <Trash strokeWidth={2} size={17} style={{}} />
+              </Button>
+            </Tooltip>
           </td>
         </tr>
       ))

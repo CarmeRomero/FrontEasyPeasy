@@ -13,6 +13,12 @@ import {
   Text,
 } from "@mantine/core";
 import { Check } from "tabler-icons-react";
+import { useState } from "react";
+import { PreguntasFrecuentes } from "../reportes/preguntasFrecuentes/preguntasFrecuentesAdmin";
+import { PreguntasFrecuentesMozo } from "../reportes/preguntasFrecuentes/preguntasFrecuentesMozo";
+import { IUsuario } from "../../interfaces/usuario";
+import { useEffect } from "react";
+import { PreguntasFrecuentesCajero } from "../reportes/preguntasFrecuentes/preguntasFrecuentesCajero";
 interface Props {
   title: string;
 }
@@ -72,10 +78,24 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 export const Presentation: FC<Props> = ({ title }) => {
+  const [usuario, setUsuario] = useState<IUsuario>();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUsuario(JSON.parse(localStorage.getItem("usuario") || ""));
+    }
+  }, []);
   const { classes } = useStyles();
+  const [open, setOpen] = useState(false);
+  const [openMozo, setOpenMozo] = useState(false);
+  const [openCajero, setOpenCajero] = useState(false);
 
   return (
     <div>
+      <PreguntasFrecuentes open={open} setOpen={setOpen} />
+      <PreguntasFrecuentesMozo open={openMozo} setOpen={setOpenMozo} />
+      <PreguntasFrecuentesCajero open={openCajero} setOpen={setOpenCajero} />
+
       <Container>
         <div className={classes.inner}>
           <div className={classes.content} color="#f6dcac">
@@ -118,9 +138,17 @@ export const Presentation: FC<Props> = ({ title }) => {
                 size="md"
                 color="red"
                 className={classes.control}
+                onClick={
+                  usuario && usuario.rol == "ADMIN"
+                    ? () => setOpen(true)
+                    : usuario && usuario.rol == "MOZO"
+                    ? () => setOpenMozo(true)
+                    : () => setOpenCajero(true)
+                }
               >
                 Preguntas frecuentes
               </Button>
+
               {/* <Button
                 variant="default"
                 radius="xl"

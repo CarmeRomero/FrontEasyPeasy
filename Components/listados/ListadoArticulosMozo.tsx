@@ -108,7 +108,7 @@ export const ListadoArticulosMozo = () => {
         <Grid.Col xs={7} md={8}>
           <Select
             label="Seleccione un artículo"
-            placeholder="Seleccione una"
+            placeholder="Seleccione uno"
             id="articulo"
             onChange={(e) => handleChangeArticulo(e, index)}
             autoComplete="off"

@@ -27,7 +27,7 @@ const btnAcciones = ({ data }: ICellRendererParams) => {
 
   const openDeleteModal = (value: any) =>
     modals.openConfirmModal({
-      title: "¿Está seguro que quiere eliminar este usuario?",
+      title: "¿Está seguro que quiere eliminar este artículo?",
       centered: true,
       labels: { confirm: "Eliminar artículo", cancel: "Cancelar" },
       confirmProps: { color: "red" },

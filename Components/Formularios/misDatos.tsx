@@ -53,7 +53,7 @@ export const FormularioDatosUsuario = () => {
       // const dia = moment(usuario.fecha_nacimiento).format("dddd");
       // console.log(dia);
     }
-    // console.log(usuario);
+    console.log(usuario);
   }, [usuario]);
 
   const { mutate, error, isLoading } = useMutateActualizarUsuario();
@@ -108,7 +108,7 @@ export const FormularioDatosUsuario = () => {
                   {...form.getInputProps("fecha_nacimiento")}
                 />
 
-                <NumberInput
+                <TextInput
                   label="Teléfono"
                   hideControls
                   id="telefono"

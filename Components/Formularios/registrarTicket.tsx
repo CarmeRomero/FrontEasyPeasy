@@ -137,6 +137,13 @@ export const RegistrarTicket = () => {
               defaultValue={numPedido == 0 ? 0 : numPedido}
             />
           </Grid.Col>
+          {/* <Grid.Col xs={3}>
+            <TextInput
+              disabled
+              label="Mozo a cargo:"
+              defaultValue={}
+            />
+          </Grid.Col> */}
         </Grid>
 
         <Divider my="xl" />

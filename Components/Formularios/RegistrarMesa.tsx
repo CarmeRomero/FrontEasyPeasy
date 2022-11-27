@@ -6,6 +6,7 @@ import {
   Modal,
   MODAL_SIZES,
   NumberInput,
+  Select,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
@@ -25,26 +26,34 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
   const form = useForm({
     initialValues: {
       num_mesa: null,
-      color: "#a1e6b3",
-      ubicacion: "ADENTRO",
+      color: "",
+      ubicacion: "",
       x: null,
       y: null,
-      width: 100,
-      height: 100,
+      width: null,
+      height: null,
     },
     validate: {
-      x: (value: any) => (value <= 0 ? "Ingrese un codigo" : null),
-      num_mesa: (value: any) =>
-        data?.find((elemento: any) =>
-          elemento.num_mesa == value.num_mesa
-            ? "Ese número de mesa ya existe"
-            : null
-        ),
+      x: (value: any) => (value <= 0 ? "Ingrese un valor" : null),
+      y: (value: any) => (value <= 0 ? "Ingrese un valor" : null),
+      color: (value: any) =>
+        value.length <= 0 ? "Ingrese una ubicación" : null,
+      ubicacion: (value: any) =>
+        value.length <= 0 ? "Ingrese un color" : null,
+
+      width: (value: any) => (value <= 0 ? "Ingrese un valor" : null),
+      height: (value: any) => (value <= 0 ? "Ingrese un valor" : null),
+      num_mesa: (value: any) => (value <= 0 ? "Ingrese un valor" : null),
+
+      // num_mesa: (value: any) =>
+      //   data?.find((elemento: any) =>
+      //     elemento.num_mesa == value.num_mesa
+      //       ? "Ese número de mesa ya existe"
+      //       : null
+      //   ),
     },
   });
 
-  let existeMesa = false;
-  console.log(data);
   const { mutate } = useMutateMesa();
 
   const handleSubmit = (values: any) => {
@@ -54,9 +63,6 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
         ? "Ese número de mesa ya existe"
         : null
     );
-
-    console.log(mesa);
-    console.log(values);
 
     mesa.length <= 0
       ? mutate(values, {
@@ -71,6 +77,9 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
           title: "Ya existe una mesa con ese número",
           message: "",
         });
+  };
+  const handleChange = (value: any) => {
+    form.setFieldValue("ubicacion", value);
   };
 
   return (
@@ -89,7 +98,6 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
               autoComplete="off"
               id="num_mesa"
               hideControls
-              required
               {...form.getInputProps("num_mesa")}
             />
             <TextInput
@@ -99,11 +107,17 @@ export const RegistrarMesa = ({ open, setOpen, refetch }: Props) => {
               id="color"
               {...form.getInputProps("color")}
             />
-            <TextInput
-              label="Ubicacion"
-              placeholder="ubicacion"
+            <Select
+              label="Ubicación"
+              placeholder="Seleccione una"
+              id="mesa"
+              onChange={handleChange}
               autoComplete="off"
-              id="ubicacion"
+              nothingFound="Sin ubicaciones"
+              data={[
+                { value: "ADENTRO", label: "Adentro" },
+                { value: "AFUERA", label: "Afuera" },
+              ]}
               {...form.getInputProps("ubicacion")}
             />
           </Grid.Col>

@@ -21,6 +21,7 @@ import NextLink from "next/link";
 import { useMutateLogout } from "../../hooks/useAutorizacion";
 import { useUnoSolo, useUsuarios } from "../../hooks/useUsuario";
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface Props {
   children?: React.ReactNode | undefined;
@@ -60,7 +61,7 @@ export const SidebarMozo = () => {
             <PlaylistAdd
               strokeWidth={2}
               onClick={() => algo(null)}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -77,7 +78,7 @@ export const SidebarMozo = () => {
           icon: (
             <List
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -99,7 +100,7 @@ export const SidebarMozo = () => {
           icon: (
             <BoxMultiple
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -121,7 +122,7 @@ export const SidebarMozo = () => {
           icon: (
             <ListCheck
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -143,7 +144,7 @@ export const SidebarMozo = () => {
           icon: (
             <PencilMinus
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -166,7 +167,7 @@ export const SidebarMozo = () => {
           icon: (
             <Logout
               strokeWidth={2}
-              color={"rgba(255,255,255,.8)"}
+              color={"#FF6B6B"}
               style={{
                 fontSize: "20px",
                 height: "20px",
@@ -284,21 +285,26 @@ const NavHeader = () => {
           padding: "0 20px",
         }}
       >
-        <Image
-          src="/img/logo-mini.png"
-          height={28}
-          width={28}
-          // style={{ position: "relative", top: "-1px" }}
-        />
         {isNavCollapsed && (
-          <Text
-            size="lg"
-            ml={12}
-            weight={700}
-            sx={{ letterSpacing: "1px", color: "pink" }}
-          >
-            EASY PEASY
-          </Text>
+          <Link href="/usuarios" passHref>
+            <Text
+              size="lg"
+              ml={12}
+              weight={700}
+              sx={{ letterSpacing: "1px", color: "pink" }}
+            >
+              EASY PEASY
+            </Text>
+          </Link>
+          // {isNavCollapsed && (
+          //   <Text
+          //     size="lg"
+          //     ml={12}
+          //     weight={700}
+          //     sx={{ letterSpacing: "1px", color: "pink" }}
+          //   >
+          //     EASY PEASY
+          //   </Text>
         )}
       </Box>
     </>

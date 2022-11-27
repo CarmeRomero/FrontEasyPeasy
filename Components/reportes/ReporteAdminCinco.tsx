@@ -110,7 +110,7 @@ export const ReporteAdminCinco = () => {
                 mt={22}
                 variant="outline"
                 fullWidth
-                color="grape"
+                color="yellow"
                 radius="xl"
                 size="md"
                 type="submit"

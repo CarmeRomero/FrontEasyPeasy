@@ -1,4 +1,4 @@
-import { Box, CSSObject, MediaQuery, Text } from "@mantine/core";
+import { Box, Button, CSSObject, MediaQuery, Text } from "@mantine/core";
 import Image from "next/image";
 import { FC, useContext, useState } from "react";
 import {
@@ -20,12 +20,15 @@ import {
   ListCheck,
   Logout,
   ListSearch,
+  Home,
 } from "tabler-icons-react";
 import { UiContext } from "../../context";
 import NextLink from "next/link";
 import { useMutateLogout } from "../../hooks/useAutorizacion";
 import { useUnoSolo, useUsuarios } from "../../hooks/useUsuario";
 import { useEffect } from "react";
+import Link from "next/link";
+import { color } from "@mui/system";
 
 interface Props {
   children?: React.ReactNode | undefined;
@@ -244,7 +247,7 @@ export const SidebarAdmin = () => {
       ],
     },
     {
-      name: "Ranked",
+      name: "Ranking",
       items: [
         {
           name: "Mozos con más pedidos",
@@ -408,13 +411,7 @@ const NavHeader = () => {
           padding: "0 20px",
         }}
       >
-        <Image
-          src="/img/logo-mini.png"
-          height={28}
-          width={28}
-          // style={{ position: "relative", top: "-1px" }}
-        />
-        {isNavCollapsed && (
+        {/* <Link href="/usuarios" passHref>
           <Text
             size="lg"
             ml={12}
@@ -423,6 +420,24 @@ const NavHeader = () => {
           >
             EASY PEASY
           </Text>
+        </Link> */}
+        {/* <Home
+          height={28}
+          width={28}
+          style={{ position: "relative", top: "-1px", color: "white" }}
+        /> */}
+
+        {isNavCollapsed && (
+          <Link href="/usuarios" passHref>
+            <Text
+              size="lg"
+              ml={12}
+              weight={700}
+              sx={{ letterSpacing: "1px", color: "#dec20b" }}
+            >
+              EASY PEASY
+            </Text>
+          </Link>
         )}
       </Box>
     </>

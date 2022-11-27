@@ -1,4 +1,4 @@
-import { Button, Card, Grid, Image } from "@mantine/core";
+import { Box, Button, Card, Grid, Group, Image } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import { useMesas, useMutateModificarMesa } from "../hooks/useMesas";
@@ -6,7 +6,14 @@ import { EliminarMesa } from "./Formularios/EliminarMesa";
 import { RegistrarMesa } from "./Formularios/RegistrarMesa";
 import { showNotification } from "@mantine/notifications";
 import { useModals } from "@mantine/modals";
-import { Check } from "tabler-icons-react";
+import {
+  Check,
+  Circle,
+  CirclePlus,
+  CircleX,
+  Disc,
+  TrashX,
+} from "tabler-icons-react";
 
 export const Diagrama = () => {
   const [open, setOpen] = useState(false);
@@ -148,6 +155,81 @@ export const Diagrama = () => {
       />
 
       <Grid>
+        <Grid.Col md={4}>
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              {/* <Image
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
+                height={160}
+                alt="Norway"
+              /> */}
+              <Group position="center" mt="xl">
+                <CirclePlus size={40} strokeWidth={1.5} color={"green"} />
+              </Group>
+            </Card.Section>
+
+            <Button
+              variant="filled"
+              color="red"
+              fullWidth
+              style={{ marginTop: 14 }}
+              radius="lg"
+              onClick={() => setOpen(true)}
+            >
+              Agregar mesa
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              {/* <Image
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
+                height={160}
+                alt="No way!"
+              /> */}
+              <Group position="center" mt="xl">
+                <CircleX size={40} strokeWidth={1.5} color={"red"} />
+              </Group>
+            </Card.Section>
+
+            <Button
+              variant="filled"
+              color="red"
+              fullWidth
+              style={{ marginTop: 14 }}
+              radius="lg"
+              onClick={() => setOpenEliminar(true)}
+            >
+              Eliminar mesa
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col md={4}>
+          <Card mt={30} radius="xl" withBorder p="xl" component="a">
+            <Card.Section>
+              {/* <Image
+                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
+                height={160}
+                alt="No way!"
+              /> */}
+              <Group position="center" mt="xl">
+                <Disc size={40} strokeWidth={1.5} color={"violet"} />
+              </Group>
+            </Card.Section>
+
+            <Button
+              variant="filled"
+              color="red"
+              fullWidth
+              style={{ marginTop: 14 }}
+              radius="lg"
+              onClick={openDeleteModal}
+            >
+              Guardar diagrama
+            </Button>
+          </Card>
+        </Grid.Col>
         <Grid.Col md={12}>
           <div
             style={{
@@ -159,69 +241,6 @@ export const Diagrama = () => {
           >
             {renderMesas}
           </div>
-        </Grid.Col>
-        <Grid.Col md={4}>
-          <Card mt={30} radius="xl" withBorder p="xl" component="a">
-            <Card.Section>
-              <Image
-                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
-                height={160}
-                alt="Norway"
-              />
-            </Card.Section>
-
-            <Button
-              variant="filled"
-              color="red"
-              fullWidth
-              style={{ marginTop: 14 }}
-              onClick={() => setOpen(true)}
-            >
-              Agregar mesa
-            </Button>
-          </Card>
-        </Grid.Col>
-        <Grid.Col md={4}>
-          <Card mt={30} radius="xl" withBorder p="xl" component="a">
-            <Card.Section>
-              <Image
-                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
-                height={160}
-                alt="No way!"
-              />
-            </Card.Section>
-
-            <Button
-              variant="filled"
-              color="red"
-              fullWidth
-              style={{ marginTop: 14 }}
-              onClick={() => setOpenEliminar(true)}
-            >
-              Eliminar mesa
-            </Button>
-          </Card>
-        </Grid.Col>
-        <Grid.Col md={4}>
-          <Card mt={30} radius="xl" withBorder p="xl" component="a">
-            <Card.Section>
-              <Image
-                src="https://cdn.pixabay.com/photo/2020/10/07/17/12/coffee-5635765_960_720.jpg"
-                height={160}
-                alt="No way!"
-              />
-            </Card.Section>
-
-            <Button
-              variant="filled"
-              color="red"
-              fullWidth
-              style={{ marginTop: 14 }}
-              onClick={openDeleteModal}
-            >
-              Guardar diagrama
-            </Button>
-          </Card>
         </Grid.Col>
       </Grid>
     </>
